@@ -1,0 +1,103 @@
+{
+  "guides": [
+    {
+      "id": "linux-desktop-navigation",
+      "title": "Navigating the Linux Desktop & Basic Shell Commands",
+      "symptom": "New to Linux and don't know how to navigate folders, launch programs, or use the terminal",
+      "description": "Learn the fundamentals of Linux desktop environments (GNOME, KDE), file system hierarchy (/home, /etc, /var), and essential shell commands.",
+      "category": "interface-basics",
+      "categoryName": "Linux Basics & Terminal",
+      "categoryIcon": "🐧",
+      "keywords": ["linux beginner", "ubuntu desktop", "gnome", "terminal basics", "pwd ls cd", "linux file system"],
+      "causes": [
+        "Unfamiliarity with root filesystem layout (/ vs C:\\ in Windows)",
+        "Not knowing fundamental shell navigation commands"
+      ],
+      "whyItWorks": "In Linux, everything is treated as a file under a single root directory (`/`). Your personal documents live in `/home/username/`. Knowing `pwd`, `ls`, and `cd` gives you universal navigation power across all Linux distributions.",
+      "steps": [
+        {
+          "instruction": "Open the Terminal shortcut",
+          "detail": "On almost all Linux desktops (Ubuntu, Fedora, Debian, Mint), press Ctrl + Alt + T to instantly launch the terminal emulator window.",
+          "adminRequired": false,
+          "backupAdvised": false
+        },
+        {
+          "instruction": "Navigate directories with basic shell commands",
+          "detail": "Type these foundational commands:\n- `pwd` — Print working directory (shows where you are)\n- `ls -lah` — List all files including hidden ones with sizes\n- `cd Documents` — Enter the Documents folder\n- `cd ..` — Move up one directory level\n- `cd ~` — Immediately return to your home directory",
+          "adminRequired": false,
+          "backupAdvised": false
+        },
+        {
+          "instruction": "Understand Root vs Standard User (`sudo`)",
+          "detail": "Standard commands run safely with your user account. When modifying system files or installing packages, prefix the command with `sudo` (SuperUser DO). For example: `sudo systemctl restart NetworkManager`. You will be asked for your login password (keystrokes will remain invisible for security).",
+          "adminRequired": true,
+          "backupAdvised": false
+        }
+      ]
+    },
+    {
+      "id": "linux-package-management",
+      "title": "Installing and Removing Software on Linux (APT, DNF, Snap, Flatpak)",
+      "symptom": "I don't know how to install or uninstall applications on my Linux distribution",
+      "description": "Master package management across major distributions: Ubuntu/Debian (`apt`), Fedora/RHEL (`dnf`), Arch (`pacman`), and universal Flatpaks.",
+      "category": "apps-programs",
+      "categoryName": "Package Management",
+      "categoryIcon": "📦",
+      "keywords": ["install software linux", "apt update", "apt install", "dnf install", "flatpak install", "remove app ubuntu"],
+      "causes": [
+        "Different Linux distros use distinct native package managers",
+        "Outdated local package index caches causing 'Unable to locate package' errors"
+      ],
+      "whyItWorks": "Linux uses centralized cryptographically-verified repositories. Running `update` synchronizes repository metadata, while `install` automatically resolves, downloads, and compiles all shared library dependencies.",
+      "steps": [
+        {
+          "instruction": "For Ubuntu, Debian, Linux Mint (APT)",
+          "detail": "First, update your local repository index list:\nsudo apt update\nTo install an application (e.g., VLC):\nsudo apt install vlc -y\nTo remove an application and its configuration files:\nsudo apt purge vlc && sudo apt autoremove -y",
+          "adminRequired": true,
+          "backupAdvised": false
+        },
+        {
+          "instruction": "For Fedora and RHEL (DNF)",
+          "detail": "To search, install, or remove packages:\nsudo dnf check-update\nsudo dnf install package_name -y\nsudo dnf remove package_name -y",
+          "adminRequired": true,
+          "backupAdvised": false
+        },
+        {
+          "instruction": "For Universal Sandboxed Apps (Flatpak & Snap)",
+          "detail": "For software not in traditional repos, install via Flatpak (Flathub):\nflatpak install flathub com.spotify.Client\nOr via Snap on Ubuntu:\nsudo snap install code --classic",
+          "adminRequired": true,
+          "backupAdvised": false
+        }
+      ]
+    },
+    {
+      "id": "linux-file-permissions",
+      "title": "Fixing 'Permission Denied' Errors (chmod, chown, & sudo)",
+      "symptom": "Command fails with 'Permission denied' or unable to write/edit a file or script",
+      "description": "Understand Linux read/write/execute permissions (rwx) and fix ownership of user files locked by root.",
+      "category": "interface-basics",
+      "categoryName": "Linux Basics & Terminal",
+      "categoryIcon": "🐧",
+      "keywords": ["permission denied linux", "chmod 755", "chmod +x", "chown user", "root owned files"],
+      "causes": [
+        "Files created by `sudo` inside the user's home folder owned by root",
+        "Downloaded script missing the executable (+x) permission flag"
+      ],
+      "whyItWorks": "Every Linux file has an owner, a group, and permission bits for Read (4), Write (2), and Execute (1). Setting correct ownership (`chown`) and adding execute rights (`chmod +x`) restores normal access without risking system security.",
+      "steps": [
+        {
+          "instruction": "Make a script executable (`chmod +x`)",
+          "detail": "If you downloaded a `.sh` or AppImage script and it won't run, add the execute flag in terminal:\nchmod +x scriptname.sh\nThen run it with:\n./scriptname.sh",
+          "adminRequired": false,
+          "backupAdvised": false
+        },
+        {
+          "instruction": "Reclaim ownership of files locked by root (`chown`)",
+          "detail": "If a folder in your home directory was accidentally created with `sudo` and you cannot edit it, run:\nsudo chown -R $USER:$USER ~/target_folder\n`$USER` automatically substitutes your current username.",
+          "adminRequired": true,
+          "backupAdvised": false
+        }
+      ]
+    }
+  ]
+}

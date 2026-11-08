@@ -1,0 +1,76 @@
+{
+  "guides": [
+    {
+      "id": "ios-recovery-dfu-mode",
+      "title": "Fix iPhone Stuck on Apple Logo or Black Screen (Recovery & DFU Mode)",
+      "symptom": "iPhone is frozen on black screen, stuck in an endless Apple logo restart loop, or computer says 'iPhone in recovery mode'",
+      "description": "Master the hardware button combinations to force restart an unresponsive iPhone and enter Recovery Mode or DFU mode to restore iOS firmware safely.",
+      "category": "disk-boot",
+      "categoryName": "Boot & Firmware Recovery",
+      "categoryIcon": "💿",
+      "keywords": ["iphone stuck on apple logo", "iphone recovery mode", "dfu mode iphone", "iphone black screen", "force restart iphone 15 14 13"],
+      "causes": [
+        "Interrupted iOS over-the-air (OTA) software update corrupting the root APFS snapshot",
+        "Storage completely full (0 bytes left) causing SpringBoard to crash on boot",
+        "Corrupted kernel bootloader (iBoot)"
+      ],
+      "whyItWorks": "Hardware Recovery Mode and DFU (Device Firmware Update) mode bypass the corrupt iOS operating system entirely. From here, a Mac (Finder) or Windows PC (Apple Devices app / iTunes) can reinstall the signed IPSW firmware cleanly.",
+      "steps": [
+        {
+          "instruction": "Perform a Hard Force Restart (iPhone 8 through iPhone 16)",
+          "detail": "1. Press and immediately RELEASE Volume UP.\n2. Press and immediately RELEASE Volume DOWN.\n3. Press and HOLD the Side (Power) button continuously for about 10-15 seconds.\nDo NOT let go when the screen goes black — continue holding until you see the white Apple logo reappear, then release.",
+          "adminRequired": false,
+          "backupAdvised": false
+        },
+        {
+          "instruction": "Enter Recovery Mode via USB connection",
+          "detail": "Connect your iPhone to a Mac or Windows PC with a lightning/USB-C cable. Open Finder (Mac) or the Apple Devices app / iTunes (Windows).\n1. Press and release Volume UP.\n2. Press and release Volume DOWN.\n3. Press and HOLD the Side button. Keep holding even when you see the Apple logo — keep holding until you see the computer + cable graphic ('support.apple.com/iphone/restore') on screen.",
+          "adminRequired": false,
+          "backupAdvised": false
+        },
+        {
+          "instruction": "Choose 'Update' in Finder/iTunes (Preserves Data)",
+          "detail": "A pop-up prompt will appear on your computer saying 'There is a problem with the iPhone that requires it to be updated or restored'. Click 'Update' (do NOT click Restore first). Your computer will download the fresh iOS firmware and reinstall it without erasing your photos, messages, or apps.",
+          "warning": "Only click 'Restore' if 'Update' fails multiple times, as Restore completely erases the phone to factory settings.",
+          "adminRequired": false,
+          "backupAdvised": true
+        }
+      ]
+    },
+    {
+      "id": "ios-crash-analytics-panic-full",
+      "title": "Diagnosing Random iPhone Restarts Using Analytics Logs (panic-full)",
+      "symptom": "iPhone restarts itself randomly every 3 minutes, crashes to a pink/purple screen, or reboots during charging",
+      "description": "Read low-level iOS analytics crash logs in Settings to decode 'panic-full' hardware sensor failures (charging flex, thermal sensor, battery gauge).",
+      "category": "errors-crashes",
+      "categoryName": "Diagnostics & Crash Logs",
+      "categoryIcon": "📋",
+      "keywords": ["iphone random restart", "panic-full log iphone", "iphone restarts every 3 minutes", "ios crash log analytics", "prsd sensor failed"],
+      "causes": [
+        "Hardware I2C sensor bus communication failure (often a damaged charging port flex cable after screen or battery repair)",
+        "Missing thermal sensor response causing the watchdog timer (WDT) to trigger a panic reboot"
+      ],
+      "whyItWorks": "iOS records hardware kernel panics in `panic-full.ips` logs. Reading the `panicString` reveals whether a missing sensor (e.g., `Mic1`, `TG0B`, `Prs0`) or memory fault caused the watchdog reboot.",
+      "steps": [
+        {
+          "instruction": "Access iOS Analytics Data in Settings",
+          "detail": "Open Settings > Privacy & Security > scroll down to 'Analytics & Improvements' > tap 'Analytics Data'. This contains chronological diagnostic crash logs.",
+          "adminRequired": false,
+          "backupAdvised": false
+        },
+        {
+          "instruction": "Search for 'panic-full' log files",
+          "detail": "Scroll down alphabetically to 'P' or use the search bar at the top to type 'panic'. Look for files named `panic-full-[Date]-[Time].ips`. If you find panic-full logs matching the exact time your phone restarted, tap to open the log.",
+          "adminRequired": false,
+          "backupAdvised": false
+        },
+        {
+          "instruction": "Decode the panicString sensor code",
+          "detail": "Look at the top few lines of the log. Find `\"panicString\"`:\n- If it says `\"Missing sensor(s): Mic1\"` or `\"Prs0\"`, the charging port flex cable or pressure sensor is damaged and needs hardware replacement.\n- If it says `\"AOP NMI\"` or `\"SMC Watchdog\"`, the battery gauge chip or logic board has an intermittent hardware short.",
+          "adminRequired": false,
+          "backupAdvised": false
+        }
+      ]
+    }
+  ]
+}

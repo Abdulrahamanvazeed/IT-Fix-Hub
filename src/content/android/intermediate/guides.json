@@ -1,0 +1,77 @@
+{
+  "guides": [
+    {
+      "id": "android-battery-drain-overheating",
+      "title": "Fix Rapid Battery Drain & Phone Overheating on Android",
+      "symptom": "Android phone battery drains in a few hours, gets hot to the touch, or drains overnight while idle",
+      "description": "Identify background wakelock hogs, configure Adaptive Battery, and restrict battery-hungry background apps.",
+      "category": "performance",
+      "categoryName": "Battery & Performance",
+      "categoryIcon": "⚡",
+      "keywords": ["android battery drain", "phone hot samsung", "wakelock android", "background battery usage", "adaptive battery"],
+      "causes": [
+        "Rogue application maintaining a continuous background CPU wakelock",
+        "High location scanning and continuous 5G radio hunting in poor coverage areas",
+        "Display brightness maxed out with Always-on Display running at 120Hz"
+      ],
+      "whyItWorks": "Android Battery settings track milliampere-hour (mAh) consumption per process. Setting background execution limits forces Android's Doze mode to suspend rogue apps when the screen is off.",
+      "steps": [
+        {
+          "instruction": "Inspect Battery Usage breakdown",
+          "detail": "Open Settings > Battery (or Device care > Battery). Review the list of apps since last full charge. Look for any app showing more than 15-20% battery usage, particularly if its 'Background' active time is much higher than 'Screen on' time.",
+          "adminRequired": false,
+          "backupAdvised": false
+        },
+        {
+          "instruction": "Put rogue background apps into Deep Sleep",
+          "detail": "Tap on the battery-draining app > select 'Restricted' (or on Samsung: Settings > Battery > Background usage limits > 'Deep sleeping apps' > add the app). Restricted apps cannot wake up or run background threads when you are not actively using them.",
+          "adminRequired": false,
+          "backupAdvised": false
+        },
+        {
+          "instruction": "Turn off Wi-Fi and Bluetooth background scanning",
+          "detail": "Go to Settings > Location > 'Location services' (or Wi-Fi scanning). Turn OFF 'Wi-Fi scanning' and 'Bluetooth scanning'. These features scan nearby radios constantly even when your Wi-Fi and Bluetooth are turned off in Quick Settings.",
+          "adminRequired": false,
+          "backupAdvised": false
+        }
+      ]
+    },
+    {
+      "id": "android-wifi-bluetooth-reset",
+      "title": "Fix Android Wi-Fi, Bluetooth, & Mobile Data Connectivity Issues",
+      "symptom": "Phone won't connect to Wi-Fi, Bluetooth audio drops/fails to pair, or mobile data shows 'No connection'",
+      "description": "Troubleshoot cellular and wireless connectivity and perform a clean reset of Android Network Settings without wiping personal data.",
+      "category": "network-connectivity",
+      "categoryName": "Network & Connectivity",
+      "categoryIcon": "🌐",
+      "keywords": ["android wifi not connecting", "bluetooth pairing failure android", "reset network settings android", "no mobile data samsung"],
+      "causes": [
+        "Stale DHCP client lease or corrupted wireless network profile",
+        "Bluetooth GATT cache desynchronization with paired accessory",
+        "Incorrect Access Point Name (APN) configuration after SIM card change"
+      ],
+      "whyItWorks": "Resetting network settings flushes all saved Wi-Fi networks, paired Bluetooth device keys, and cellular APN protocol configurations, returning the Android RIL (Radio Interface Layer) to factory defaults.",
+      "steps": [
+        {
+          "instruction": "Toggle Airplane Mode to reset radio transmitters",
+          "detail": "Swipe down Quick Settings. Tap 'Airplane mode' ON. Wait 15 seconds. Tap 'Airplane mode' OFF. This forces the modem to re-authenticate with the cellular tower and re-establish Wi-Fi handshakes.",
+          "adminRequired": false,
+          "backupAdvised": false
+        },
+        {
+          "instruction": "Forget and reconnect to the Wi-Fi network",
+          "detail": "Go to Settings > Network & internet > Wi-Fi (or Connections > Wi-Fi). Tap the gear icon next to your network > tap 'Forget'. Re-tap the network and enter the password carefully.",
+          "adminRequired": false,
+          "backupAdvised": false
+        },
+        {
+          "instruction": "Reset All Network Settings",
+          "detail": "Go to Settings > System > Reset options (or on Samsung: Settings > General management > Reset) > tap 'Reset Mobile Network Settings' / 'Reset Wi-Fi & Bluetooth'. Confirm with your PIN or fingerprint. Your photos, apps, and accounts are completely untouched.",
+          "warning": "This will forget all saved Wi-Fi networks and Bluetooth pairings. You will need to re-enter Wi-Fi passwords.",
+          "adminRequired": false,
+          "backupAdvised": false
+        }
+      ]
+    }
+  ]
+}

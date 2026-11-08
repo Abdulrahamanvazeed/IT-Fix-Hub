@@ -1,0 +1,60 @@
+{
+  "symptoms": [
+    {
+      "id": "dualboot-grub-rescue",
+      "text": "Stuck in 'grub rescue>' error: unknown filesystem",
+      "icon": "⚡",
+      "keywords": ["grub rescue", "unknown filesystem", "grub error", "bootloader broken", "cant boot windows"],
+      "guideIds": ["dualboot-grub-rescue-prompt", "dualboot-windows-update-killed-grub"],
+      "category": "Boot & Startup"
+    },
+    {
+      "id": "dualboot-windows-update-grub",
+      "text": "Windows Update killed GRUB (boots straight into Windows)",
+      "icon": "🪟",
+      "keywords": ["windows update broke grub", "grub gone", "boots straight to windows", "bcdedit grub"],
+      "guideIds": ["dualboot-windows-update-killed-grub", "dualboot-grub-boot-order-priority"],
+      "category": "Boot & Startup"
+    },
+    {
+      "id": "dualboot-clock-wrong",
+      "text": "Clock time is wrong when switching between Windows & Linux",
+      "icon": "⏰",
+      "keywords": ["clock wrong", "time desync", "timedatectl", "time difference", "5 hours off"],
+      "guideIds": ["dualboot-clock-time-desync"],
+      "category": "Settings & Setup"
+    },
+    {
+      "id": "dualboot-ntfs-unsafe",
+      "text": "Linux says 'The NTFS partition is in an unsafe state' (read-only)",
+      "icon": "🔒",
+      "keywords": ["ntfs unsafe state", "read only ntfs", "fast startup", "hibernated refused to mount"],
+      "guideIds": ["dualboot-fast-startup-ntfs-lock", "dualboot-accessing-files-cross-os"],
+      "category": "Speed & Performance"
+    },
+    {
+      "id": "dualboot-bitlocker-recovery",
+      "text": "BitLocker asks for recovery key every time I choose Windows",
+      "icon": "🔑",
+      "keywords": ["bitlocker recovery key", "tpm pcr error", "dual boot bitlocker prompt", "48 digit key"],
+      "guideIds": ["dualboot-bitlocker-recovery-lockout"],
+      "category": "Errors & Crashes"
+    },
+    {
+      "id": "dualboot-change-default-os",
+      "text": "Want to boot Windows by default or change GRUB timeout",
+      "icon": "⚙️",
+      "keywords": ["change default os", "boot windows first", "grub timeout", "efibootmgr"],
+      "guideIds": ["dualboot-grub-boot-order-priority"],
+      "category": "Settings & Setup"
+    },
+    {
+      "id": "dualboot-uninstall-linux",
+      "text": "Want to safely uninstall Linux and keep Windows without crash",
+      "icon": "🗑️",
+      "keywords": ["uninstall linux dual boot", "delete ubuntu keep windows", "remove grub safely"],
+      "guideIds": ["dualboot-uninstall-linux-safely"],
+      "category": "Boot & Startup"
+    }
+  ]
+}

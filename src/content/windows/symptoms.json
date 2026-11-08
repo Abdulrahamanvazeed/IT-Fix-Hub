@@ -1,0 +1,260 @@
+{
+  "symptoms": [
+    {
+      "id": "computer-is-slow",
+      "text": "My computer is running slow",
+      "icon": "🐌",
+      "keywords": ["slow", "sluggish", "laggy", "lag", "freezing", "unresponsive", "takes forever", "hanging"],
+      "guideIds": ["computer-running-slow", "high-cpu-usage", "managing-startup-apps-beginner", "managing-storage-space"],
+      "category": "Speed & Performance"
+    },
+    {
+      "id": "fan-is-loud",
+      "text": "My fan is really loud",
+      "icon": "🌀",
+      "keywords": ["fan", "loud", "noisy", "whirring", "spinning", "overheating", "hot"],
+      "guideIds": ["high-cpu-usage", "high-resource-applications"],
+      "category": "Speed & Performance"
+    },
+    {
+      "id": "computer-is-hot",
+      "text": "My computer feels hot",
+      "icon": "🔥",
+      "keywords": ["hot", "overheating", "warm", "thermal", "heat", "temperature"],
+      "guideIds": ["high-cpu-usage", "high-resource-applications"],
+      "category": "Speed & Performance"
+    },
+    {
+      "id": "app-using-too-much-memory",
+      "text": "An app is using too much memory",
+      "icon": "🧠",
+      "keywords": ["memory", "RAM", "high memory", "out of memory", "not enough memory", "memory leak"],
+      "guideIds": ["high-memory-usage", "high-resource-applications"],
+      "category": "Speed & Performance"
+    },
+    {
+      "id": "high-cpu",
+      "text": "CPU usage is very high",
+      "icon": "📊",
+      "keywords": ["cpu", "processor", "100%", "task manager", "high usage", "maxed out"],
+      "guideIds": ["high-cpu-usage", "high-resource-applications", "managing-windows-services"],
+      "category": "Speed & Performance"
+    },
+    {
+      "id": "wifi-keeps-dropping",
+      "text": "My Wi-Fi keeps disconnecting",
+      "icon": "📶",
+      "keywords": ["wifi", "wi-fi", "dropping", "disconnecting", "unstable", "intermittent", "cuts out", "loses connection"],
+      "guideIds": ["wifi-keeps-dropping"],
+      "category": "Internet & Network"
+    },
+    {
+      "id": "no-internet",
+      "text": "I have no internet connection",
+      "icon": "🌐",
+      "keywords": ["no internet", "offline", "can't connect", "no connection", "network", "disconnected", "no wifi"],
+      "guideIds": ["no-internet-connection"],
+      "category": "Internet & Network"
+    },
+    {
+      "id": "internet-is-slow",
+      "text": "My internet is slow",
+      "icon": "🐢",
+      "keywords": ["slow internet", "slow download", "buffering", "slow loading", "bandwidth", "speed"],
+      "guideIds": ["slow-internet-speed"],
+      "category": "Internet & Network"
+    },
+    {
+      "id": "browser-is-slow",
+      "text": "My browser is slow or unresponsive",
+      "icon": "🌍",
+      "keywords": ["browser", "chrome", "edge", "firefox", "slow browser", "pages loading slowly", "tabs freezing"],
+      "guideIds": ["browser-settings-optimization", "slow-internet-speed"],
+      "category": "Internet & Network"
+    },
+    {
+      "id": "too-many-popups",
+      "text": "I'm getting too many pop-ups or ads",
+      "icon": "🪟",
+      "keywords": ["pop-ups", "popups", "ads", "advertisements", "notifications", "spam", "unwanted"],
+      "guideIds": ["browser-settings-optimization"],
+      "category": "Internet & Network"
+    },
+    {
+      "id": "cant-print",
+      "text": "I can't print anything",
+      "icon": "🖨️",
+      "keywords": ["print", "printer", "printing", "can't print", "won't print", "paper jam", "queue"],
+      "guideIds": ["printer-not-working", "printer-showing-offline"],
+      "category": "Printing"
+    },
+    {
+      "id": "printer-offline",
+      "text": "My printer shows as offline",
+      "icon": "⚫",
+      "keywords": ["printer offline", "offline", "not available", "not detected", "printer status"],
+      "guideIds": ["printer-showing-offline", "printer-not-working"],
+      "category": "Printing"
+    },
+    {
+      "id": "screen-looks-wrong",
+      "text": "My screen looks wrong or blurry",
+      "icon": "🖥️",
+      "keywords": ["display", "screen", "resolution", "blurry", "stretched", "fuzzy", "scaling", "monitor"],
+      "guideIds": ["customizing-display-settings"],
+      "category": "Display & Screen"
+    },
+    {
+      "id": "screen-too-small-big",
+      "text": "Everything on screen is too small or too big",
+      "icon": "🔍",
+      "keywords": ["scaling", "zoom", "too small", "too big", "text size", "icons small", "can't read"],
+      "guideIds": ["customizing-display-settings"],
+      "category": "Display & Screen"
+    },
+    {
+      "id": "wrong-program-opens-files",
+      "text": "The wrong program opens my files",
+      "icon": "📂",
+      "keywords": ["default app", "wrong program", "opens with", "file association", "change default", "always opens in"],
+      "guideIds": ["setting-default-apps", "setting-default-browser"],
+      "category": "Apps & Programs"
+    },
+    {
+      "id": "program-keeps-crashing",
+      "text": "A program keeps crashing or freezing",
+      "icon": "💥",
+      "keywords": ["crash", "crashing", "freezing", "not responding", "stopped working", "force close", "hang"],
+      "guideIds": ["application-crashes-freezing", "high-resource-applications"],
+      "category": "Apps & Programs"
+    },
+    {
+      "id": "cant-install-program",
+      "text": "I can't install or uninstall a program",
+      "icon": "📦",
+      "keywords": ["install", "uninstall", "setup", "installation failed", "can't install", "won't install", "remove program"],
+      "guideIds": ["installing-uninstalling-apps", "installation-uninstallation-failures"],
+      "category": "Apps & Programs"
+    },
+    {
+      "id": "computer-wont-start",
+      "text": "My computer won't start or boot up",
+      "icon": "⚡",
+      "keywords": ["won't start", "boot", "startup", "black screen", "no boot", "stuck on logo", "won't turn on"],
+      "guideIds": ["boot-repair-windows", "disk-repair-chkdsk"],
+      "category": "Boot & Startup"
+    },
+    {
+      "id": "slow-startup",
+      "text": "My computer takes forever to start up",
+      "icon": "⏳",
+      "keywords": ["slow boot", "slow startup", "takes long to start", "startup programs", "boot time"],
+      "guideIds": ["managing-startup-apps-beginner", "computer-running-slow"],
+      "category": "Boot & Startup"
+    },
+    {
+      "id": "computer-keeps-restarting",
+      "text": "My computer keeps restarting on its own",
+      "icon": "🔄",
+      "keywords": ["restarting", "rebooting", "restart loop", "keeps restarting", "auto restart", "unexpected restart"],
+      "guideIds": ["driver-issues-crashes", "boot-repair-windows"],
+      "category": "Boot & Startup"
+    },
+    {
+      "id": "blue-screen",
+      "text": "I'm getting a blue screen of death (BSOD)",
+      "icon": "🟦",
+      "keywords": ["blue screen", "BSOD", "crash", "stop error", "blue screen of death", "system crash"],
+      "guideIds": ["driver-issues-crashes", "boot-repair-windows"],
+      "category": "Errors & Crashes"
+    },
+    {
+      "id": "disk-errors",
+      "text": "I'm seeing disk or drive errors",
+      "icon": "💾",
+      "keywords": ["disk", "drive", "disk error", "hard drive", "SSD", "corruption", "bad sectors", "chkdsk"],
+      "guideIds": ["disk-repair-chkdsk"],
+      "category": "Errors & Crashes"
+    },
+    {
+      "id": "windows-update-stuck",
+      "text": "Windows Update is stuck or not working",
+      "icon": "🔃",
+      "keywords": ["windows update", "update stuck", "update failed", "pending updates", "update error", "won't update"],
+      "guideIds": ["windows-update-stuck", "windows-update-errors"],
+      "category": "Errors & Crashes"
+    },
+    {
+      "id": "windows-service-error",
+      "text": "I'm getting a Windows service error",
+      "icon": "⚙️",
+      "keywords": ["service", "windows service", "service failed", "service stopped", "dependency", "service error"],
+      "guideIds": ["managing-windows-services"],
+      "category": "Errors & Crashes"
+    },
+    {
+      "id": "find-crash-cause",
+      "text": "I need to find out why my computer crashed",
+      "icon": "🔎",
+      "keywords": ["crash log", "event viewer", "reliability", "diagnostics", "error log", "what happened", "crash cause"],
+      "guideIds": ["using-event-viewer", "reliability-monitor-diagnostics"],
+      "category": "Errors & Crashes"
+    },
+    {
+      "id": "unknown-device",
+      "text": "I have an unknown or broken device",
+      "icon": "❓",
+      "keywords": ["unknown device", "device not recognized", "driver missing", "yellow triangle", "device manager", "hardware not working"],
+      "guideIds": ["device-manager-troubleshooting"],
+      "category": "Errors & Crashes"
+    },
+    {
+      "id": "dont-know-windows",
+      "text": "I don't know how to use Windows",
+      "icon": "🆕",
+      "keywords": ["new to windows", "beginner", "how to", "basics", "learn", "getting started", "help"],
+      "guideIds": ["navigating-windows-desktop", "using-file-explorer"],
+      "category": "Settings & Setup"
+    },
+    {
+      "id": "need-to-add-user",
+      "text": "I need to add or manage a user account",
+      "icon": "👤",
+      "keywords": ["user account", "add user", "new account", "manage accounts", "password", "admin", "login"],
+      "guideIds": ["managing-user-accounts"],
+      "category": "Settings & Setup"
+    },
+    {
+      "id": "email-not-working",
+      "text": "My email app isn't working",
+      "icon": "📧",
+      "keywords": ["email", "mail", "outlook", "email setup", "can't send", "can't receive", "email not working"],
+      "guideIds": ["email-app-setup"],
+      "category": "Settings & Setup"
+    },
+    {
+      "id": "running-out-of-space",
+      "text": "I'm running out of storage space",
+      "icon": "💿",
+      "keywords": ["storage", "disk space", "full", "no space", "running out", "cleanup", "free space", "C drive full"],
+      "guideIds": ["managing-storage-space", "computer-running-slow"],
+      "category": "Speed & Performance"
+    },
+    {
+      "id": "too-many-startup-apps",
+      "text": "Too many apps open when I start my computer",
+      "icon": "🚀",
+      "keywords": ["startup", "boot apps", "auto start", "startup programs", "disable startup", "too many programs"],
+      "guideIds": ["managing-startup-apps-beginner", "computer-running-slow"],
+      "category": "Boot & Startup"
+    },
+    {
+      "id": "change-default-browser",
+      "text": "I want to change my default browser",
+      "icon": "🔀",
+      "keywords": ["default browser", "change browser", "set browser", "chrome default", "edge default", "firefox"],
+      "guideIds": ["setting-default-browser", "setting-default-apps"],
+      "category": "Settings & Setup"
+    }
+  ]
+}

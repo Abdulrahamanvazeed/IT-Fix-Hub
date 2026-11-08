@@ -1,0 +1,108 @@
+{
+  "guides": [
+    {
+      "id": "dualboot-fast-startup-ntfs-lock",
+      "title": "Fix 'The NTFS Partition is in an Unsafe State' in Dual Boot",
+      "symptom": "Linux refuses to mount Windows partition with error: 'Windows is hibernated, refused to mount' or 'Unsafe state'",
+      "description": "Disable Windows Fast Startup and clean up the hibernation metadata locking your hard drive from cross-boot mounting.",
+      "category": "dualboot-disk",
+      "categoryName": "Partition & Storage",
+      "categoryIcon": "💽",
+      "keywords": ["ntfs partition unsafe state", "windows hibernated refused to mount", "disable fast startup dual boot", "ntfs-3g read only"],
+      "causes": [
+        "Windows 'Fast Startup' feature puts the computer into a hybrid hibernation (saving kernel state to `hiberfil.sys`) instead of performing a clean shutdown",
+        "Linux detects the active hibernation flag and locks the partition to prevent catastrophic filesystem corruption"
+      ],
+      "whyItWorks": "When Fast Startup is enabled, Windows does not unmount the NTFS filesystem. If Linux were to write files to it, Windows would overwrite those changes upon waking up. Disabling Fast Startup ensures a true unmount with an empty journal.",
+      "steps": [
+        {
+          "instruction": "Disable Fast Startup in Windows Control Panel",
+          "detail": "1. Boot into Windows.\n2. Press Win+R, type `powercfg.cpl` and press Enter.\n3. In the left sidebar, click 'Choose what the power buttons do'.\n4. Click the blue shield link: 'Change settings that are currently unavailable'.\n5. Scroll down to 'Shutdown settings' and UNCHECK 'Turn on fast startup (recommended)'.\n6. Click 'Save changes'.",
+          "adminRequired": true,
+          "backupAdvised": false
+        },
+        {
+          "instruction": "Completely turn off Windows Hibernation via Command Prompt",
+          "detail": "Open Command Prompt as Administrator in Windows and run:\npowercfg /h off\nThis deletes `hiberfil.sys` and guarantees that every Windows shutdown is 100% clean, freeing up 8GB-32GB of disk space.",
+          "adminRequired": true,
+          "backupAdvised": false
+        },
+        {
+          "instruction": "Emergency Read-Only Mount from Linux",
+          "detail": "If you are currently locked in Linux and need urgent access to a file on the Windows drive, you can mount it in read-only mode safely:\nsudo mount -o ro /dev/nvme0n1p3 /mnt/windows\n(Replace with your Windows partition). Read-only mode will not corrupt the hibernated filesystem.",
+          "adminRequired": true,
+          "backupAdvised": false
+        }
+      ]
+    },
+    {
+      "id": "dualboot-grub-boot-order-priority",
+      "title": "Changing Default Boot OS & Boot Order (GRUB & efibootmgr)",
+      "symptom": "Computer boots into Linux when I want Windows as default, or GRUB menu timeout is too long/short",
+      "description": "Configure GRUB default entry, remember the last booted OS, and reorder hardware UEFI boot targets using `efibootmgr`.",
+      "category": "dualboot-bootloader",
+      "categoryName": "Bootloader & UEFI",
+      "categoryIcon": "⚡",
+      "keywords": ["change grub default os", "boot windows by default dual boot", "efibootmgr change boot order", "grub timeout change"],
+      "causes": [
+        "GRUB default setting configured to entry 0 (Linux kernel)",
+        "UEFI NVRAM boot order having Linux as first priority entry"
+      ],
+      "whyItWorks": "GRUB configuration file `/etc/default/grub` controls menu display timeouts and default choice indices. Alternatively, modifying the motherboard's NVRAM via `efibootmgr` dictates which bootloader EFI firmware loads before GRUB even starts.",
+      "steps": [
+        {
+          "instruction": "Set default OS in `/etc/default/grub`",
+          "detail": "In Linux, open terminal and edit GRUB settings:\nsudo nano /etc/default/grub\nFind `GRUB_DEFAULT=0`. You can change it to:\n`GRUB_DEFAULT=saved`\nAnd add this line directly underneath:\n`GRUB_SAVEDEFAULT=true`\nThis makes GRUB remember whichever OS you booted last time! To change timeout (seconds), edit `GRUB_TIMEOUT=5`.",
+          "adminRequired": true,
+          "backupAdvised": false
+        },
+        {
+          "instruction": "Apply and compile the new GRUB configuration",
+          "detail": "Run:\nsudo update-grub\nOn Fedora/Arch: `sudo grub2-mkconfig -o /boot/grub2/grub.cfg`.\nReboot to test your new default.",
+          "adminRequired": true,
+          "backupAdvised": false
+        },
+        {
+          "instruction": "Change hardware UEFI boot order with `efibootmgr`",
+          "detail": "Inspect your motherboard's UEFI boot order list in Linux:\nsudo efibootmgr\nYou will see entries like:\n`Boot0001* Windows Boot Manager`\n`Boot0002* ubuntu`\n`BootOrder: 0002,0001`\nTo make Windows Boot Manager boot first directly:\nsudo efibootmgr -o 0001,0002",
+          "adminRequired": true,
+          "backupAdvised": false
+        }
+      ]
+    },
+    {
+      "id": "dualboot-bitlocker-recovery-lockout",
+      "title": "Fixing BitLocker Recovery Key Prompt on Every Dual Boot",
+      "symptom": "Every time I choose Windows after using Linux, Windows asks for a 48-digit BitLocker recovery key",
+      "description": "Prevent TPM PCR measurement mismatch between Windows and GRUB so BitLocker boots smoothly without prompts.",
+      "category": "dualboot-security",
+      "categoryName": "Security & Encryption",
+      "categoryIcon": "🔒",
+      "keywords": ["bitlocker recovery key dual boot", "bitlocker prompt every time", "tpm pcr validation dual boot", "grub bitlocker issue"],
+      "causes": [
+        "The TPM (Trusted Platform Module) measures the boot chain (PCR 7). When booting through GRUB instead of directly through Windows Boot Manager, the TPM considers the bootloader altered and seals the BitLocker decryption key"
+      ],
+      "whyItWorks": "Suspending BitLocker protection for one reboot cycle allows the TPM to record the new GRUB boot chain measurements into its PCR registers. Alternatively, choosing Windows directly via UEFI F12 boot menu bypasses GRUB's alteration of PCR 7.",
+      "steps": [
+        {
+          "instruction": "Locate your 48-digit BitLocker recovery key",
+          "detail": "Log in to your Microsoft Account from another device at: https://account.microsoft.com/devices/recoverykey. Enter the 48-digit numerical key on your PC to boot into Windows.",
+          "adminRequired": false,
+          "backupAdvised": false
+        },
+        {
+          "instruction": "Suspend BitLocker protection to recalibrate TPM",
+          "detail": "In Windows, open Command Prompt as Administrator and run:\nmanage-bde -protectors -disable C:\nRestart your PC and boot into Linux once. Then reboot back into Windows (it will boot without asking for the key). In Windows, re-enable protection:\nmanage-bde -protectors -enable C:\nThis seals the key against the dual-boot environment.",
+          "adminRequired": true,
+          "backupAdvised": false
+        },
+        {
+          "instruction": "Best practice: Use F12 hardware boot menu for BitLocker",
+          "detail": "If your company or school strictly enforces BitLocker PCR 7 validation, configure your PC to boot Windows Boot Manager by default, and simply tap F12 (or your motherboard boot key) whenever you want to boot into Linux. This prevents GRUB from touching the TPM when loading Windows.",
+          "adminRequired": false,
+          "backupAdvised": false
+        }
+      ]
+    }
+  ]
+}

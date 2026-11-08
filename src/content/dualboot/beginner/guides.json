@@ -1,0 +1,97 @@
+{
+  "guides": [
+    {
+      "id": "dualboot-understanding-multiboot",
+      "title": "Understanding Dual Boot: UEFI, ESP Partitions, & Boot Managers",
+      "symptom": "Planning or running a Windows + Linux dual boot and confused how they co-exist",
+      "description": "Learn how modern UEFI firmware, the EFI System Partition (ESP), and bootloaders (Windows Boot Manager & GRUB) work together without destroying each other.",
+      "category": "dualboot-basics",
+      "categoryName": "Dual Boot Essentials",
+      "categoryIcon": "⚡",
+      "keywords": ["dual boot basics", "uefi esp partition", "how dual boot works", "windows linux together", "secure boot"],
+      "causes": [
+        "Misunderstanding partition schemes (GPT vs legacy MBR)",
+        "Accidentally formatting the shared EFI partition"
+      ],
+      "whyItWorks": "Under modern UEFI standards, multiple operating systems share a single FAT32 EFI System Partition (`/dev/sda1` or `/boot/efi`). Each OS gets its own folder (e.g. `EFI/Microsoft/` and `EFI/ubuntu/`), so both OS installations can coexist without overwriting each other's kernels.",
+      "steps": [
+        {
+          "instruction": "Verify your system uses UEFI and GPT partition table",
+          "detail": "In Windows: press Win+R, type `msinfo32` > check 'BIOS Mode' (should say 'UEFI').\nIn Linux: run `[ -d /sys/firmware/efi ] && echo 'UEFI Mode' || echo 'Legacy BIOS'`. Dual booting is vastly more stable when both systems are installed in pure UEFI mode.",
+          "adminRequired": false,
+          "backupAdvised": false
+        },
+        {
+          "instruction": "Understand the shared EFI partition layout",
+          "detail": "Never format the 100MB-512MB EFI System Partition (ESP). Windows and Linux both write their boot files into separate subdirectories on this partition. GRUB is designed to detect the Windows Boot Manager (`bootmgfw.efi`) and show both choices in a startup menu.",
+          "adminRequired": false,
+          "backupAdvised": false
+        },
+        {
+          "instruction": "Access the hardware UEFI boot menu",
+          "detail": "You don't always have to rely on GRUB. Turning on your computer and tapping your motherboard boot key (F12 on Dell/Lenovo, F9 on HP, F11 on MSI, F8/F2 on ASUS) opens the hardware boot menu where you can directly choose 'Windows Boot Manager' or 'ubuntu'.",
+          "adminRequired": false,
+          "backupAdvised": false
+        }
+      ]
+    },
+    {
+      "id": "dualboot-clock-time-desync",
+      "title": "Fixing Time Difference / Clock Desync Between Windows & Linux",
+      "symptom": "Every time I boot into Windows after using Linux, the Windows clock is wrong by several hours",
+      "description": "Resolve the common time desync where Windows and Linux dispute whether the hardware RTC motherboard clock is in UTC or Local Time.",
+      "category": "dualboot-basics",
+      "categoryName": "Dual Boot Essentials",
+      "categoryIcon": "⚡",
+      "keywords": ["dual boot clock wrong", "windows linux time difference", "timedatectl set-local-rtc", "hardware clock utc", "dual boot 5 hours off"],
+      "causes": [
+        "Linux assumes the motherboard Real-Time Clock (RTC) is stored in universal Coordinated Universal Time (UTC)",
+        "Windows assumes the motherboard Real-Time Clock is stored in local regional time"
+      ],
+      "whyItWorks": "Because Linux expects UTC and Windows expects Local Time, each OS shifts the motherboard clock on boot/shutdown. Setting Linux to interpret the hardware clock in Local Time (`set-local-rtc 1`) makes Linux and Windows perfectly agree on the motherboard clock.",
+      "steps": [
+        {
+          "instruction": "Fix via Linux (Recommended & Easiest)",
+          "detail": "Boot into your Linux distribution. Open Terminal (Ctrl+Alt+T) and run this single command:\ntimedatectl set-local-rtc 1 --adjust-system-clock\nVerify with:\ntimedatectl\nIt will output 'RTC in local TZ: yes'. From now on, Linux will never alter the clock when switching to Windows.",
+          "adminRequired": true,
+          "backupAdvised": false
+        },
+        {
+          "instruction": "Alternative Fix via Windows (Registry edit for UTC)",
+          "detail": "If you prefer making Windows use UTC like Linux: open Command Prompt as Administrator in Windows and run:\nreg add \"HKEY_LOCAL_MACHINE\\System\\CurrentControlSet\\Control\\TimeZoneInformation\" /v RealTimeIsUniversal /t REG_DWORD /d 1 /f\nRestart your PC.",
+          "adminRequired": true,
+          "backupAdvised": true
+        }
+      ]
+    },
+    {
+      "id": "dualboot-accessing-files-cross-os",
+      "title": "Sharing & Accessing Files Between Windows & Linux Partitions",
+      "symptom": "Cannot open Windows files from Linux, or drive shows as 'Read-Only'",
+      "description": "Mount Windows NTFS drives inside Linux, enable safe read/write support, and share documents seamlessly across operating systems.",
+      "category": "dualboot-basics",
+      "categoryName": "Dual Boot Essentials",
+      "categoryIcon": "⚡",
+      "keywords": ["mount windows drive linux", "read ntfs linux", "read only ntfs ubuntu", "share files dual boot"],
+      "causes": [
+        "Linux kernel NTFS3 or ntfs-3g driver safely mounting NTFS partitions",
+        "Windows Fast Startup leaving the drive in a locked hibernation state"
+      ],
+      "whyItWorks": "Modern Linux kernels include native high-speed `ntfs3` driver support. Creating a permanent mount entry in `/etc/fstab` with standard user UID/GID parameters allows seamless read and write access to Windows documents from Linux.",
+      "steps": [
+        {
+          "instruction": "Mount the Windows drive in Linux file manager",
+          "detail": "In Ubuntu, open the Files app. In the left sidebar, click 'Other Locations'. You will see your Windows partition (e.g., '500 GB Volume' or 'Local Disk'). Click it. Linux will automatically mount it and prompt for your password if needed.",
+          "adminRequired": false,
+          "backupAdvised": false
+        },
+        {
+          "instruction": "If drive mounts as 'Read-Only': Disable Fast Startup in Windows",
+          "detail": "If Linux refuses to let you save files to the Windows drive, Windows left the drive in a hibernated lock state. Boot into Windows, search for 'Power Options' > 'Choose what the power buttons do' > click 'Change settings that are currently unavailable' > UNCHECK 'Turn on fast startup'. Click Save changes. Reboot back into Linux.",
+          "adminRequired": false,
+          "backupAdvised": false
+        }
+      ]
+    }
+  ]
+}

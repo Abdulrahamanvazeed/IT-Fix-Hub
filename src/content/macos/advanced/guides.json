@@ -1,0 +1,112 @@
+{
+  "guides": [
+    {
+      "id": "macos-recovery-disk-utility",
+      "title": "Booting into macOS Recovery & Running Disk Utility First Aid",
+      "symptom": "Mac won't boot past the Apple logo, shows a folder with question mark, or needs macOS reinstalled",
+      "description": "Enter macOS Recovery on Apple Silicon (M1/M2/M3/M4) and Intel Macs to repair corrupted APFS volumes or reinstall macOS safely.",
+      "category": "disk-boot",
+      "categoryName": "Boot & Disk Repair",
+      "categoryIcon": "💿",
+      "keywords": ["macos recovery", "first aid disk utility", "folder with question mark mac", "apple silicon recovery", "reinstall macos without losing data"],
+      "causes": [
+        "Corrupted APFS container file system catalog",
+        "Failed macOS operating system update leaving partial system files",
+        "Damaged boot volume partition map"
+      ],
+      "whyItWorks": "macOS Recovery runs in a separate boot environment isolated from your main Macintosh HD drive. From here, Disk Utility can unmount your primary drive and repair APFS B-tree catalog structures. Reinstalling macOS replaces the operating system files in the sealed system snapshot without deleting your user accounts or documents.",
+      "steps": [
+        {
+          "instruction": "Enter macOS Recovery Mode",
+          "detail": "On Apple Silicon (M1/M2/M3/M4 Macs): Shut down completely. Press and HOLD the power button until you see 'Loading startup options'. Click 'Options' then click 'Continue'.\nOn Intel Macs: Shut down. Turn on your Mac and immediately press and HOLD Command (⌘) + R until the Apple logo or spinning globe appears.",
+          "adminRequired": false,
+          "backupAdvised": false
+        },
+        {
+          "instruction": "Run Disk Utility First Aid on all volumes",
+          "detail": "In the macOS Recovery Utilities window, select 'Disk Utility' and click Continue. In Disk Utility, click 'View' in the top toolbar > 'Show All Devices'. In the left sidebar, start from the bottom-most sub-volume (e.g. Macintosh HD - Data) and click 'First Aid' > 'Run'. Then run First Aid on the container, and finally on the top-level internal disk. Wait for First Aid to complete each pass with green checkmarks.",
+          "adminRequired": false,
+          "backupAdvised": false
+        },
+        {
+          "instruction": "Reinstall macOS (keeps user files intact)",
+          "detail": "If First Aid succeeds but the Mac still will not boot, quit Disk Utility and select 'Reinstall macOS' from the main Recovery window. Click Continue, select your internal Macintosh HD drive, and proceed. This downloads and installs a fresh copy of macOS while preserving all your personal files, photos, and apps.",
+          "warning": "Do NOT click 'Erase' in Disk Utility unless you intend to wipe all personal data. Reinstall macOS directly without erasing to preserve your documents.",
+          "adminRequired": false,
+          "backupAdvised": true
+        }
+      ]
+    },
+    {
+      "id": "macos-smc-nvram-reset",
+      "title": "Resetting SMC and NVRAM/PRAM for Hardware & Power Issues",
+      "symptom": "Mac fans run at maximum speed constantly, battery won't charge, or display resolution is wrong",
+      "description": "Clear the System Management Controller (SMC) and Non-Volatile RAM (NVRAM) to resolve power, fan, thermal, and video glitches.",
+      "category": "hardware-firmware",
+      "categoryName": "Hardware & Firmware",
+      "categoryIcon": "🔌",
+      "keywords": ["reset smc mac", "reset nvram mac", "reset pram", "mac fans loud", "mac battery won't charge", "black screen mac"],
+      "causes": [
+        "Corrupted power management parameters in the System Management Controller (SMC)",
+        "Stale audio volume, screen resolution, or startup disk preferences stored in NVRAM chip"
+      ],
+      "whyItWorks": "NVRAM stores critical low-level preferences (sound volume, display resolution, startup disk selection). The SMC controls physical thermal sensors, fan speeds, power buttons, and battery charging. Resetting both forces hardware microcontrollers to reload clean factory calibrations.",
+      "steps": [
+        {
+          "instruction": "For Apple Silicon (M1/M2/M3/M4 Macs): Automatic SMC/NVRAM calibration",
+          "detail": "Apple Silicon Macs do not have a legacy SMC or manual key combination for NVRAM. The hardware automatically tests and recalibrates NVRAM on every boot. Simply shut down your Mac completely, wait 30 seconds, and turn it back on.",
+          "adminRequired": false,
+          "backupAdvised": false
+        },
+        {
+          "instruction": "Reset NVRAM/PRAM on Intel Macs",
+          "detail": "Shut down your Intel Mac. Press the power button, and immediately press and HOLD these four keys together: Option + Command + P + R. Keep holding for about 20 seconds. On Macs that play a startup chime, release after the second chime. On Macs with the T2 security chip, release after the Apple logo appears and disappears for the second time.",
+          "adminRequired": false,
+          "backupAdvised": false
+        },
+        {
+          "instruction": "Reset SMC on Intel Mac Laptops with T2 Security Chip",
+          "detail": "Shut down your Mac. On the built-in keyboard, press and HOLD: Control (left) + Option (left) + Shift (right). Keep holding all three keys for 7 seconds, then also press and HOLD the Power button. Keep holding all 4 keys for another 7 seconds, then release them. Wait 5 seconds, then press the power button to turn on the Mac.",
+          "adminRequired": false,
+          "backupAdvised": false
+        }
+      ]
+    },
+    {
+      "id": "macos-terminal-permissions-quarantine",
+      "title": "Fix macOS Permissions, Gatekeeper Quarantine, and SIP Status",
+      "symptom": "App damaged warning: 'App is damaged and can't be opened. You should move it to the Trash'",
+      "description": "Use the macOS Terminal to strip broken quarantine attributes (xattr), inspect System Integrity Protection (SIP), and manage developer privileges.",
+      "category": "system-security",
+      "categoryName": "System & Security",
+      "categoryIcon": "🔧",
+      "keywords": ["app is damaged move to trash", "xattr -cr mac", "gatekeeper quarantine", "csrutil status", "macos permission fix"],
+      "causes": [
+        "macOS marked an unsigned or patched binary with the `com.apple.quarantine` extended attribute upon download",
+        "POSIX file permissions on `/Applications/[App]` executable lost execute (+x) rights"
+      ],
+      "whyItWorks": "When macOS downloads a file, it tags it with extended filesystem metadata (`com.apple.quarantine`). If Gatekeeper cannot verify the developer signature, it reports the app as 'damaged'. Using `xattr -cr` strips the quarantine flag from the application bundle.",
+      "steps": [
+        {
+          "instruction": "Remove the Quarantine flag from the damaged application",
+          "detail": "Open Terminal (Cmd+Space, type Terminal). Run this command, replacing the path with your app's actual name:\nsudo xattr -cr /Applications/TargetApp.app\nOr type `sudo xattr -cr ` (with a space at the end) and drag the app from Finder directly into the Terminal window. Press Return and enter your administrator password.",
+          "adminRequired": true,
+          "backupAdvised": false
+        },
+        {
+          "instruction": "Re-sign the application bundle locally with ad-hoc signature",
+          "detail": "If the app still fails with an invalid code signature, run:\nsudo codesign --force --deep --sign - /Applications/TargetApp.app\nThis signs the binary with an ad-hoc local certificate acceptable to your Mac.",
+          "adminRequired": true,
+          "backupAdvised": false
+        },
+        {
+          "instruction": "Check System Integrity Protection (SIP) status",
+          "detail": "Run this diagnostic command in Terminal:\ncsrutil status\nIt should output 'System Integrity Protection status: enabled.' If you ever need to toggle SIP for low-level kernel extensions, it can only be done from macOS Recovery mode Terminal using `csrutil disable` or `csrutil enable`.",
+          "warning": "Always keep SIP enabled for day-to-day security against root-level malware.",
+          "adminRequired": false,
+          "backupAdvised": false
+        }
+      ]
+    }
+  ]
+}

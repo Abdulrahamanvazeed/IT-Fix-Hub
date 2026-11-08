@@ -1,0 +1,52 @@
+{
+  "symptoms": [
+    {
+      "id": "android-battery-fast-drain",
+      "text": "Android battery draining fast or phone getting hot",
+      "icon": "🔋",
+      "keywords": ["battery drain", "phone hot", "overheating", "fast drain", "samsung battery"],
+      "guideIds": ["android-battery-drain-overheating"],
+      "category": "Speed & Performance"
+    },
+    {
+      "id": "android-storage-full",
+      "text": "Storage space running out on Android phone",
+      "icon": "💾",
+      "keywords": ["storage full", "space running out", "clear cache", "internal storage", "delete files"],
+      "guideIds": ["android-storage-cleanup"],
+      "category": "Speed & Performance"
+    },
+    {
+      "id": "android-wifi-issues",
+      "text": "Phone won't connect to Wi-Fi, Bluetooth, or mobile data",
+      "icon": "🌐",
+      "keywords": ["wifi not connecting", "bluetooth disconnects", "no internet", "mobile data error"],
+      "guideIds": ["android-wifi-bluetooth-reset"],
+      "category": "Internet & Network"
+    },
+    {
+      "id": "android-app-stopping",
+      "text": "App keeps stopping or Play Store won't download",
+      "icon": "💥",
+      "keywords": ["app keeps stopping", "crashing", "play store pending", "webview crash"],
+      "guideIds": ["android-app-crashing-playstore"],
+      "category": "Apps & Programs"
+    },
+    {
+      "id": "android-bootloop-stuck-logo",
+      "text": "Phone stuck on logo, bootloop, or won't turn on",
+      "icon": "💿",
+      "keywords": ["bootloop", "stuck on logo", "safe mode", "wont boot", "restart loop"],
+      "guideIds": ["android-bootloop-safemode", "android-recovery-cache-wipe"],
+      "category": "Boot & Startup"
+    },
+    {
+      "id": "android-lag-after-update",
+      "text": "Phone lagging or sluggish after major Android update",
+      "icon": "⚡",
+      "keywords": ["lag after update", "wipe cache partition", "slow phone", "recovery mode"],
+      "guideIds": ["android-recovery-cache-wipe", "android-battery-drain-overheating"],
+      "category": "Speed & Performance"
+    }
+  ]
+}

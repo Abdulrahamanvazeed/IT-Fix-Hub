@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" fill="none">
+  <!-- Gear -->
+  <path d="M32 8l4 6h8l2 8 6 4-2 8 4 6-6 4-2 8h-8l-4 6-4-6h-8l-2-8-6-4 2-8-4-6 6-4 2-8h8l4-6z" fill="#0d9488" opacity="0.9"/>
+  <!-- Inner circle -->
+  <circle cx="32" cy="32" r="10" fill="#f0fdfa"/>
+  <!-- Wrench handle -->
+  <rect x="38" y="36" width="18" height="5" rx="2" transform="rotate(45 38 36)" fill="#0d9488"/>
+  <!-- Wrench head -->
+  <path d="M22 18a8 8 0 0 1 10.5 10.5l-2-2a5 5 0 0 0-6.5-6.5l-2-2z" fill="#0d9488"/>
+  <path d="M20.5 20.5l4 4-5 5-4-4a8 8 0 0 0 5-5z" fill="#14b8a6"/>
+</svg>

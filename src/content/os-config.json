@@ -1,0 +1,47 @@
+{
+  "operatingSystems": [
+    {
+      "id": "windows",
+      "name": "Windows",
+      "icon": "🪟",
+      "description": "Windows 10 & 11 troubleshooting guides",
+      "available": true,
+      "default": true
+    },
+    {
+      "id": "macos",
+      "name": "macOS",
+      "icon": "🍎",
+      "description": "Apple Mac (Sonoma, Sequoia, Apple Silicon & Intel)",
+      "available": true
+    },
+    {
+      "id": "linux",
+      "name": "Linux",
+      "icon": "🐧",
+      "description": "Ubuntu, Debian, Fedora, Arch & server diagnostics",
+      "available": true
+    },
+    {
+      "id": "android",
+      "name": "Android",
+      "icon": "🤖",
+      "description": "Samsung One UI, Pixel, battery, bootloop & recovery",
+      "available": true
+    },
+    {
+      "id": "ios",
+      "name": "iOS",
+      "icon": "📱",
+      "description": "iPhone & iPad (iOS 17/18, DFU recovery, storage & sync)",
+      "available": true
+    },
+    {
+      "id": "dualboot",
+      "name": "Dual Boot",
+      "icon": "⚡",
+      "description": "Windows + Linux multiboot, GRUB recovery & EFI repairs",
+      "available": true
+    }
+  ]
+}

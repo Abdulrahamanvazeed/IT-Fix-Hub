@@ -1,0 +1,81 @@
+{
+  "guides": [
+    {
+      "id": "android-recovery-cache-wipe",
+      "title": "Booting into Android Recovery Mode & Wiping Cache Partition",
+      "symptom": "Phone is lagging severely after a major Android OS update or apps behaving strangely",
+      "description": "Enter the hardware Android Recovery menu and perform a clean 'Wipe Cache Partition' to resolve post-update bugs without losing data.",
+      "category": "disk-boot",
+      "categoryName": "Boot & Recovery",
+      "categoryIcon": "💿",
+      "keywords": ["wipe cache partition android", "recovery mode samsung", "android recovery key combination", "phone lag after update"],
+      "causes": [
+        "Old Dalvik/ART runtime compilation cache conflicting with updated system binaries after an OS update",
+        "Corrupted temporary recovery partition logs"
+      ],
+      "whyItWorks": "Android uses the cache partition to store system-level temporary files and ART compiler profiles. Wiping the cache partition deletes stale pre-compiled bytecode without touching `/data` (your apps, photos, accounts, and messages are completely safe).",
+      "steps": [
+        {
+          "instruction": "Prepare the device (Samsung requires USB cable connected)",
+          "detail": "Turn off your phone completely. On Samsung devices running modern One UI, connect the phone with a USB cable to a computer or headphones (the hardware recovery menu won't trigger on newer Samsungs without an active USB data connection).",
+          "adminRequired": false,
+          "backupAdvised": false
+        },
+        {
+          "instruction": "Press hardware recovery key combination",
+          "detail": "Press and HOLD the Power button + Volume UP button simultaneously. Keep holding both buttons until the brand logo appears and the recovery menu displays on screen, then release both keys.",
+          "adminRequired": false,
+          "backupAdvised": false
+        },
+        {
+          "instruction": "Navigate and select 'Wipe cache partition'",
+          "detail": "In Recovery mode, the touchscreen is disabled. Use Volume Down to scroll down to 'Wipe cache partition'. Press the Power button to select it. Scroll to 'Yes' and press Power to confirm. Wait 5 seconds until it says 'Cache wipe complete' at the bottom.",
+          "warning": "Do NOT select 'Wipe data / factory reset' unless you want to erase everything. Select 'Wipe cache partition' ONLY.",
+          "adminRequired": false,
+          "backupAdvised": false
+        },
+        {
+          "instruction": "Reboot the system",
+          "detail": "Press the Power button on 'Reboot system now'. The phone will restart normally, feeling much smoother as it rebuilds clean runtime caches.",
+          "adminRequired": false,
+          "backupAdvised": false
+        }
+      ]
+    },
+    {
+      "id": "android-bootloop-safemode",
+      "title": "Fix Android Stuck on Boot Screen or Bootloop (Safe Mode Recovery)",
+      "symptom": "Phone restarts continuously, gets stuck on the manufacturer logo, or won't finish booting",
+      "description": "Bypass third-party application crashes and bootloops by starting Android in Safe Mode to isolate and uninstall faulty software.",
+      "category": "disk-boot",
+      "categoryName": "Boot & Recovery",
+      "categoryIcon": "💿",
+      "keywords": ["android bootloop fix", "stuck on logo samsung", "safe mode android", "phone keeps restarting android"],
+      "causes": [
+        "Third-party launcher, theme, or app with root/accessibility privileges crashing system server on boot",
+        "Failed app update creating a persistent crash during boot sequence"
+      ],
+      "whyItWorks": "Safe Mode starts Android with only essential system apps running; all third-party downloaded apps are disabled. If the device boots cleanly in Safe Mode, you know with 100% certainty that the hardware is fine and a recently installed app caused the loop.",
+      "steps": [
+        {
+          "instruction": "Boot into Android Safe Mode using hardware buttons",
+          "detail": "Turn the phone off completely. Press and hold the Power button until the brand logo appears. As soon as the logo appears, RELEASE the Power button and immediately press and HOLD the Volume DOWN button. Keep holding Volume Down until the phone finishes booting into the home screen. You will see 'Safe mode' displayed in the bottom-left corner.",
+          "adminRequired": false,
+          "backupAdvised": false
+        },
+        {
+          "instruction": "Uninstall recently installed apps in Safe Mode",
+          "detail": "Go to Settings > Apps. Look through your installed apps and find whatever app was installed or updated just before the crashing began (especially antiviruses, cleaner apps, custom keyboards, or launchers). Tap the app and tap 'Uninstall'.",
+          "adminRequired": false,
+          "backupAdvised": false
+        },
+        {
+          "instruction": "Exit Safe Mode",
+          "detail": "Simply restart the phone normally (hold Power > Restart). The phone will boot into normal mode without the crashing application.",
+          "adminRequired": false,
+          "backupAdvised": false
+        }
+      ]
+    }
+  ]
+}

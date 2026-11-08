@@ -1,0 +1,120 @@
+{
+  "guides": [
+    {
+      "id": "macos-wifi-dropping",
+      "title": "Fix macOS Wi-Fi That Keeps Disconnecting or Dropping",
+      "symptom": "My Mac Wi-Fi drops randomly, shows an exclamation mark, or won't connect after sleep",
+      "description": "Diagnose and resolve intermittent Wi-Fi drops, DHCP lease failures, and corrupted network configuration files on Mac.",
+      "category": "network-connectivity",
+      "categoryName": "Network & Connectivity",
+      "categoryIcon": "🌐",
+      "keywords": ["mac wifi dropping", "macbook wifi disconnects", "renew dhcp lease mac", "systemconfiguration wifi", "wifi after sleep mac"],
+      "causes": [
+        "Corrupted airport and network preference plist files in SystemConfiguration",
+        "Expired or conflicting DHCP lease from the router",
+        "Private Wi-Fi Address MAC randomization creating handshake collisions with specific routers"
+      ],
+      "whyItWorks": "macOS stores network interface profiles in `/Library/Preferences/SystemConfiguration/`. Removing these corrupted plist files forces macOS to reconstruct fresh network interfaces. Renewing the DHCP lease forces a clean IP assignment from the router.",
+      "steps": [
+        {
+          "instruction": "Renew your DHCP lease",
+          "detail": "Open Apple menu () > System Settings > Wi-Fi. Click 'Details...' next to your connected Wi-Fi network. In the sidebar, select 'TCP/IP'. Click the 'Renew DHCP Lease' button, then click OK. This refreshes your IP address without disconnecting.",
+          "adminRequired": false,
+          "backupAdvised": false
+        },
+        {
+          "instruction": "Disable Private Wi-Fi Address for troublesome home/work routers",
+          "detail": "In System Settings > Wi-Fi > Details... next to your network, look for 'Private Wi-Fi address'. Set it to 'Off'. Some mesh Wi-Fi systems and corporate routers disconnect devices whose MAC address rotates periodically.",
+          "adminRequired": false,
+          "backupAdvised": false
+        },
+        {
+          "instruction": "Flush macOS DNS cache via Terminal",
+          "detail": "Open Terminal (Cmd+Space, type Terminal) and run:\nsudo dscacheutil -flushcache; sudo killall -HUP mDNSResponder\nEnter your administrator password. This clears poisoned or stalled domain lookups.",
+          "adminRequired": true,
+          "backupAdvised": false
+        },
+        {
+          "instruction": "Delete corrupted SystemConfiguration network preferences",
+          "detail": "Open Finder, press Cmd+Shift+G and paste:\n/Library/Preferences/SystemConfiguration/\nFind and move these files to Trash (or a backup folder):\n- com.apple.airport.preferences.plist\n- com.apple.network.identification.plist\n- NetworkInterfaces.plist\n- preferences.plist\nRestart your Mac. macOS will automatically regenerate clean network configuration files on boot.",
+          "warning": "This requires admin privileges and will reset your saved Wi-Fi networks and VPN profiles. You will need to re-enter your Wi-Fi password after restart.",
+          "adminRequired": true,
+          "backupAdvised": true
+        }
+      ]
+    },
+    {
+      "id": "macos-slow-beachball",
+      "title": "Fix Spinning Beach Ball of Death & Slow Mac Performance",
+      "symptom": "Mac freezes frequently, apps stop responding, or the spinning color wheel appears constantly",
+      "description": "Troubleshoot system freezes, track memory pressure in Activity Monitor, and disable resource-hogging background startup items.",
+      "category": "performance",
+      "categoryName": "Performance & Speed",
+      "categoryIcon": "⚡",
+      "keywords": ["spinning beach ball", "mac slow", "activity monitor memory pressure", "mac freeze", "macbook fan loud"],
+      "causes": [
+        "Memory pressure reaching the red zone, causing aggressive disk swapping",
+        "Runaway background processes (such as mdworker indexing or web helper threads)",
+        "Too many heavy Login Items launching automatically at boot"
+      ],
+      "whyItWorks": "The spinning beach ball indicates that an application's main thread event loop is blocked. Activity Monitor reveals whether the bottleneck is CPU starvation or RAM exhaustion (measured by macOS memory pressure). Killing locked processes and removing startup daemons restores fluid responsiveness.",
+      "steps": [
+        {
+          "instruction": "Open Activity Monitor and inspect CPU and Memory Pressure",
+          "detail": "Press Cmd+Space, type 'Activity Monitor', and press Return. Click the '% CPU' column header to sort descending. If an app is at 100%+ or shows in red as '(Not Responding)', select it and click the (X) button at the top > 'Force Quit'. Next, check the 'Memory' tab: look at the 'Memory Pressure' graph at the bottom. Green is healthy; yellow/red means you are out of RAM.",
+          "adminRequired": false,
+          "backupAdvised": false
+        },
+        {
+          "instruction": "Prune Login Items and Allow in Background daemons",
+          "detail": "Go to Apple menu () > System Settings > General > Login Items & Extensions. Under 'Open at Login', select unnecessary apps (like Spotify, Steam, Discord) and click the minus (-) button. Under 'Allow in the Background', turn off toggles for updaters and tools you do not actively need running 24/7.",
+          "adminRequired": false,
+          "backupAdvised": false
+        },
+        {
+          "instruction": "Restart Mac and reset WindowServer",
+          "detail": "Click Apple () > Restart... Uncheck 'Reopen windows when logging back in' and click Restart. A fresh restart clears out memory leaks in graphics and window rendering daemons (WindowServer) that accumulate over weeks of continuous uptime.",
+          "adminRequired": false,
+          "backupAdvised": false
+        }
+      ]
+    },
+    {
+      "id": "macos-printer-cups-reset",
+      "title": "Fix Mac Printer Showing Offline or Paused (Reset CUPS)",
+      "symptom": "Printer won't print from Mac, prints stay in queue, or printer status says 'Paused'",
+      "description": "Unjam stuck print queues, reset the macOS CUPS printing subsystem, and re-add network or AirPrint printers.",
+      "category": "printing",
+      "categoryName": "Printers & Hardware",
+      "categoryIcon": "🖨️",
+      "keywords": ["mac printer paused", "mac printer offline", "reset printing system mac", "cups mac print queue"],
+      "causes": [
+        "Stuck print spool job locking the CUPS daemon",
+        "Outdated third-party printer driver incompatible with current macOS version",
+        "AirPrint network discovery mDNS failure"
+      ],
+      "whyItWorks": "macOS handles all printing through CUPS (Common Unix Printing System). Resetting the printing system flushes all print queues, deletes corrupt driver caches, and restores default CUPS configuration files.",
+      "steps": [
+        {
+          "instruction": "Clear paused print queue",
+          "detail": "Open Apple menu () > System Settings > Printers & Scanners. Click on your printer and click 'Open Print Queue...'. If the toolbar shows a 'Resume' button with a play icon, click it. Select any stuck documents in the list and click the (X) delete button.",
+          "adminRequired": false,
+          "backupAdvised": false
+        },
+        {
+          "instruction": "Reset the macOS Printing System",
+          "detail": "In System Settings > Printers & Scanners, Control-click (or right-click) anywhere in the Printers list (or on your printer name). Select 'Reset Printing System...'. Confirm the prompt and enter your administrator password. This will wipe all queues and printer settings clean.",
+          "warning": "Resetting the printing system removes all installed printers and scanners. You will need to re-add your printer.",
+          "adminRequired": true,
+          "backupAdvised": false
+        },
+        {
+          "instruction": "Re-add printer using AirPrint or updated drivers",
+          "detail": "Click 'Add Printer, Scanner, or Fax...'. Select your printer when it appears on the local network or USB. Under 'Use:', make sure 'AirPrint' or 'Secure AirPrint' is chosen (which doesn't require third-party drivers) whenever possible. Click Add.",
+          "adminRequired": false,
+          "backupAdvised": false
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,110 @@
+{
+  "guides": [
+    {
+      "id": "android-first-steps-settings",
+      "title": "Android Interface Basics: Quick Settings, App Permissions, & Defaults",
+      "symptom": "New to Android, don't know where settings are, or wrong browser opens links",
+      "description": "Understand the Android swipe interface, configure Quick Settings tiles, manage app permissions, and set your default browser and phone apps.",
+      "category": "interface-basics",
+      "categoryName": "Android Basics & Setup",
+      "categoryIcon": "🤖",
+      "keywords": ["android basics", "quick settings android", "default browser android", "app permissions", "samsung settings"],
+      "causes": [
+        "Unfamiliarity with gesture navigation or two-finger notification shade swipe",
+        "Apps taking over default URL or calling intents"
+      ],
+      "whyItWorks": "Android uses intent filters to determine which installed app handles web links, phone calls, and media. Changing default apps in Settings registers your choice in Android's package manager service.",
+      "steps": [
+        {
+          "instruction": "Access the two-stage Quick Settings panel",
+          "detail": "Swipe down once from the very top of your screen to view notifications. Swipe down a second time (or swipe down with two fingers) to expand the full Quick Settings grid (Wi-Fi, Bluetooth, Flashlight, Airplane Mode, Do Not Disturb, and the Settings gear icon).",
+          "adminRequired": false,
+          "backupAdvised": false
+        },
+        {
+          "instruction": "Set your default browser and assistant app",
+          "detail": "Open Settings > Apps > 'Default apps' (or on Samsung: Settings > Apps > Choose default apps). Tap 'Browser app' and select Chrome, Firefox, or Brave. You can also configure default Caller ID, SMS, and Home launcher apps here.",
+          "adminRequired": false,
+          "backupAdvised": false
+        },
+        {
+          "instruction": "Audit app permissions (Camera, Location, Microphone)",
+          "detail": "Go to Settings > Privacy > Permission manager (or Security & privacy). Select 'Location' or 'Camera'. Review which apps have permission 'Allowed all the time', and change them to 'Allowed only while in use' or 'Don't allow'.",
+          "adminRequired": false,
+          "backupAdvised": false
+        }
+      ]
+    },
+    {
+      "id": "android-storage-cleanup",
+      "title": "Fixing 'Storage Space Running Out' on Android",
+      "symptom": "Phone shows 'Storage space running out: Some system functions may not work' or camera won't save photos",
+      "description": "Clear application caches, delete hidden WhatsApp media duplicates, and reclaim storage using Google Files.",
+      "category": "storage-memory",
+      "categoryName": "Storage & Memory",
+      "categoryIcon": "💾",
+      "keywords": ["storage space running out android", "clear cache android", "free space samsung", "google files junk", "internal storage full"],
+      "causes": [
+        "Social media apps (Instagram, TikTok, Telegram) accumulating gigabytes of cached media",
+        "Large leftover APK files and media in Download folder",
+        "Trash bin not emptied in Gallery and My Files"
+      ],
+      "whyItWorks": "Android apps cache assets in their private sandbox directories. Clearing an app's cache removes temporary files without deleting your logins, settings, or personal messages.",
+      "steps": [
+        {
+          "instruction": "Empty the Gallery and Files Trash bins",
+          "detail": "Deleting photos doesn't free space immediately — they sit in the Trash for 30 days. Open your Gallery app > tap the hamburger menu or albums > 'Trash' (or 'Recently Deleted') > tap 'Empty'. Repeat this in the 'My Files' or 'Files' app.",
+          "adminRequired": false,
+          "backupAdvised": false
+        },
+        {
+          "instruction": "Clear bloated app caches individually",
+          "detail": "Go to Settings > Apps > select a heavy app (e.g. Chrome, Instagram, TikTok) > Storage > tap 'Clear cache' at the bottom right. Repeat for other heavy apps. Notice: do NOT tap 'Clear data' unless you want to log out of the app.",
+          "adminRequired": false,
+          "backupAdvised": false
+        },
+        {
+          "instruction": "Use Google Files Clean tool for junk and duplicate cleanup",
+          "detail": "Open the 'Files by Google' app (install from Google Play Store if not installed). Tap the 'Clean' tab at the bottom left. Tap 'Clean' on Junk files, and review large unused videos and duplicate media to delete them with one tap.",
+          "adminRequired": false,
+          "backupAdvised": false
+        }
+      ]
+    },
+    {
+      "id": "android-app-crashing-playstore",
+      "title": "Fixing Apps Crashing & Google Play Store Download Errors",
+      "symptom": "Apps close immediately upon opening ('App keeps stopping') or Play Store gets stuck on 'Pending'",
+      "description": "Resolve app crashes by updating Android System WebView, clearing Play Services data, and fixing download queues.",
+      "category": "apps-programs",
+      "categoryName": "Apps & Play Store",
+      "categoryIcon": "📦",
+      "keywords": ["app keeps stopping android", "play store download pending", "android system webview crash", "clear play store cache"],
+      "causes": [
+        "Corrupted Android System WebView component causing all web-dependent apps to crash",
+        "Stuck Google Play Store download queue with corrupted cache"
+      ],
+      "whyItWorks": "Most modern Android apps render UI screens using Android System WebView. If this component has a corrupt update, apps crash instantly. Reinstalling WebView and clearing Play Store data restores clean app rendering.",
+      "steps": [
+        {
+          "instruction": "Update Android System WebView & Google Chrome",
+          "detail": "Open Google Play Store > tap your profile icon (top right) > 'Manage apps & device' > 'Updates available'. Find 'Android System WebView' and 'Google Chrome' and update both immediately.",
+          "adminRequired": false,
+          "backupAdvised": false
+        },
+        {
+          "instruction": "Clear Google Play Store cache and data",
+          "detail": "Go to Settings > Apps > Google Play Store > Storage > tap 'Clear cache' then 'Clear storage' (or 'Clear data'). This does not delete any installed apps or purchased licenses; it merely resets the download queue.",
+          "adminRequired": false,
+          "backupAdvised": false
+        },
+        {
+          "instruction": "Force stop and restart the crashing application",
+          "detail": "Go to Settings > Apps > find the crashing app > tap 'Force stop' > tap OK. Then tap Storage > 'Clear cache'. Restart your phone and launch the app again.",
+          "adminRequired": false,
+          "backupAdvised": false
+        }
+      ]
+    }
+  ]
+}

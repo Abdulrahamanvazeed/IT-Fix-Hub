@@ -1,0 +1,533 @@
+{
+  "guides": [
+    {
+      "id": "navigating-windows-desktop",
+      "title": "Navigating the Windows Desktop",
+      "symptom": "I don't know how to use the Windows desktop",
+      "description": "Learn the essential parts of the Windows desktop including the taskbar, Start menu, desktop icons, system tray, Action Center, and virtual desktops.",
+      "category": "interface-basics",
+      "categoryName": "Windows Interface Basics",
+      "categoryIcon": "🖥️",
+      "keywords": ["desktop", "taskbar", "start menu", "icons", "system tray", "action center", "virtual desktops", "beginner", "new to windows", "how to use windows"],
+      "causes": [
+        "You are new to Windows and unfamiliar with the desktop layout",
+        "You upgraded from an older version of Windows and the interface looks different",
+        "You switched from a Mac or another operating system"
+      ],
+      "whyItWorks": "The Windows desktop is designed like a physical desk — it has a main workspace (the desktop), a toolbar at the bottom (the taskbar), and a filing system (the Start menu). Once you understand what each part does and where it lives on the screen, using Windows becomes intuitive. Each element serves a specific purpose: the taskbar gives you quick access to running apps, the Start menu is your gateway to everything installed on the computer, and the system tray shows background services. Learning these building blocks is the foundation for everything else you will do on your PC.",
+      "steps": [
+        {
+          "instruction": "Understand the Desktop",
+          "detail": "The desktop is the main screen you see after your computer finishes starting up. Think of it like the top of a physical desk — it's where you can place shortcuts (small icons) to files, folders, and programs you use often. You can right-click (press the right mouse button) on any empty area of the desktop to get a menu that lets you change the wallpaper, create new folders, or adjust display settings. If you see icons on the desktop, you can double-click them (quickly press the left mouse button twice) to open them.",
+          "adminRequired": false,
+          "backupAdvised": false
+        },
+        {
+          "instruction": "Learn the Taskbar",
+          "detail": "The taskbar is the long horizontal bar at the very bottom of your screen. It is always visible (unless you have hidden it). On the left side, you'll see the Start button (the Windows logo). Next to it are pinned app icons — these are shortcuts to programs you use frequently. When you open a program, its icon appears on the taskbar with a small line underneath it to show it is running. You can click any icon on the taskbar to open or switch to that program. To pin a favorite app to the taskbar, open it first, then right-click its icon on the taskbar and select 'Pin to taskbar.'",
+          "adminRequired": false,
+          "backupAdvised": false
+        },
+        {
+          "instruction": "Explore the Start Menu",
+          "detail": "Click the Windows logo icon at the bottom-left corner of your screen (or press the Windows key on your keyboard — it's between Ctrl and Alt on the bottom-left). This opens the Start menu. In Windows 10, you'll see a list of all your installed apps on the left side and tiles (colored squares with app icons) on the right. In Windows 11, you'll see pinned apps at the top and a 'Recommended' section below. You can type the name of any app, file, or setting right after opening the Start menu to search for it — just start typing and results will appear. The power button (to shut down, restart, or sleep) is also located in the Start menu.",
+          "adminRequired": false,
+          "backupAdvised": false
+        },
+        {
+          "instruction": "Find the System Tray and Notification Area",
+          "detail": "Look at the bottom-right corner of your screen. You'll see small icons next to the clock — this area is called the system tray (or notification area). These icons represent programs and services running quietly in the background. Common icons include your Wi-Fi or network connection (looks like radio waves or a small monitor), volume/speaker icon (lets you adjust sound), battery icon (on laptops, shows remaining charge), and your antivirus. If you see a small upward-pointing arrow (^), click it to reveal additional hidden icons. You can click any of these icons to interact with that program or service.",
+          "adminRequired": false,
+          "backupAdvised": false
+        },
+        {
+          "instruction": "Open the Action Center (Quick Settings)",
+          "detail": "In Windows 10, click the speech-bubble icon at the far bottom-right of the taskbar to open the Action Center. This shows your recent notifications (like email alerts or system messages) and quick-toggle buttons for Wi-Fi, Bluetooth, Airplane mode, Night light, and more. In Windows 11, click on the Wi-Fi/speaker/battery cluster of icons in the bottom-right to open Quick Settings, and click the bell icon or the date/time to see notifications. You can also press the keyboard shortcut Windows key + A to open this panel quickly.",
+          "adminRequired": false,
+          "backupAdvised": false
+        },
+        {
+          "instruction": "Try Virtual Desktops",
+          "detail": "Virtual desktops let you create separate workspaces — for example, one desktop for work apps and another for personal browsing. To see your virtual desktops, press Windows key + Tab on your keyboard. You'll see all your open windows and a button at the top that says '+ New desktop' (Windows 10) or '+ New Desktop' (Windows 11). Click it to create a second desktop. You can switch between desktops by pressing Ctrl + Windows key + Left Arrow or Ctrl + Windows key + Right Arrow. To close a virtual desktop, press Windows key + Tab, hover over the desktop thumbnail at the top, and click the X that appears.",
+          "adminRequired": false,
+          "backupAdvised": false
+        }
+      ]
+    },
+    {
+      "id": "using-file-explorer",
+      "title": "Using File Explorer to Find Your Files",
+      "symptom": "I don't know how to find my files",
+      "description": "Learn how to open File Explorer, navigate through folders, use Quick Access, search for files, and organize your documents by creating folders and moving files.",
+      "category": "interface-basics",
+      "categoryName": "Windows Interface Basics",
+      "categoryIcon": "🖥️",
+      "keywords": ["file explorer", "find files", "folders", "documents", "downloads", "search files", "copy files", "move files", "quick access", "this pc", "navigate folders"],
+      "causes": [
+        "You downloaded a file and cannot find where it was saved",
+        "You are new to computers and don't understand the folder structure",
+        "You need to organize your files but don't know where to start"
+      ],
+      "whyItWorks": "File Explorer is Windows' built-in file management tool — think of it as a digital filing cabinet. Your computer organizes everything in a hierarchy: your hard drive (usually called C:) contains a 'Users' folder, which contains a folder with your username, and inside that are standard folders like Documents, Downloads, Pictures, and Desktop. Understanding this tree-like structure means you'll always know where your files live. Quick Access and the search feature act as shortcuts so you don't have to manually dig through every folder. Once you understand this system, finding, moving, and organizing files becomes second nature.",
+      "steps": [
+        {
+          "instruction": "Open File Explorer",
+          "detail": "There are several ways to open File Explorer. The easiest is to click the folder icon on your taskbar (it looks like a yellow folder and is usually pinned near the left side of the taskbar). You can also press the keyboard shortcut Windows key + E. Another way is to right-click the Start button (Windows logo) and select 'File Explorer' from the menu. When File Explorer opens, you'll see a window with folders and files — this is your starting point for finding anything on your computer.",
+          "adminRequired": false,
+          "backupAdvised": false
+        },
+        {
+          "instruction": "Understand the Folder Hierarchy",
+          "detail": "Your files are organized in a tree structure, like folders inside folders. At the top level is 'This PC,' which represents your entire computer. Inside This PC, you'll find your main hard drive, usually labeled 'Local Disk (C:)' or 'Windows (C:)'. Inside C: is a folder called 'Users,' and inside Users is a folder with your account name. Inside YOUR folder, you'll find the standard folders: Desktop, Documents, Downloads, Music, Pictures, and Videos. Most files you create or download go into one of these folders. To navigate this tree, click on 'This PC' in the left sidebar of File Explorer, then double-click on the C: drive, then Users, then your username to see your personal folders.",
+          "adminRequired": false,
+          "backupAdvised": false
+        },
+        {
+          "instruction": "Use Quick Access and the Left Sidebar",
+          "detail": "On the left side of File Explorer, you'll see a navigation panel (sidebar) with several sections. 'Quick Access' (or 'Home' in Windows 11) is at the top and shows your most frequently and recently used folders. Below that, you'll see shortcuts to Desktop, Downloads, Documents, Pictures, and other common folders. You can click any of these to jump directly to that folder without navigating through the whole tree. To add a folder to Quick Access, navigate to it, right-click on it, and select 'Pin to Quick Access.' This is a great way to create shortcuts to folders you use all the time.",
+          "adminRequired": false,
+          "backupAdvised": false
+        },
+        {
+          "instruction": "Search for Files",
+          "detail": "If you cannot find a file by browsing, use the search feature. In File Explorer, look for the search box in the top-right corner of the window. Click on it and type all or part of the file name. File Explorer will search the current folder and all its subfolders for matches. For example, if you're looking for a document called 'Budget Report,' navigate to your Documents folder first, then type 'budget' in the search box. If you have no idea which folder the file is in, click on 'This PC' first and then search — this will search your entire computer, though it may take longer. You can also press Ctrl + F to quickly jump to the search box.",
+          "adminRequired": false,
+          "backupAdvised": false
+        },
+        {
+          "instruction": "Create New Folders to Organize Files",
+          "detail": "Keeping your files organized in folders makes them much easier to find. To create a new folder, first navigate to where you want the folder to be (for example, inside your Documents folder). Then right-click on an empty space in the main area of File Explorer and select 'New' then 'Folder.' A new folder will appear with its name highlighted — type a descriptive name (like 'Work Projects' or 'Vacation Photos') and press Enter. You can also use the keyboard shortcut Ctrl + Shift + N to create a new folder instantly. You can create folders inside other folders to further organize your files.",
+          "adminRequired": false,
+          "backupAdvised": false
+        },
+        {
+          "instruction": "Move and Copy Files Between Folders",
+          "detail": "To move a file from one folder to another, you can use drag and drop or cut/paste. For cut/paste: click on the file once to select it (it will become highlighted), press Ctrl + X to cut it (this prepares it to be moved), navigate to the destination folder, and press Ctrl + V to paste it there. The file will disappear from the original location and appear in the new one. To COPY a file instead (keeping the original), use Ctrl + C instead of Ctrl + X, then Ctrl + V to paste. You can also right-click a file and choose 'Cut' or 'Copy' from the menu. To select multiple files at once, hold the Ctrl key and click each file, or hold Shift and click the first and last file to select a range.",
+          "adminRequired": false,
+          "backupAdvised": false
+        }
+      ]
+    },
+    {
+      "id": "customizing-display-settings",
+      "title": "Customizing Display Settings",
+      "symptom": "My screen looks wrong / too small / too big",
+      "description": "Fix display issues by adjusting screen resolution, scaling, brightness, orientation, and night light through Windows display settings.",
+      "category": "interface-basics",
+      "categoryName": "Windows Interface Basics",
+      "categoryIcon": "🖥️",
+      "keywords": ["screen resolution", "display settings", "screen too small", "screen too big", "text too small", "blurry screen", "brightness", "scaling", "multiple monitors", "night light", "screen orientation"],
+      "causes": [
+        "Your screen resolution is not set to the recommended value for your monitor",
+        "The display scaling (size of text and icons) is set too high or too low",
+        "Your brightness is turned too low or too high",
+        "A display driver update changed your settings",
+        "You connected an external monitor and the settings need adjustment"
+      ],
+      "whyItWorks": "Your monitor has a specific number of tiny dots (pixels) that make up the image you see. The 'resolution' setting tells Windows how many of those pixels to use — using the recommended resolution makes everything look sharp because it matches your monitor's physical pixel count. 'Scaling' controls how large text, icons, and windows appear — if everything looks too tiny, increasing the scale makes items bigger without reducing image quality. Adjusting these two settings (resolution and scaling) fixes most display problems because they ensure Windows is rendering images at the right size and clarity for your specific screen.",
+      "steps": [
+        {
+          "instruction": "Open Display Settings",
+          "detail": "Right-click on any empty area of your desktop (the main background screen) and select 'Display settings' from the menu that appears. This will open the Settings app directly to the Display page. Alternatively, you can click the Start button, click the gear icon (Settings), then go to System > Display. You'll see a visual representation of your monitor(s) at the top and various display options below.",
+          "adminRequired": false,
+          "backupAdvised": false
+        },
+        {
+          "instruction": "Adjust Display Scaling (Size of Text and Icons)",
+          "detail": "If text, icons, and windows appear too small or too large, look for the setting labeled 'Scale and layout' (Windows 10) or 'Scale' (Windows 11). You'll see a dropdown menu with percentage options like 100%, 125%, 150%, and 175%. The default is usually 100% or 125%. If everything looks too small and you're straining to read text, increase the percentage (try 125% or 150%). If everything looks too big and doesn't fit on screen, decrease it. After changing this setting, some apps may ask you to sign out and back in for the change to fully take effect. Windows will recommend a percentage — this is usually the best starting point.",
+          "adminRequired": false,
+          "backupAdvised": false
+        },
+        {
+          "instruction": "Set the Correct Screen Resolution",
+          "detail": "Scroll down in Display settings to find 'Display resolution.' Click the dropdown to see available resolutions (they appear as numbers like 1920 x 1080 or 2560 x 1440). One option will be marked '(Recommended)' — this is the resolution that matches your monitor's native pixel count and will give you the sharpest, clearest image. Select the recommended resolution. After changing, Windows will show a preview and ask 'Keep these display settings?' You have 15 seconds to click 'Keep changes' — if you don't (because the screen went black or looked wrong), it will automatically revert to the previous setting, so don't worry about getting stuck with a broken display.",
+          "warning": "If the screen goes black or looks garbled after changing resolution, don't panic — just wait 15 seconds and Windows will automatically revert to your previous settings.",
+          "adminRequired": false,
+          "backupAdvised": false
+        },
+        {
+          "instruction": "Adjust Brightness",
+          "detail": "If your screen is too dim or too bright, look for the 'Brightness' slider in Display settings (it's usually near the top under 'Brightness and color'). Drag the slider to the right to make the screen brighter or to the left to make it dimmer. On a laptop, you can also adjust brightness using keyboard shortcuts — look for sun icons on your function keys (usually F1/F2 or F5/F6). You may need to hold the 'Fn' key while pressing them. Note: on desktop computers with external monitors, the brightness slider may not appear in Windows — you'll need to use the physical buttons on your monitor instead.",
+          "adminRequired": false,
+          "backupAdvised": false
+        },
+        {
+          "instruction": "Enable Night Light to Reduce Eye Strain",
+          "detail": "Night Light reduces the blue light from your screen, giving it a warmer (more orange/yellow) tint that's easier on your eyes, especially at night. In Display settings, find the 'Night light' toggle and switch it on. Click 'Night light settings' (or the arrow next to it) to customize the strength of the warm tint using a slider and to schedule it to turn on automatically. You can set it to turn on at sunset and off at sunrise, or set custom hours. This feature does not affect how colors look in photos or videos you save — it only changes what you see on screen.",
+          "adminRequired": false,
+          "backupAdvised": false
+        },
+        {
+          "instruction": "Set Up Multiple Monitors (If Applicable)",
+          "detail": "If you have a second monitor connected, go to Settings > System > Display. You'll see two (or more) rectangles at the top labeled '1' and '2,' representing your monitors. Click 'Detect' if the second monitor doesn't appear. Below the monitor diagram, find the 'Multiple displays' dropdown and choose: 'Extend these displays' to use both screens as one large workspace (most common), 'Duplicate these displays' to show the same thing on both screens (useful for presentations), or 'Show only on 1/2' to use only one monitor. You can drag the numbered rectangles at the top to rearrange them to match the physical position of your monitors on your desk.",
+          "adminRequired": false,
+          "backupAdvised": false
+        }
+      ]
+    },
+    {
+      "id": "setting-default-browser",
+      "title": "Setting Your Default Web Browser",
+      "symptom": "Links open in the wrong browser",
+      "description": "Change your default web browser so that all links, web shortcuts, and web-related files open in your preferred browser like Chrome, Firefox, or Edge.",
+      "category": "settings-defaults",
+      "categoryName": "Default Settings & Apps",
+      "categoryIcon": "⚙️",
+      "keywords": ["default browser", "chrome default", "firefox default", "edge default", "links open wrong browser", "change browser", "web browser", "set default browser"],
+      "causes": [
+        "Windows sets Microsoft Edge as the default browser on new installations",
+        "A browser update or Windows update reset your default browser preference",
+        "You installed a new browser but didn't set it as the default when prompted",
+        "Another program changed your default browser without your knowledge"
+      ],
+      "whyItWorks": "When you click a link in an email, document, or any application, Windows checks its list of 'default apps' to decide which program to use to open that link. By default, Windows assigns Microsoft Edge as the handler for web links (HTTP and HTTPS protocols) and web file types (HTML, HTM, etc.). Changing the default browser tells Windows to redirect ALL web-related actions to your preferred browser instead. Once set, every clickable link everywhere on your system will open in the browser you chose.",
+      "steps": [
+        {
+          "instruction": "Install Your Preferred Browser First",
+          "detail": "Before setting a default browser, make sure the browser you want is already installed on your computer. If you want Google Chrome, open Microsoft Edge (the blue 'e' icon on your taskbar), go to google.com/chrome, and click 'Download Chrome.' For Mozilla Firefox, visit mozilla.org/firefox. Run the downloaded installer file by double-clicking it in your Downloads folder and follow the on-screen prompts. During installation, the browser may ask if you'd like to set it as your default — you can say yes, but we'll also do it manually in the next steps to make sure.",
+          "adminRequired": false,
+          "backupAdvised": false
+        },
+        {
+          "instruction": "Open Default Apps Settings",
+          "detail": "Click the Start button (Windows logo at the bottom-left), then click the gear icon to open Settings. In the Settings window, click on 'Apps,' then click on 'Default apps' in the left sidebar (Windows 10) or in the list (Windows 11). This page shows you which programs are currently set as defaults for various tasks like web browsing, email, music, and more.",
+          "adminRequired": false,
+          "backupAdvised": false
+        },
+        {
+          "instruction": "Set Your Default Browser (Windows 10)",
+          "detail": "In Windows 10, the Default Apps page shows categories like 'Web browser' with the currently selected browser underneath. Click on the browser name shown under 'Web browser' (it will probably say 'Microsoft Edge'). A popup will appear listing all installed browsers. Click on the browser you want to use (for example, 'Google Chrome' or 'Mozilla Firefox'). That's it for Windows 10 — your new browser is now the default for all web links. If you see a prompt saying 'Before you switch, try Microsoft Edge,' just click 'Switch anyway.'",
+          "adminRequired": false,
+          "backupAdvised": false
+        },
+        {
+          "instruction": "Set Your Default Browser (Windows 11)",
+          "detail": "Windows 11 requires a few more steps. On the Default Apps page, you'll see a search bar at the top — type the name of your preferred browser (e.g., 'Chrome' or 'Firefox') and click on it from the results. You'll see a list of file types and link types (like .htm, .html, HTTP, HTTPS). You need to change each one. Click on '.htm' — it will show the current default (likely Edge). Select your preferred browser from the list and click 'Set default.' Some browsers will have a 'Set default' button at the top of the page — click this first as it may change most or all of the file types at once. Repeat for any remaining file types (.html, .pdf if desired, HTTP, HTTPS) that still show the old browser.",
+          "adminRequired": false,
+          "backupAdvised": false
+        },
+        {
+          "instruction": "Verify the Change Works",
+          "detail": "To confirm your default browser was changed successfully, try clicking a link outside of any browser. For example, open the Settings app (Windows key + I), go to Settings > Privacy & security (or Privacy in Windows 10), and look for any blue hyperlinks on the page. You can also open a program like Notepad, type a website URL like https://www.google.com, and if your system supports it, try to open it. The simplest test: ask someone to email you a link, or find a link in any document, and click it. It should now open in your chosen browser. If it still opens in the old browser, go back to Default Apps settings and double-check that all web-related types (HTTP, HTTPS, .html, .htm) are set correctly.",
+          "adminRequired": false,
+          "backupAdvised": false
+        }
+      ]
+    },
+    {
+      "id": "setting-default-apps",
+      "title": "Setting Default Apps for Files and Programs",
+      "symptom": "Files open in the wrong program",
+      "description": "Learn how to change which programs open specific file types, such as choosing your preferred photo viewer, music player, video player, PDF reader, and email client.",
+      "category": "settings-defaults",
+      "categoryName": "Default Settings & Apps",
+      "categoryIcon": "⚙️",
+      "keywords": ["default apps", "open with", "wrong program", "file association", "change default program", "pdf reader", "photo viewer", "video player", "music player", "email client", "file type"],
+      "causes": [
+        "A new app installed itself as the default for certain file types without asking",
+        "A Windows update reset some of your default app choices",
+        "You never configured your preferred apps after setting up Windows",
+        "You installed a new program and want it to handle certain file types"
+      ],
+      "whyItWorks": "Windows maintains a list called 'file associations' that maps every file type (identified by its extension, like .jpg, .pdf, .mp3) to a specific program. When you double-click a file, Windows looks up its extension in this list and opens the associated program. By changing these associations, you tell Windows exactly which program should handle each type of file. This is a one-time setting per file type — once you change it, ALL files of that type will open in your chosen program until you change it again.",
+      "steps": [
+        {
+          "instruction": "Use 'Open With' for a Quick One-Time Change",
+          "detail": "If you just want to open a single file in a different program without permanently changing the default, right-click on the file, hover over 'Open with' in the menu, and you'll see a list of programs that can handle that file type. Click the one you want. The file will open in that program just this once — next time you double-click the same type of file, it will still use the original default program. This is useful when you occasionally want to use a different app but don't want to change your default permanently.",
+          "adminRequired": false,
+          "backupAdvised": false
+        },
+        {
+          "instruction": "Change the Default Program for a File Type via Right-Click",
+          "detail": "To permanently change which program opens a file type, find any file of that type (for example, a .jpg photo). Right-click on it and select 'Open with,' then click 'Choose another app' (Windows 10) or 'Choose another app on your PC' (Windows 11). In the window that appears, select the program you want to use. IMPORTANT: Check the box that says 'Always use this app to open .[extension] files' before clicking OK. If you don't check this box, it will only open the file once in that program without changing the default. After this, all files with that extension will open in your chosen program.",
+          "adminRequired": false,
+          "backupAdvised": false
+        },
+        {
+          "instruction": "Change Defaults Through Settings for Common Categories",
+          "detail": "Go to Settings > Apps > Default apps. In Windows 10, you'll see categories at the top: Email, Maps, Music player, Photo viewer, Video player, and Web browser. Click on any category to see the current default and select a different installed app. For example, if you want VLC to play all your videos, click under 'Video player,' select 'VLC media player,' and you're done. In Windows 11, scroll down on the Default Apps page to find 'Choose defaults by file type' or 'Choose default by link type' at the bottom for more granular control.",
+          "adminRequired": false,
+          "backupAdvised": false
+        },
+        {
+          "instruction": "Change Defaults by Specific File Type",
+          "detail": "For more control, you can set defaults for individual file extensions. Go to Settings > Apps > Default apps. In Windows 10, scroll down and click 'Choose default apps by file type' — this shows a long list of every file extension (.aac, .avi, .bmp, .csv, .doc, .docx, .jpg, .mp3, .mp4, .pdf, .png, .txt, .xlsx, etc.) with the currently associated program next to each one. Click the program name (or the '+' sign if none is set) next to any extension to change it. In Windows 11, you can type a file extension (like '.pdf') in the search box at the top of the Default Apps page to find it quickly. This method is ideal when you want precise control over exactly which app opens which file type.",
+          "adminRequired": false,
+          "backupAdvised": false
+        },
+        {
+          "instruction": "Reset All Default Apps to Microsoft Recommendations",
+          "detail": "If your defaults have become a mess and you want to start over, go to Settings > Apps > Default apps and scroll to the very bottom. You'll find a 'Reset' button under 'Reset to the Microsoft recommended defaults.' Click this button and all file type associations will be reset to the apps Microsoft recommends (typically Windows built-in apps like Photos, Movies & TV, Groove Music, and Edge). This will NOT uninstall any of your apps — it just changes which app opens which file type. After resetting, you can go back and re-configure just the defaults you care about using the methods described in the previous steps.",
+          "warning": "Resetting will change ALL your defaults back to Microsoft apps, so you'll need to re-set any custom choices you had. This does not uninstall any programs.",
+          "adminRequired": false,
+          "backupAdvised": false
+        }
+      ]
+    },
+    {
+      "id": "managing-startup-apps-beginner",
+      "title": "Managing Startup Apps to Speed Up Boot Time",
+      "symptom": "My computer takes forever to start up",
+      "description": "Learn what startup apps are, how they slow down your computer's boot time, and how to safely disable unnecessary ones using Settings and Task Manager.",
+      "category": "settings-defaults",
+      "categoryName": "Default Settings & Apps",
+      "categoryIcon": "⚙️",
+      "keywords": ["slow startup", "boot time", "startup apps", "startup programs", "computer slow to start", "disable startup", "task manager startup", "speed up boot", "takes forever to start"],
+      "causes": [
+        "Too many programs are set to launch automatically when Windows starts",
+        "Resource-heavy apps (like cloud storage, chat apps, or updaters) all start at once",
+        "Programs you installed added themselves to the startup list without asking",
+        "You have never reviewed or managed your startup programs"
+      ],
+      "whyItWorks": "When your computer starts up, Windows loads the operating system and then launches every program on the 'startup' list. Each startup program takes time and uses memory (RAM) and processing power (CPU). If you have 15 programs all trying to start at the same time, your computer is juggling all of them before you can even use it — which is why it feels slow. By disabling startup programs you don't need immediately, you reduce the workload during boot, allowing Windows and your essential apps to load much faster. The disabled apps aren't deleted — they simply won't start automatically, and you can still open them manually whenever you need them.",
+      "steps": [
+        {
+          "instruction": "View Startup Apps in Settings",
+          "detail": "Click the Start button, then click the gear icon to open Settings. Navigate to Apps > Startup (in Windows 10) or Apps > Startup (in Windows 11). You'll see a list of apps with toggle switches next to each one. Apps that are toggled ON (blue) will start automatically when you log into Windows. Apps toggled OFF (gray) will not. Under each app name, you may see a label like 'No impact,' 'Low impact,' 'Medium impact,' or 'High impact' — this tells you how much that app affects your startup speed. Focus on disabling 'High impact' and 'Medium impact' apps that you don't need running immediately.",
+          "adminRequired": false,
+          "backupAdvised": false
+        },
+        {
+          "instruction": "Understand What to Disable and What to Keep",
+          "detail": "Not all startup apps should be disabled. KEEP enabled: antivirus/security software (like Windows Security, Norton, McAfee), cloud backup services you rely on (like OneDrive if you use it for work), and accessibility tools you need. SAFE TO DISABLE: chat apps (Skype, Discord, Teams if not needed at login), music apps (Spotify), game launchers (Steam, Epic Games), browser helpers, manufacturer bloatware (apps from HP, Dell, Lenovo that you don't use), updaters for apps you rarely use (Adobe Updater, Java Updater), and any app you don't recognize that has 'High impact.' If you're unsure about an app, search its name on the internet to find out what it does before disabling it.",
+          "adminRequired": false,
+          "backupAdvised": false
+        },
+        {
+          "instruction": "Disable Startup Apps in Settings",
+          "detail": "In the Settings > Apps > Startup page, simply click the blue toggle switch next to any app you want to prevent from starting automatically. The switch will turn gray, meaning that app is now disabled from starting at login. You can disable multiple apps — go through the list and toggle off anything you don't need running right away. Remember, disabling a startup app does NOT uninstall it or delete it. The app is still fully installed and you can open it anytime by clicking on it in the Start menu. It just won't launch by itself anymore.",
+          "adminRequired": false,
+          "backupAdvised": false
+        },
+        {
+          "instruction": "Use Task Manager for More Detail",
+          "detail": "Task Manager provides even more information about startup apps. Press Ctrl + Shift + Esc to open Task Manager. If it opens in a simple view with just a list of running apps, click 'More details' at the bottom (Windows 10) or it may already show the full view (Windows 11). Click the 'Startup' tab at the top (Windows 10) or 'Startup apps' in the left sidebar (Windows 11). Here you'll see each startup app with columns: 'Name' (the app), 'Publisher' (who made it), 'Status' (Enabled or Disabled), and 'Startup impact' (None, Low, Medium, High). The 'Publisher' column is helpful for identifying unknown apps — if the publisher is a well-known company (Microsoft, Intel, NVIDIA), it's more likely to be important.",
+          "adminRequired": false,
+          "backupAdvised": false
+        },
+        {
+          "instruction": "Disable Startup Apps via Task Manager",
+          "detail": "In the Task Manager Startup tab, click on any app you want to disable to select it (it becomes highlighted). Then click the 'Disable' button in the bottom-right corner (Windows 10) or the 'Disable' button at the top (Windows 11). You can also right-click on any app and select 'Disable' from the context menu. The 'Status' column will change from 'Enabled' to 'Disabled.' To re-enable an app later if you change your mind, select it and click 'Enable.' After making your changes, close Task Manager and restart your computer to see the improvement in startup speed.",
+          "adminRequired": false,
+          "backupAdvised": false
+        },
+        {
+          "instruction": "Restart and Verify the Improvement",
+          "detail": "After disabling unnecessary startup apps, restart your computer by clicking Start > Power > Restart. Time how long it takes from pressing the power button (or clicking Restart) to having a fully usable desktop where you can open apps. Compare this to how long it took before. You should notice that your desktop loads faster and feels more responsive sooner after login. If you find that you disabled something you actually needed (for example, a cloud sync app that you rely on), go back to Settings > Apps > Startup and toggle it back on. You can always adjust these settings as your needs change.",
+          "adminRequired": false,
+          "backupAdvised": false
+        }
+      ]
+    },
+    {
+      "id": "managing-user-accounts",
+      "title": "Managing User Accounts on Windows",
+      "symptom": "I need to add or change user accounts",
+      "description": "Learn how to add new users, switch between accounts, set up a PIN for faster login, change your password, and understand the difference between Microsoft and Local accounts.",
+      "category": "accounts-security",
+      "categoryName": "Accounts & Security",
+      "categoryIcon": "🔒",
+      "keywords": ["user account", "add user", "new account", "switch account", "PIN login", "change password", "microsoft account", "local account", "family account", "sign in", "login", "multiple users"],
+      "causes": [
+        "You want to share your computer with a family member or coworker",
+        "You need to set up a separate account for a child with parental controls",
+        "You want a faster way to sign in (like a PIN instead of a long password)",
+        "You forgot your password and need to change or reset it",
+        "You want to understand the difference between a Microsoft account and a local account"
+      ],
+      "whyItWorks": "Windows user accounts create separate personal spaces on the same computer. Each account has its own desktop, files, settings, and installed app preferences — so one person's changes don't affect another person's setup. Think of it like having separate locked drawers in a shared desk. PINs work as a convenient alternative to passwords because they are stored locally on your device (not transmitted over the internet), making them both faster to type and secure. Microsoft accounts sync your settings across devices and give access to cloud services, while local accounts are simpler and fully offline. Understanding these account types lets you set up your computer exactly the way you need it.",
+      "steps": [
+        {
+          "instruction": "Understand Microsoft Account vs. Local Account",
+          "detail": "Windows offers two types of accounts. A Microsoft account uses an email address (like yourname@outlook.com or yourname@hotmail.com) and connects to Microsoft's cloud services — your settings, wallpaper, and saved Wi-Fi passwords can sync across multiple Windows devices, and you get access to the Microsoft Store, OneDrive cloud storage, and other Microsoft services. A Local account is an offline-only account that exists only on your specific computer — no email is needed, and nothing syncs to the cloud. For most home users, a Microsoft account is recommended because of the added convenience and recovery options. To check which type you have, go to Settings > Accounts > Your info and look for your email address (Microsoft account) or 'Local Account' under your name.",
+          "adminRequired": false,
+          "backupAdvised": false
+        },
+        {
+          "instruction": "Add a New User Account",
+          "detail": "Go to Settings > Accounts > Family & other users (Windows 10) or Settings > Accounts > Other users (Windows 11). Under 'Other users,' click 'Add account' (Windows 11) or 'Add someone else to this PC' (Windows 10). If the new user has a Microsoft account (an email address), type it in and click Next — Windows will set up their account connected to their Microsoft services. If they don't have a Microsoft account, click 'I don't have this person's sign-in information,' then click 'Add a user without a Microsoft account.' Enter a username and password for the new local account, set up security questions, and click Next. The new account is ready — they can sign in from the login screen.",
+          "adminRequired": true,
+          "backupAdvised": false
+        },
+        {
+          "instruction": "Switch Between User Accounts",
+          "detail": "If multiple people have accounts on the same computer, you can switch between them without closing your apps. Click the Start button, then click on your user name or profile icon at the bottom of the Start menu (Windows 10) or at the bottom-left (Windows 11). You'll see a list of other accounts on the computer. Click on the account you want to switch to. You'll be taken to the login screen where that person enters their password or PIN. Your account stays signed in and running in the background — when you switch back, all your apps and windows will be exactly as you left them. You can also press Ctrl + Alt + Delete and select 'Switch user.'",
+          "adminRequired": false,
+          "backupAdvised": false
+        },
+        {
+          "instruction": "Set Up a PIN for Faster Login",
+          "detail": "A PIN is a quick numeric code (4 or more digits) you can use instead of typing your full password every time you log in. Go to Settings > Accounts > Sign-in options. Look for 'PIN (Windows Hello)' and click on it, then click 'Set up' or 'Add.' You'll first need to verify your current password. Then enter your desired PIN — it must be at least 4 digits. You can check 'Include letters and symbols' if you want a more complex PIN, but a simple numeric PIN is fine for most people. Click OK. From now on, when you turn on your computer or lock your screen (Windows key + L), you can type your PIN instead of your full password. The PIN only works on this specific device, so even if someone learns it, they can't use it to sign into your Microsoft account on another computer.",
+          "adminRequired": false,
+          "backupAdvised": false
+        },
+        {
+          "instruction": "Change Your Password",
+          "detail": "Go to Settings > Accounts > Sign-in options. Click on 'Password' and then click 'Change.' You'll need to enter your current password first to prove your identity. Then enter your new password, confirm it by typing it again, and optionally add a password hint (a clue to remind you of the password — don't make this too obvious). Click Next, then Finish. If you have a Microsoft account, this changes your Microsoft account password everywhere — on the web, on Outlook, on all your devices. If you have a local account, it only changes the password on this specific computer. Choose a strong password that includes a mix of uppercase letters, lowercase letters, numbers, and special characters, and that is at least 8 characters long.",
+          "adminRequired": false,
+          "backupAdvised": false
+        }
+      ]
+    },
+    {
+      "id": "windows-updates-beginner",
+      "title": "Understanding and Managing Windows Updates",
+      "symptom": "Windows keeps asking me to update",
+      "description": "Learn why Windows updates are important, how to check for and install updates, how to schedule updates for convenient times, and how to set active hours so updates don't interrupt your work.",
+      "category": "accounts-security",
+      "categoryName": "Accounts & Security",
+      "categoryIcon": "🔒",
+      "keywords": ["windows update", "update computer", "pending updates", "restart to update", "schedule updates", "active hours", "update failed", "security update", "feature update", "windows keeps updating"],
+      "causes": [
+        "Windows has downloaded updates that need a restart to install",
+        "Your computer has been postponing updates and they have accumulated",
+        "A new security patch is available and Windows is urging you to install it",
+        "Active hours are not configured so Windows tries to restart at inconvenient times"
+      ],
+      "whyItWorks": "Windows updates fix security vulnerabilities (holes that hackers could use to access your computer), fix bugs that cause crashes or errors, improve performance, and occasionally add new features. Think of updates like regular maintenance on a car — they keep things running smoothly and safely. Without updates, your computer becomes increasingly vulnerable to viruses and malware, and software compatibility issues can pile up. By setting active hours and scheduling restarts, you get the benefits of updates without the interruption. Windows tries to be smart about when it restarts, but configuring these settings yourself ensures updates happen when it's actually convenient for you.",
+      "steps": [
+        {
+          "instruction": "Check for Updates",
+          "detail": "To see if your computer has any pending updates, go to Settings > Windows Update (Windows 11) or Settings > Update & Security > Windows Update (Windows 10). Click the 'Check for updates' button. Windows will connect to Microsoft's servers and search for any available updates. If updates are found, they will begin downloading automatically. You'll see their names, sizes, and download progress. Some updates are small security patches (a few megabytes) that install quickly, while others are larger feature updates (several gigabytes) that take longer. Let the download complete — you can keep using your computer while it downloads.",
+          "adminRequired": false,
+          "backupAdvised": false
+        },
+        {
+          "instruction": "Install Downloaded Updates",
+          "detail": "After updates finish downloading, some install automatically in the background. Others require a restart to complete installation. If a restart is needed, you'll see a message saying 'Restart required' or 'Restart now' with a button. You can click 'Restart now' if you're ready, or choose 'Schedule the restart' to pick a more convenient time (like overnight). Before restarting, save all your open work and close your programs. During the restart, you'll see a screen that says 'Working on updates, X% complete. Don't turn off your computer.' This process can take anywhere from 2 minutes to 30+ minutes depending on the update size.",
+          "warning": "NEVER turn off your computer or unplug it while it shows 'Working on updates' or 'Installing updates.' Interrupting an update can corrupt Windows and may require a complete reinstallation of your operating system.",
+          "adminRequired": false,
+          "backupAdvised": false
+        },
+        {
+          "instruction": "Set Active Hours to Prevent Interruptions",
+          "detail": "Active hours tell Windows when you're typically using your computer so it won't automatically restart during those times. Go to Settings > Windows Update (or Update & Security > Windows Update in Windows 10) and click on 'Advanced options.' Look for 'Active hours' and click on it. You can choose 'Manually' and set your own range — for example, 8:00 AM to 11:00 PM if you use your computer during the day and evening. Or choose 'Automatically' to let Windows learn from your usage patterns. Windows will only attempt to restart for updates outside of your active hours, so setting this correctly ensures updates never interrupt your work or movie-watching.",
+          "adminRequired": false,
+          "backupAdvised": false
+        },
+        {
+          "instruction": "Pause Updates Temporarily If Needed",
+          "detail": "If you're in the middle of an important project or presentation and don't want any update activity, you can temporarily pause updates. Go to Settings > Windows Update and click 'Pause updates' (you'll usually see an option to pause for 1 week). In Windows 11, you can click the dropdown next to the pause button to choose a duration (pause for 1 week, 2 weeks, or 3 weeks). While paused, Windows will not download or install any updates. After the pause period expires, Windows will need to check for and install any pending updates before you can pause again. This is a useful feature for short-term convenience, but don't leave updates paused indefinitely — security updates protect your computer from threats.",
+          "warning": "Pausing updates for extended periods leaves your computer vulnerable to security threats. Only pause temporarily when necessary and resume updates as soon as possible.",
+          "adminRequired": false,
+          "backupAdvised": false
+        },
+        {
+          "instruction": "View Update History",
+          "detail": "To see which updates have already been installed on your computer, go to Settings > Windows Update and click 'Update history' (Windows 11) or 'View update history' (Windows 10). You'll see a categorized list: 'Feature Updates' (major Windows versions), 'Quality Updates' (monthly security and bug fixes), 'Driver Updates' (hardware-related), and 'Definition Updates' (antivirus signatures). Each entry shows the update name, the date it was installed, and whether it succeeded or failed. If an update failed, you can click on it for more details. Knowing your update history is helpful when troubleshooting problems — if an issue started after a specific update, you can identify and report it.",
+          "adminRequired": false,
+          "backupAdvised": false
+        }
+      ]
+    },
+    {
+      "id": "installing-uninstalling-apps",
+      "title": "Installing and Uninstalling Apps and Programs",
+      "symptom": "I don't know how to install or remove programs",
+      "description": "Learn how to safely install apps from the Microsoft Store and the web, and how to properly uninstall programs you no longer need using Windows settings.",
+      "category": "apps-programs",
+      "categoryName": "Apps & Programs",
+      "categoryIcon": "📦",
+      "keywords": ["install app", "install program", "uninstall app", "remove program", "microsoft store", "download software", "exe installer", "msi installer", "add remove programs", "apps and features"],
+      "causes": [
+        "You need to install new software for work, school, or personal use",
+        "You want to remove programs you no longer use to free up space",
+        "You're unsure how to safely download and install software from the internet",
+        "A program isn't working properly and you want to uninstall and reinstall it"
+      ],
+      "whyItWorks": "Installing software on Windows can be done through two main channels: the Microsoft Store (which is curated and verified by Microsoft for safety) and direct downloads from the internet (which gives you access to more software but requires caution about the source). Both methods copy program files to your computer and register the program with Windows. When you uninstall through the proper channels (Settings > Apps), Windows runs the program's official uninstaller, which removes the program files, registry entries, and most associated data cleanly. Simply deleting a program's folder does NOT properly uninstall it — you must use the official uninstall method to fully remove it and reclaim the disk space and system resources it was using.",
+      "steps": [
+        {
+          "instruction": "Install Apps from the Microsoft Store",
+          "detail": "The Microsoft Store is the safest place to get apps because Microsoft checks them for security. Click the Start button and type 'Microsoft Store,' then click it to open. Use the search bar at the top to find the app you want (for example, search for 'Netflix,' 'Spotify,' or 'WhatsApp'). Click on the app in the search results to see its page, then click the 'Get' or 'Install' button. The app will download and install automatically. You may need to sign in with your Microsoft account. Once installed, you'll find the app in your Start menu. Microsoft Store apps update automatically in the background, so you always have the latest version.",
+          "adminRequired": false,
+          "backupAdvised": false
+        },
+        {
+          "instruction": "Install Programs Downloaded from the Web",
+          "detail": "Some programs (like Google Chrome, Zoom, or VLC) aren't available in the Microsoft Store and must be downloaded from the internet. Always download from the software's OFFICIAL website — for example, go to zoom.us for Zoom, google.com/chrome for Chrome, or videolan.org for VLC. Click the Download button on the website. The installer file (usually ending in .exe or .msi) will save to your Downloads folder. Open File Explorer (Windows key + E), go to your Downloads folder, and double-click the installer file. Follow the on-screen instructions — usually you just click 'Next' a few times, agree to terms, and click 'Install.' The program will install and usually appear in your Start menu.",
+          "warning": "ONLY download software from official websites or trusted sources. Avoid clicking 'Download' buttons on random websites, ads, or pop-ups — these can contain viruses or unwanted programs. If you're unsure whether a website is official, search for the software name on Google and use the first official result.",
+          "adminRequired": false,
+          "backupAdvised": false
+        },
+        {
+          "instruction": "Watch Out for Bundled Software During Installation",
+          "detail": "When installing programs from the web, pay close attention to each screen of the installer. Some installers include offers to install additional software you didn't ask for — things like browser toolbars, search engine changes, or other programs. These are often presented as checkboxes that are pre-checked. READ each screen carefully and UNCHECK any boxes for software you don't want. Look for options like 'Custom installation' or 'Advanced' instead of 'Express' or 'Recommended' — the custom option usually lets you decline the extra software. If an installer tries to change your browser homepage or default search engine, uncheck those options.",
+          "adminRequired": false,
+          "backupAdvised": false
+        },
+        {
+          "instruction": "Uninstall Apps Through Settings",
+          "detail": "To properly remove a program, go to Settings > Apps > Apps & features (Windows 10) or Settings > Apps > Installed apps (Windows 11). You'll see a list of everything installed on your computer. Scroll through the list or use the search box at the top to find the app you want to remove. Click on the app name (in Windows 10, click the app then click the 'Uninstall' button that appears; in Windows 11, click the three dots '...' next to the app name and select 'Uninstall'). A confirmation will appear — click 'Uninstall' again. The program's uninstaller will run and may ask you a few questions (like whether to keep your saved data). Follow the prompts until it's done. Some apps may require a restart to fully remove.",
+          "adminRequired": false,
+          "backupAdvised": false
+        },
+        {
+          "instruction": "Verify the App Is Fully Removed",
+          "detail": "After uninstalling, verify the program is gone. Check the Start menu — the app should no longer appear in your list of programs. Check the taskbar — if the app was pinned there, its icon may remain but will no longer work (right-click it and select 'Unpin from taskbar' to remove the icon). Go back to Settings > Apps > Apps & features and search for the app to confirm it's no longer listed. If the app still appears or seems to not have uninstalled properly, try restarting your computer and checking again. In rare cases, you may need to use the program's own uninstaller, which can sometimes be found by searching for 'Uninstall [app name]' in the Start menu.",
+          "adminRequired": false,
+          "backupAdvised": false
+        }
+      ]
+    },
+    {
+      "id": "managing-storage-space",
+      "title": "Managing Storage Space on Your Computer",
+      "symptom": "My computer says it's running out of space",
+      "description": "Learn how to check what's using your storage space, clean up unnecessary files using Disk Cleanup and Storage Sense, empty the Recycle Bin, and find large files taking up room.",
+      "category": "apps-programs",
+      "categoryName": "Apps & Programs",
+      "categoryIcon": "📦",
+      "keywords": ["storage full", "disk space", "low disk space", "running out of space", "free up space", "disk cleanup", "storage sense", "recycle bin", "large files", "delete files", "hard drive full", "C drive full"],
+      "causes": [
+        "Temporary files, system cache, and old Windows update files have accumulated",
+        "The Recycle Bin contains many deleted files that haven't been permanently removed yet",
+        "Downloaded files, videos, photos, or other large files are taking up space",
+        "Installed applications you no longer use are consuming storage",
+        "Windows update files from previous versions haven't been cleaned up"
+      ],
+      "whyItWorks": "Your computer's storage drive (usually a hard drive or SSD) has a fixed capacity. Over time, temporary files, cached data, old downloads, and system leftovers quietly accumulate and eat away at your available space. Windows needs free space to function properly — it uses it for virtual memory (a backup for RAM), temporary files during software installation, and Windows updates. When your drive gets too full (typically below 10-15% free), everything slows down. By using built-in tools like Disk Cleanup and Storage Sense, you remove files that Windows no longer needs — things like temporary internet files, old error reports, thumbnails cache, and previous Windows installation files. These cleanups are safe because they only target files that Windows itself has flagged as unnecessary.",
+      "steps": [
+        {
+          "instruction": "Check What's Using Your Storage Space",
+          "detail": "Go to Settings > System > Storage. You'll see a breakdown of how your main drive (C:) is being used, displayed as a horizontal bar and categorized by type: Apps & features, Temporary files, Documents, Pictures, Desktop, Music, Videos, OneDrive, and Other. Click on any category to see more details and which specific files or apps are using the most space. This overview helps you identify where your storage is going — you might discover you have 20 GB of files in Downloads you forgot about, or an old game taking up 50 GB. Take note of the biggest categories so you know where to focus your cleanup efforts.",
+          "adminRequired": false,
+          "backupAdvised": false
+        },
+        {
+          "instruction": "Empty the Recycle Bin",
+          "detail": "When you delete files on Windows, they aren't immediately erased — they go to the Recycle Bin, which sits on your desktop as a trash can icon. Files stay there until you empty it, so they're still using storage space. To check how much space the Recycle Bin is using, double-click the Recycle Bin icon on your desktop to open it. You'll see all your recently deleted files. If you're sure you don't need any of them, click 'Empty Recycle Bin' in the toolbar at the top (or right-click the Recycle Bin icon on the desktop and select 'Empty Recycle Bin'). A confirmation dialog will appear — click 'Yes.' This permanently deletes the files and frees up the space they were using. If you're not sure about some files, you can select specific files inside the Recycle Bin, right-click, and choose 'Restore' to put them back where they were before deleting the rest.",
+          "warning": "Once you empty the Recycle Bin, the files are permanently deleted and generally cannot be recovered without special software. Make sure you don't need any of the files before emptying it.",
+          "adminRequired": false,
+          "backupAdvised": false
+        },
+        {
+          "instruction": "Run Disk Cleanup",
+          "detail": "Disk Cleanup is a built-in Windows tool that safely removes temporary and unnecessary files. Click the Start button and type 'Disk Cleanup,' then click on it to open it. Select the drive you want to clean (usually C:) and click OK. The tool will scan and show you categories of files that can be safely deleted, along with how much space each category uses. Common categories include: 'Temporary Internet Files' (cached web pages), 'Temporary files' (created by programs), 'Thumbnails' (image previews), 'Recycle Bin' files, and 'Downloaded Program Files.' Check the boxes next to the categories you want to clean, then click OK and confirm with 'Delete Files.' For even more cleanup, click 'Clean up system files' — this rescans and adds options like 'Previous Windows installation(s)' and 'Windows Update Cleanup,' which can free up several gigabytes.",
+          "warning": "The 'Clean up system files' option may offer to remove 'Previous Windows installation(s)' — this can free up a lot of space (10+ GB), but after removing it, you will no longer be able to roll back to your previous version of Windows. Only delete this if your current Windows is working properly.",
+          "adminRequired": true,
+          "backupAdvised": false
+        },
+        {
+          "instruction": "Enable Storage Sense for Automatic Cleanup",
+          "detail": "Storage Sense is a Windows feature that automatically frees up space by deleting temporary files, emptying the Recycle Bin, and removing old files from your Downloads folder on a schedule. Go to Settings > System > Storage and find the 'Storage Sense' toggle — switch it ON. Click on 'Configure Storage Sense or run it now' (Windows 10) or click the arrow next to Storage Sense (Windows 11) to customize how it works. You can choose how often it runs (every day, every week, every month, or when disk space is low). You can also configure it to automatically delete files from the Recycle Bin after 1 day, 14 days, 30 days, or 60 days, and do the same for files in your Downloads folder. Click 'Clean now' to run it immediately for instant results.",
+          "adminRequired": false,
+          "backupAdvised": false
+        },
+        {
+          "instruction": "Find and Remove Large Files You No Longer Need",
+          "detail": "Sometimes the biggest space savings come from finding and deleting large files you forgot about. Go to Settings > System > Storage, then click on 'Temporary files' to see what Windows recommends removing — check the boxes and click 'Remove files.' Next, open File Explorer (Windows key + E) and navigate to your Downloads folder (in the left sidebar). Sort by size by clicking the 'Size' column header — the largest files appear at the top. Delete anything you no longer need (old installers, downloaded videos, large zip files). To find large files anywhere on your computer, open File Explorer, click on 'This PC,' then use the search box and type 'size:gigantic' to find files larger than 4 GB, or 'size:huge' for files between 1-4 GB. Review these results and delete files you no longer need.",
+          "adminRequired": false,
+          "backupAdvised": true
+        },
+        {
+          "instruction": "Uninstall Apps You No Longer Use",
+          "detail": "Installed programs can take up significant space. Go to Settings > Apps > Apps & features (Windows 10) or Settings > Apps > Installed apps (Windows 11). Click the 'Sort by' dropdown and choose 'Size' to see the largest apps first. Look through the list for programs you no longer use — old games, trial software, or programs you installed once and forgot about. Click on an app, then click 'Uninstall' and confirm. Some large programs (especially games) can free up 5-50+ GB of space each. Be careful not to uninstall anything you need — if you're not sure what a program does, search its name on the internet before removing it. You can always reinstall a program later if you realize you need it.",
+          "warning": "Only uninstall programs you recognize and are sure you no longer need. Do not uninstall anything with 'Microsoft,' 'Windows,' 'Driver,' or your computer manufacturer's name unless you are certain it's unnecessary — these may be required for your system to function properly.",
+          "adminRequired": false,
+          "backupAdvised": false
+        }
+      ]
+    }
+  ]
+}

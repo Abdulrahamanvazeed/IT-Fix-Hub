@@ -1,0 +1,691 @@
+{
+  "guides": [
+    {
+      "id": "managing-windows-services",
+      "title": "Troubleshoot Windows Services",
+      "symptom": "A Windows service keeps crashing, won't start, or is causing errors",
+      "description": "Learn to manage Windows services — diagnose service failures, fix dependencies, and restart or reconfigure services using services.msc and command-line tools.",
+      "category": "services-registry",
+      "categoryName": "Services & Registry",
+      "categoryIcon": "🔧",
+      "keywords": ["service", "services.msc", "service won't start", "service crashed", "service error", "sc command"],
+      "causes": [
+        "Service depends on another service that isn't running",
+        "Service executable file is corrupted or missing",
+        "Wrong logon account configured for the service",
+        "Port conflict with another application",
+        "Corrupted system files affecting the service"
+      ],
+      "whyItWorks": "Windows services are background programs that run without a user interface — they handle networking, printing, updates, and much more. Each service can depend on other services, run under specific user accounts, and use specific ports. When a service fails, the issue is usually a broken dependency chain, a corrupted executable, or wrong permissions. Checking dependencies ensures the foundation is solid, restarting the service clears temporary glitches, and Event Viewer reveals the specific error message that tells you exactly what went wrong.",
+      "steps": [
+        {
+          "instruction": "Open Services console and identify the service",
+          "detail": "Press Windows+R, type 'services.msc' and press Enter. Find the service in question — they're listed alphabetically. Note its Status (Running, Stopped, empty) and Startup Type (Automatic, Manual, Disabled). Double-click the service to see its properties.",
+          "adminRequired": true,
+          "backupAdvised": false
+        },
+        {
+          "instruction": "Check service dependencies",
+          "detail": "In the service Properties window, click the 'Dependencies' tab. This shows two lists: services this service depends on (must be running first) and services that depend on this service. Go back to the services list and check if all dependency services are running. Start any stopped dependencies first.",
+          "adminRequired": true,
+          "backupAdvised": false
+        },
+        {
+          "instruction": "Check the Logon account",
+          "detail": "In the service Properties > Log On tab, check which account runs the service. Most system services use 'Local System', 'Local Service', or 'Network Service'. If it was changed to a specific user account, that account may have had its password changed or lost permissions. Try setting it back to 'Local System account' if appropriate.",
+          "adminRequired": true,
+          "backupAdvised": false
+        },
+        {
+          "instruction": "Try starting the service manually",
+          "detail": "Click 'Start' in the service Properties, or right-click the service > Start. If it fails, note the exact error message and error code. Common errors:\n• Error 1053: Service did not respond in time — may be corrupted\n• Error 1067: Process terminated unexpectedly — check Event Viewer\n• Error 1069: Logon failure — check the Log On account\n• Error 5: Access denied — run services.msc as Administrator",
+          "adminRequired": true,
+          "backupAdvised": false
+        },
+        {
+          "instruction": "Check Event Viewer for detailed error information",
+          "detail": "Press Windows+R, type 'eventvwr.msc'. Navigate to Windows Logs > System (for system services) or Application (for app services). Look for Error or Warning events around the time the service failed. The event details will show the specific reason for the failure, including error codes and stack traces that can help identify the root cause.",
+          "adminRequired": true,
+          "backupAdvised": false
+        },
+        {
+          "instruction": "Use command-line tools for advanced management",
+          "detail": "Open Command Prompt as Administrator. Useful commands:\n\nsc query [servicename] — Check service status\nsc config [servicename] start= auto — Set startup type to automatic\nsc stop [servicename] — Stop a service\nsc start [servicename] — Start a service\nsc failure [servicename] reset= 86400 actions= restart/60000 — Auto-restart on failure\n\nReplace [servicename] with the actual service name (not display name). Find the service name in its Properties > General tab.",
+          "adminRequired": true,
+          "backupAdvised": false
+        },
+        {
+          "instruction": "Run SFC and DISM to repair corrupted service files",
+          "detail": "Open Command Prompt as Administrator:\n\nsfc /scannow\nDISM /Online /Cleanup-Image /RestoreHealth\n\nThese commands repair corrupted Windows system files, which may include service executables and DLLs. Restart after completion and try starting the service again.",
+          "adminRequired": true,
+          "backupAdvised": true
+        }
+      ]
+    },
+    {
+      "id": "registry-fixes-common",
+      "title": "Safe Registry Editing for Common Fixes",
+      "symptom": "I need to fix a setting that isn't available in the normal Settings app",
+      "description": "Learn how to safely navigate, back up, and edit the Windows Registry for fixes that go beyond the standard Settings interface.",
+      "category": "services-registry",
+      "categoryName": "Services & Registry",
+      "categoryIcon": "🔧",
+      "keywords": ["registry", "regedit", "registry editor", "registry fix", "registry backup", "HKEY"],
+      "causes": [
+        "Settings app doesn't expose all Windows configuration options",
+        "A previous program or malware changed registry values",
+        "Need to apply a fix recommended by Microsoft support",
+        "Want to disable or enable hidden Windows features"
+      ],
+      "whyItWorks": "The Windows Registry is a hierarchical database that stores all of Windows' configuration settings — from desktop wallpaper to deep system behavior. The Settings app only exposes a fraction of these settings. When you need to change something Settings can't reach, the Registry Editor (regedit) gives you direct access. Always backing up before editing ensures you can undo any mistakes. The registry is organized into 'hives' (HKEY_LOCAL_MACHINE for system-wide, HKEY_CURRENT_USER for your account), 'keys' (folders), and 'values' (individual settings).",
+      "steps": [
+        {
+          "instruction": "Create a System Restore point first",
+          "detail": "Before ANY registry editing, create a restore point. Search 'Create a restore point' in Start menu > click 'Create' > name it 'Before Registry Edit' > click Create. This lets you completely undo any changes by restoring from this point if something goes wrong.",
+          "warning": "CRITICAL: Always create a restore point before editing the registry. Incorrect registry changes can make Windows unbootable.",
+          "adminRequired": true,
+          "backupAdvised": true
+        },
+        {
+          "instruction": "Open Registry Editor and back up",
+          "detail": "Press Windows+R, type 'regedit' and press Enter. Click 'Yes' on the UAC prompt. Before making changes, export a backup: click File > Export > set 'Export range' to 'All' > save the .reg file to your Desktop. If anything goes wrong, you can double-click this file to restore the backup.",
+          "warning": "The Registry Editor has no undo button. Incorrect edits can cause programs to stop working or prevent Windows from starting. Always back up first.",
+          "adminRequired": true,
+          "backupAdvised": true
+        },
+        {
+          "instruction": "Navigate the registry structure",
+          "detail": "The registry has five root keys:\n\n• HKEY_CURRENT_USER (HKCU) — Settings for your user account\n• HKEY_LOCAL_MACHINE (HKLM) — System-wide settings for all users\n• HKEY_CLASSES_ROOT — File type associations\n• HKEY_USERS — Settings for all user profiles\n• HKEY_CURRENT_CONFIG — Hardware profile settings\n\nNavigate by expanding folders in the left pane. Values appear in the right pane. You can also press Ctrl+F to search or paste a full path into the address bar at the top.",
+          "adminRequired": true,
+          "backupAdvised": false
+        },
+        {
+          "instruction": "Common useful registry fixes",
+          "detail": "Here are frequently needed registry edits:\n\n1. DISABLE Bing search in Start menu: HKCU\\SOFTWARE\\Policies\\Microsoft\\Windows\\Explorer — create DWORD 'DisableSearchBoxSuggestions' set to 1\n\n2. SHOW file extensions always: HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\Explorer\\Advanced — set 'HideFileExt' to 0\n\n3. ADD 'Open Command Prompt here' to right-click: HKCU\\Software\\Classes\\Directory\\Background\\shell\\cmd — create key and set default value\n\n4. DISABLE lock screen (Pro only alternative): HKLM\\SOFTWARE\\Policies\\Microsoft\\Windows\\Personalization — create DWORD 'NoLockScreen' set to 1\n\nTo edit: navigate to the path, right-click in the right pane > New > DWORD (32-bit) Value, name it, then double-click to set the value.",
+          "adminRequired": true,
+          "backupAdvised": true
+        },
+        {
+          "instruction": "Modify an existing value",
+          "detail": "Navigate to the key containing the value you want to change. In the right pane, double-click the value name. A dialog appears showing the current data. Modify the value:\n\n• DWORD values: Enter a number (0 often means disabled, 1 means enabled)\n• String values: Enter text\n• Binary values: Edit the hex data (advanced)\n\nClick OK to save. Some changes take effect immediately, others require signing out or restarting.",
+          "adminRequired": true,
+          "backupAdvised": true
+        },
+        {
+          "instruction": "Restore from backup if needed",
+          "detail": "If something goes wrong after editing the registry:\n\n1. If Windows still works: Double-click the .reg backup file you exported to restore those values, or use System Restore to go back to your restore point.\n\n2. If Windows won't start: Boot to Advanced Startup Options (hold Shift while clicking Restart, or let it fail to boot 3 times) > Troubleshoot > Advanced options > System Restore > select your restore point.",
+          "adminRequired": true,
+          "backupAdvised": false
+        }
+      ]
+    },
+    {
+      "id": "group-policy-settings",
+      "title": "Configure Group Policy Settings",
+      "symptom": "I need to control Windows behavior that the Settings app doesn't offer",
+      "description": "Use Group Policy Editor (gpedit.msc) to manage advanced Windows settings like update behavior, lock screen, and security policies.",
+      "category": "services-registry",
+      "categoryName": "Services & Registry",
+      "categoryIcon": "🔧",
+      "keywords": ["group policy", "gpedit", "gpedit.msc", "policy", "GPO", "local policy", "windows policy"],
+      "causes": [
+        "Need to configure automatic update behavior",
+        "Want to disable features like Cortana or lock screen",
+        "Need to enforce security settings",
+        "Settings app doesn't provide the level of control needed"
+      ],
+      "whyItWorks": "Group Policy is Windows' enterprise-grade configuration tool. It allows IT administrators (and power users) to control nearly every aspect of Windows behavior through a structured interface. Policies override normal settings and are harder for programs or updates to change. When you modify a policy, Windows writes the corresponding registry values and enforces them. Running 'gpupdate /force' immediately applies changes without waiting for the regular refresh cycle.",
+      "steps": [
+        {
+          "instruction": "Check if your Windows edition supports Group Policy",
+          "detail": "Group Policy Editor (gpedit.msc) is only available on Windows 10/11 Pro, Enterprise, and Education editions. Home edition does NOT include it. To check your edition: Settings > System > About > look for 'Edition'. If you have Home edition, you'll need to use the Registry Editor instead for similar changes.",
+          "warning": "Group Policy Editor is NOT available on Windows Home editions. These steps only work on Pro, Enterprise, or Education editions.",
+          "adminRequired": false,
+          "backupAdvised": false
+        },
+        {
+          "instruction": "Open the Group Policy Editor",
+          "detail": "Press Windows+R, type 'gpedit.msc' and press Enter. The editor opens with two main sections:\n\n• Computer Configuration — Settings that apply to the entire computer regardless of who logs in\n• User Configuration — Settings that apply only to user accounts\n\nEach section has 'Software Settings', 'Windows Settings', and 'Administrative Templates'. Most useful policies are under Administrative Templates.",
+          "adminRequired": true,
+          "backupAdvised": false
+        },
+        {
+          "instruction": "Common useful Group Policy settings",
+          "detail": "Navigate to these paths for frequently needed settings:\n\n1. CONTROL Windows Update restart behavior:\nComputer Config > Admin Templates > Windows Components > Windows Update > 'No auto-restart with logged on users' — set to Enabled\n\n2. DISABLE Cortana:\nComputer Config > Admin Templates > Windows Components > Search > 'Allow Cortana' — set to Disabled\n\n3. DISABLE telemetry/diagnostic data:\nComputer Config > Admin Templates > Windows Components > Data Collection > 'Allow Diagnostic Data' — set to Enabled, select 'Diagnostic data off'\n\n4. PREVENT app installations:\nComputer Config > Admin Templates > Windows Components > Windows Installer > 'Prohibit User Installs' — set to Enabled\n\nDouble-click any policy to see its description, options, and help text.",
+          "adminRequired": true,
+          "backupAdvised": true
+        },
+        {
+          "instruction": "Apply policy changes immediately",
+          "detail": "After changing policies, open Command Prompt as Administrator and run:\n\ngpupdate /force\n\nThis immediately applies all policy changes. Without this, policies refresh automatically every 90 minutes. You may need to restart your computer for some policies to take full effect.",
+          "adminRequired": true,
+          "backupAdvised": false
+        },
+        {
+          "instruction": "Verify policies are applied",
+          "detail": "Open Command Prompt as Administrator and run:\n\ngpresult /r\n\nThis shows all currently applied group policies for both the computer and your user account. For a detailed HTML report:\n\ngpresult /h C:\\GPReport.html\n\nOpen the HTML file in your browser for a comprehensive view of all applied policies.",
+          "adminRequired": true,
+          "backupAdvised": false
+        }
+      ]
+    },
+    {
+      "id": "driver-issues-crashes",
+      "title": "Fix Driver Issues and Blue Screen Crashes",
+      "symptom": "I get blue screens (BSOD) or hardware stopped working after an update",
+      "description": "Diagnose and fix driver-related crashes including Blue Screen of Death (BSOD), from safe mode recovery to driver rollback and clean reinstallation.",
+      "category": "drivers-hardware",
+      "categoryName": "Drivers & Hardware",
+      "categoryIcon": "🔌",
+      "keywords": ["blue screen", "BSOD", "driver crash", "driver update", "driver rollback", "stop code", "IRQL_NOT_LESS_OR_EQUAL"],
+      "causes": [
+        "Windows Update installed an incompatible driver",
+        "Manually installed wrong or corrupted driver",
+        "Driver conflict between two hardware devices",
+        "Hardware failure that the driver can't handle",
+        "Corrupted driver files on disk"
+      ],
+      "whyItWorks": "Drivers are the software that lets Windows communicate with hardware (graphics cards, network adapters, USB devices, etc.). When a driver has a bug, is incompatible, or is corrupted, it can cause a system crash (Blue Screen of Death) because drivers run with high system privileges. Rolling back to a previous working driver undoes the bad update. Safe Mode loads only essential drivers, letting you fix the problem without the faulty driver interfering. The BSOD stop code tells you exactly which driver or component crashed.",
+      "steps": [
+        {
+          "instruction": "Note the Blue Screen stop code",
+          "detail": "When you get a Blue Screen, note the stop code shown at the bottom (e.g., IRQL_NOT_LESS_OR_EQUAL, DRIVER_IRQL_NOT_LESS_OR_EQUAL, SYSTEM_SERVICE_EXCEPTION, VIDEO_TDR_FAILURE). Also note any file name mentioned (e.g., nvlddmkm.sys = NVIDIA driver, igdkmd64.sys = Intel graphics). This tells you which driver is likely responsible.\n\nCommon stop codes:\n• VIDEO_TDR_FAILURE — Graphics driver crash\n• IRQL_NOT_LESS_OR_EQUAL — Usually a network or USB driver\n• SYSTEM_SERVICE_EXCEPTION — Can be any driver\n• KMODE_EXCEPTION_NOT_HANDLED — Often a specific driver mentioned",
+          "adminRequired": false,
+          "backupAdvised": false
+        },
+        {
+          "instruction": "Boot into Safe Mode",
+          "detail": "If Windows keeps crashing: let it fail to boot 3 times and it will enter Automatic Repair > Advanced options > Startup Settings > Restart > press 4 or F4 for Safe Mode (or 5/F5 for Safe Mode with Networking).\n\nIf Windows still works: Hold Shift while clicking Start > Power > Restart. Then Troubleshoot > Advanced options > Startup Settings > Restart > press 4.\n\nSafe Mode loads minimal drivers so you can fix the problematic one.",
+          "adminRequired": false,
+          "backupAdvised": false
+        },
+        {
+          "instruction": "Roll back the problematic driver",
+          "detail": "In Safe Mode (or normal mode if stable), open Device Manager (Windows+X > Device Manager). Find the device with the problematic driver (look for devices with yellow triangle warnings). Right-click > Properties > Driver tab > click 'Roll Back Driver'. If available, this reverts to the previously installed driver. If the button is grayed out, the previous driver wasn't saved.",
+          "adminRequired": true,
+          "backupAdvised": false
+        },
+        {
+          "instruction": "Uninstall and reinstall the driver",
+          "detail": "In Device Manager, right-click the device > 'Uninstall device'. CHECK the box 'Delete the driver software for this device' (important!). Click Uninstall. Restart your computer. Windows will install a default driver.\n\nThen download the latest stable driver from the manufacturer's website (NOT from third-party driver update tools):\n• NVIDIA: nvidia.com/drivers\n• AMD: amd.com/en/support\n• Intel: intel.com/download\n• Others: check the device manufacturer's support page",
+          "warning": "Uninstalling a graphics driver will temporarily reduce your screen resolution. This is normal and will be fixed once the new driver is installed.",
+          "adminRequired": true,
+          "backupAdvised": false
+        },
+        {
+          "instruction": "Block Windows from auto-updating the driver",
+          "detail": "If Windows keeps reinstalling a problematic driver via Windows Update, you can block it. Open Command Prompt as Administrator and run the driver blocking tool:\n\n1. Download 'Show or Hide Updates' troubleshooter from Microsoft (search 'wushowhide.diagcab')\n2. Run it and select 'Hide updates'\n3. Select the driver update you want to block\n4. Click Next to hide it from Windows Update\n\nAlternatively via Group Policy (Pro editions): Computer Configuration > Admin Templates > Windows Components > Windows Update > 'Do not include drivers with Windows Updates' — Enabled.",
+          "adminRequired": true,
+          "backupAdvised": false
+        },
+        {
+          "instruction": "Use Driver Verifier to find the culprit (advanced)",
+          "detail": "If you can't identify which driver is crashing, open Command Prompt as Admin and run:\n\nverifier /standard /all\n\nRestart your computer. Driver Verifier applies extra stress-testing to all drivers. If a driver is faulty, it will crash immediately with the driver name in the BSOD. After identifying the driver, disable Verifier with:\n\nverifier /reset\n\nAnd restart again.",
+          "warning": "Driver Verifier WILL cause a blue screen if any driver has issues. Only use this for diagnosis. Make sure you know how to boot into Safe Mode to disable it.",
+          "adminRequired": true,
+          "backupAdvised": true
+        }
+      ]
+    },
+    {
+      "id": "device-manager-troubleshooting",
+      "title": "Fix Device Manager Errors and Unknown Devices",
+      "symptom": "Device Manager shows errors (yellow triangles) or unknown devices",
+      "description": "Resolve Device Manager error codes, identify unknown devices, and install the correct drivers.",
+      "category": "drivers-hardware",
+      "categoryName": "Drivers & Hardware",
+      "categoryIcon": "🔌",
+      "keywords": ["device manager", "unknown device", "error code", "yellow triangle", "code 10", "code 28", "code 43", "hardware ID"],
+      "causes": [
+        "Driver not installed for a device (Code 28)",
+        "Device failed to start due to driver issues (Code 10)",
+        "Device reported problems to Windows (Code 43)",
+        "Driver was blocked or is incompatible (Code 39, 52)",
+        "Hardware failure or connection issue"
+      ],
+      "whyItWorks": "Device Manager is Windows' hardware management tool. Each device in your computer needs a driver — software that tells Windows how to communicate with it. Error codes indicate specific problems: Code 28 means no driver is installed, Code 10 means the driver loaded but the device won't start, Code 43 means the device reported a problem. By identifying the device through its Hardware ID and finding the correct driver from the manufacturer, you establish proper communication between Windows and the hardware.",
+      "steps": [
+        {
+          "instruction": "Identify the error code",
+          "detail": "Open Device Manager (Windows+X > Device Manager). Look for devices with yellow warning triangles. Right-click the device > Properties > General tab. Read the 'Device status' message and note the error code.\n\nCommon codes:\n• Code 10 — 'This device cannot start' — driver or hardware issue\n• Code 28 — 'Drivers not installed' — need to find and install driver\n• Code 31 — 'Not working properly' — reinstall driver\n• Code 39 — 'Cannot load driver' — corrupted or blocked driver\n• Code 43 — 'Device reported a problem' — hardware or driver failure\n• Code 52 — 'Driver not signed' — needs signed driver",
+          "adminRequired": false,
+          "backupAdvised": false
+        },
+        {
+          "instruction": "Find the Hardware ID for unknown devices",
+          "detail": "For unknown devices without a name, right-click > Properties > Details tab. From the 'Property' dropdown, select 'Hardware Ids'. You'll see IDs like 'PCI\\VEN_8086&DEV_1E3A' or 'USB\\VID_046D&PID_C52B'. Copy the first Hardware ID. Search for this ID on Google or at devid.info to identify the device and find its driver.",
+          "adminRequired": false,
+          "backupAdvised": false
+        },
+        {
+          "instruction": "Try automatic driver update",
+          "detail": "Right-click the problem device > 'Update driver' > 'Search automatically for drivers'. Windows will check its driver database and Windows Update for a matching driver. If it finds one, it will install it automatically. This works for many common devices but may not find drivers for specialized hardware.",
+          "adminRequired": true,
+          "backupAdvised": false
+        },
+        {
+          "instruction": "Download driver from the manufacturer",
+          "detail": "Once you know what the device is (from step 2), go to the manufacturer's website and download the driver:\n\n• For laptops: Go to the laptop manufacturer's support page (dell.com/support, support.hp.com, support.lenovo.com), enter your model number, and download the driver\n• For specific components: Go to the component manufacturer (Intel, AMD, Realtek, etc.)\n• For USB peripherals: Go to the peripheral manufacturer (Logitech, etc.)\n\nRun the downloaded installer and follow the prompts.",
+          "adminRequired": true,
+          "backupAdvised": false
+        },
+        {
+          "instruction": "Clean reinstall the driver",
+          "detail": "If updating doesn't work, do a clean reinstall. Right-click the device > 'Uninstall device'. CHECK 'Delete the driver software for this device'. Click Uninstall. Restart your computer. Then install the driver you downloaded from the manufacturer. A clean install removes any corrupted driver files that might be causing the error.",
+          "adminRequired": true,
+          "backupAdvised": false
+        },
+        {
+          "instruction": "Try a different USB port or check connections",
+          "detail": "For USB devices with Code 43 or Code 10: try a different USB port (use ports directly on the computer, not a hub). For internal hardware: power off the computer, open the case, and reseat the component (remove and re-insert it). Sometimes a loose connection causes driver errors. If the device fails in multiple ports/computers, the hardware itself may be faulty.",
+          "adminRequired": false,
+          "backupAdvised": false
+        }
+      ]
+    },
+    {
+      "id": "using-event-viewer",
+      "title": "Using Event Viewer to Diagnose Problems",
+      "symptom": "I need to figure out why my computer crashed or an application failed",
+      "description": "Learn to use Windows Event Viewer to find crash logs, error details, and diagnose system and application failures.",
+      "category": "event-logs",
+      "categoryName": "Event Logs & Diagnostics",
+      "categoryIcon": "📋",
+      "keywords": ["event viewer", "event log", "eventvwr", "crash log", "error log", "event ID", "diagnostics"],
+      "causes": [
+        "Need to investigate why an application crashed",
+        "System crashed (BSOD) and need to find the cause",
+        "Service failed to start and need detailed error info",
+        "Recurring error that needs diagnosis",
+        "Security event investigation"
+      ],
+      "whyItWorks": "Windows continuously logs every significant event — application crashes, service failures, driver errors, security events, and system state changes — to the Event Viewer. Each event has an ID, source, level (Information, Warning, Error, Critical), and detailed description. When something goes wrong, the event log contains the exact timestamp, the component that failed, and often the specific error code and description. This is the same tool professional IT technicians use to diagnose problems, and knowing how to read it transforms guesswork into informed troubleshooting.",
+      "steps": [
+        {
+          "instruction": "Open Event Viewer",
+          "detail": "Press Windows+R, type 'eventvwr.msc' and press Enter. Or search 'Event Viewer' in the Start menu. The left pane shows the log categories, the middle pane shows events, and the bottom pane shows details of the selected event.",
+          "adminRequired": true,
+          "backupAdvised": false
+        },
+        {
+          "instruction": "Navigate to the right log",
+          "detail": "Expand 'Windows Logs' in the left pane. The main logs are:\n\n• Application — Application crashes, errors, and warnings (Office, browsers, games, etc.)\n• System — Driver failures, service errors, Windows component issues, BSOD info\n• Security — Login attempts, permission changes, audit events\n• Setup — Windows Update installation logs\n\nFor most troubleshooting, start with System (for crashes and hardware) and Application (for app problems).",
+          "adminRequired": true,
+          "backupAdvised": false
+        },
+        {
+          "instruction": "Filter events to find errors",
+          "detail": "With a log selected, click 'Filter Current Log' in the right action pane. Check 'Critical' and 'Error' under Event Level. You can also set a time range using 'Logged' to focus on when the problem occurred. Click OK. This hides all the informational noise and shows only the problems.",
+          "adminRequired": true,
+          "backupAdvised": false
+        },
+        {
+          "instruction": "Read event details",
+          "detail": "Click on an error event. The bottom pane shows:\n\n• Source — The component that logged the event (e.g., 'Application Error', 'BugCheck', 'Service Control Manager')\n• Event ID — A specific number identifying the type of event. Search 'Event ID [number] [source]' on Google for explanations\n• Description — Detailed text explaining what happened, often including file names, error codes, and exception details\n• For BSODs: Look for Event ID 1001 from source 'BugCheck' — it contains the stop code and parameters from the blue screen",
+          "adminRequired": true,
+          "backupAdvised": false
+        },
+        {
+          "instruction": "Look up Event IDs online",
+          "detail": "Take the Event ID number and Source from the event and search online: 'Event ID 1001 BugCheck' or 'Event ID 7034 Service Control Manager'. Microsoft's documentation and community forums often explain exactly what each event means and how to fix it. The website eventid.net is also a useful reference for common Event IDs.",
+          "adminRequired": false,
+          "backupAdvised": false
+        },
+        {
+          "instruction": "Create a Custom View for ongoing monitoring",
+          "detail": "In Event Viewer, click 'Create Custom View' in the right pane. Set Event Level to Critical and Error, select the logs you want to monitor (System and Application), and give your view a name like 'All Errors'. This appears under 'Custom Views' and gives you a single place to check all errors across multiple logs. Useful for tracking recurring problems.",
+          "adminRequired": true,
+          "backupAdvised": false
+        },
+        {
+          "instruction": "Export logs for sharing or analysis",
+          "detail": "Right-click a log > 'Save All Events As' to save as .evtx file (can be opened in Event Viewer on another PC). Or 'Save All Events As' with CSV format for analysis in Excel. This is useful when seeking help on forums or from IT support — they can analyze your event logs to diagnose the issue remotely.",
+          "adminRequired": true,
+          "backupAdvised": false
+        }
+      ]
+    },
+    {
+      "id": "reliability-monitor-diagnostics",
+      "title": "Using Reliability Monitor to Track Instability",
+      "symptom": "My computer has been unstable and I need to find the pattern of failures",
+      "description": "Use Reliability Monitor to visualize your computer's stability history, correlate crashes with changes, and identify what's causing instability.",
+      "category": "event-logs",
+      "categoryName": "Event Logs & Diagnostics",
+      "categoryIcon": "📋",
+      "keywords": ["reliability monitor", "stability", "crash history", "perfmon", "reliability", "failure pattern"],
+      "causes": [
+        "Need to identify a pattern of recurring failures",
+        "Computer became unstable after a specific change",
+        "Want to correlate software installations with crashes",
+        "Need a visual timeline of system health"
+      ],
+      "whyItWorks": "Reliability Monitor is a user-friendly timeline that visualizes your computer's stability over time. It plots a reliability index (1-10 scale) and marks every application crash, Windows failure, hardware error, and software install/uninstall on a day-by-day timeline. By looking at this visual history, you can see exactly when problems started and what changed just before — whether it was a Windows Update, a new app installation, or a driver change. This correlation often reveals the root cause.",
+      "steps": [
+        {
+          "instruction": "Open Reliability Monitor",
+          "detail": "Search for 'Reliability' in the Start menu and click 'View reliability history'. Or press Windows+R, type 'perfmon /rel' and press Enter. The monitor shows a graph of your system's reliability over time with a 1-10 stability index.",
+          "adminRequired": false,
+          "backupAdvised": false
+        },
+        {
+          "instruction": "Read the stability timeline",
+          "detail": "The graph shows your reliability index over time. A stable system stays near 10. Drops indicate problems. Below the graph, you'll see icons for each day:\n\n• Red X circles — Application failures and Windows failures (crashes, hangs)\n• Yellow warning triangles — Miscellaneous warnings\n• Blue info circles — Software install/uninstall/update events\n\nClick on any day to see the specific events that occurred.",
+          "adminRequired": false,
+          "backupAdvised": false
+        },
+        {
+          "instruction": "Identify when instability started",
+          "detail": "Look at the timeline to find when your reliability index started dropping. Click on the day just before the drop started. Check the 'Informational events' section — this shows what was installed or updated that day. If a new program was installed, a driver was updated, or a Windows Update was applied right before the instability began, that's your likely culprit.",
+          "adminRequired": false,
+          "backupAdvised": false
+        },
+        {
+          "instruction": "Review failure details",
+          "detail": "Click on a day with failures (red X icons). The lower section shows each failure with:\n\n• Application — Which program crashed\n• Description — 'Stopped working', 'Stopped responding', etc.\n• Failure bucket — Technical identifier for the specific crash type\n• Date — Exact time of the failure\n\nIf the same application keeps appearing in failures, that application needs to be updated, repaired, or reinstalled.",
+          "adminRequired": false,
+          "backupAdvised": false
+        },
+        {
+          "instruction": "Take action based on findings",
+          "detail": "Based on what you found:\n\n• If a specific app keeps crashing: Update or reinstall it, check its compatibility mode settings\n• If crashes started after a Windows Update: Check for newer updates that fix the issue, or uninstall the problematic update (Settings > Windows Update > Update History > Uninstall updates)\n• If crashes started after a driver update: Roll back the driver (Device Manager > device > Properties > Driver tab > Roll Back)\n• If crashes started after installing new software: Uninstall that software and test stability\n\nClick 'Check for solutions to all problems' at the bottom of Reliability Monitor for automated help.",
+          "adminRequired": false,
+          "backupAdvised": false
+        }
+      ]
+    },
+    {
+      "id": "boot-repair-windows",
+      "title": "Repair Windows When It Won't Start",
+      "symptom": "Windows won't boot — stuck on blue screen, black screen, or loading loop",
+      "description": "Complete guide to fixing Windows boot failures using recovery tools, from Automatic Repair to manual boot record reconstruction.",
+      "category": "disk-boot",
+      "categoryName": "Disk & Boot Repair",
+      "categoryIcon": "💿",
+      "keywords": ["won't boot", "won't start", "boot failure", "startup repair", "recovery", "bootrec", "black screen", "boot loop"],
+      "causes": [
+        "Corrupted boot configuration data (BCD)",
+        "Bad Windows Update or driver that prevents booting",
+        "Corrupted system files essential for startup",
+        "Disk failure or file system corruption",
+        "Master Boot Record (MBR) corruption"
+      ],
+      "whyItWorks": "Windows boot follows a specific chain: BIOS/UEFI → Boot Manager → Windows Boot Loader → Windows kernel → Desktop. If any link in this chain breaks, Windows can't start. Startup Repair automatically fixes common boot issues. bootrec commands rebuild the boot configuration database that tells the boot manager where to find Windows. SFC and DISM repair the Windows system files themselves. System Restore takes the entire system back to a known working state. Each approach targets a different part of the boot chain.",
+      "steps": [
+        {
+          "instruction": "Get to Advanced Startup Options",
+          "detail": "If Windows won't start: Let it fail to boot 3 times in a row — Windows will automatically enter the recovery environment. You'll see 'Preparing Automatic Repair' then options appear.\n\nAlternative methods:\n• If you can reach the login screen: Hold Shift while clicking Power > Restart\n• Use a Windows installation USB: Boot from USB and click 'Repair your computer'\n• Force shutdown during boot by holding the power button, repeat 3 times",
+          "adminRequired": false,
+          "backupAdvised": false
+        },
+        {
+          "instruction": "Try Startup Repair first",
+          "detail": "From Advanced Startup Options: click Troubleshoot > Advanced options > Startup Repair. Windows will automatically diagnose and attempt to fix boot problems. This process may take 10-15 minutes. If it says it couldn't fix the problem, proceed to the next steps.",
+          "adminRequired": false,
+          "backupAdvised": false
+        },
+        {
+          "instruction": "Try Safe Mode",
+          "detail": "From Advanced Startup Options: Troubleshoot > Advanced options > Startup Settings > Restart. Press 4 or F4 for Safe Mode. If Windows boots in Safe Mode, the problem is likely a recently installed driver or program. In Safe Mode:\n\n• Uninstall recently installed programs\n• Roll back recently updated drivers via Device Manager\n• Uninstall recent Windows Updates (Settings > Update & Security > View update history > Uninstall updates)\n• Run sfc /scannow in an elevated Command Prompt\n\nRestart normally to test.",
+          "adminRequired": true,
+          "backupAdvised": false
+        },
+        {
+          "instruction": "Try System Restore",
+          "detail": "From Advanced Startup Options: Troubleshoot > Advanced options > System Restore. Select a restore point from before the problems started. This reverts Windows system files, programs, and settings to that date WITHOUT affecting your personal files (documents, photos, etc.).",
+          "warning": "Programs installed after the restore point date will be removed. Your personal files are safe, but recently installed applications will need to be reinstalled.",
+          "adminRequired": false,
+          "backupAdvised": false
+        },
+        {
+          "instruction": "Rebuild boot records using Command Prompt",
+          "detail": "From Advanced Startup Options: Troubleshoot > Advanced options > Command Prompt. Run these commands one at a time:\n\nbootrec /fixmbr\nbootrec /fixboot\nbootrec /rebuildbcd\n\nIf /fixboot gives 'Access denied', run:\nbcdboot C:\\Windows /s C: /f ALL\n\nThese rebuild the Master Boot Record, boot sector, and Boot Configuration Data — the files that tell your computer where to find Windows.",
+          "warning": "These commands modify boot records. If you have multiple operating systems installed, the rebuildbcd command may affect the boot menu. Have a Windows installation USB ready as backup.",
+          "adminRequired": true,
+          "backupAdvised": true
+        },
+        {
+          "instruction": "Run offline SFC scan",
+          "detail": "From the recovery Command Prompt, run:\n\nsfc /scannow /offbootdir=C:\\ /offwindir=C:\\Windows\n\nThis scans and repairs Windows system files while Windows is offline (not running). This can fix corrupted files that prevent Windows from starting. Wait for it to complete, then type 'exit' and restart.",
+          "adminRequired": true,
+          "backupAdvised": false
+        },
+        {
+          "instruction": "Reset Windows as last resort",
+          "detail": "If nothing else works, from Advanced Startup Options: Troubleshoot > Reset this PC > Keep my files. This reinstalls Windows while preserving your personal files (documents, photos, music). You'll need to reinstall all your applications, but your data is saved.",
+          "warning": "IMPORTANT: 'Keep my files' preserves personal files but removes ALL installed programs and their settings. 'Remove everything' deletes ALL data — only use this if you've backed up everything important.",
+          "adminRequired": false,
+          "backupAdvised": true
+        }
+      ]
+    },
+    {
+      "id": "disk-repair-chkdsk",
+      "title": "Repair Disk Errors with CHKDSK",
+      "symptom": "I'm getting disk errors, files are corrupted, or my drive seems unhealthy",
+      "description": "Check and repair disk errors using CHKDSK and monitor drive health to prevent data loss.",
+      "category": "disk-boot",
+      "categoryName": "Disk & Boot Repair",
+      "categoryIcon": "💿",
+      "keywords": ["chkdsk", "disk error", "disk repair", "bad sectors", "drive health", "SMART", "file system corruption"],
+      "causes": [
+        "File system corruption from improper shutdown or power loss",
+        "Bad sectors developing on an aging hard drive",
+        "File system inconsistency from software crashes",
+        "Physically failing drive nearing end of life",
+        "Virus or malware damaging file system structures"
+      ],
+      "whyItWorks": "Drives store data in organized structures — file allocation tables, directory entries, and data blocks. When these structures get damaged (from power loss, crashes, or physical drive degradation), files become inaccessible or corrupted. CHKDSK (Check Disk) scans the entire file system, verifies the integrity of every structure, fixes logical errors, and marks physically damaged sectors so the drive avoids using them. The /f flag fixes file system errors, /r locates bad sectors and recovers readable data. This is like running a health check and repair on your drive's organizational system.",
+      "steps": [
+        {
+          "instruction": "Check drive health with SMART data",
+          "detail": "Open Command Prompt as Administrator and run:\n\nwmic diskdrive get model,status\n\nIf status shows 'OK', the drive's self-test reports no issues. If it shows 'Pred Fail' or anything else, the drive is failing — back up immediately and replace it. For more detailed SMART data, download the free tool CrystalDiskInfo from crystalmark.info.",
+          "adminRequired": true,
+          "backupAdvised": false
+        },
+        {
+          "instruction": "Run basic CHKDSK scan (read-only)",
+          "detail": "Open Command Prompt as Administrator and run:\n\nchkdsk C:\n\nThis runs a read-only scan — it checks for errors but doesn't fix anything. It will report the number of errors found, if any. This is safe to run at any time and tells you if there are problems that need fixing.",
+          "adminRequired": true,
+          "backupAdvised": false
+        },
+        {
+          "instruction": "Run CHKDSK with repair flags",
+          "detail": "To actually fix errors, run:\n\nchkdsk C: /f /r\n\n/f — Fixes file system errors\n/r — Locates bad sectors and recovers readable information (includes /f)\n\nFor the C: drive (where Windows is installed), you'll see: 'Cannot lock drive. Would you like to schedule this to run at next restart?' Type Y and press Enter. Restart your computer — CHKDSK will run before Windows loads.",
+          "warning": "CHKDSK /r on a large drive can take several HOURS. Do not interrupt it or power off your computer while it's running. Run it when you won't need the computer for a while.",
+          "adminRequired": true,
+          "backupAdvised": true
+        },
+        {
+          "instruction": "Check Event Viewer for disk warnings",
+          "detail": "Open Event Viewer (eventvwr.msc) > Windows Logs > System. Filter by Source = 'disk' or Source = 'ntfs'. Look for warnings or errors related to disk I/O, bad blocks, or file system issues. Recurring disk errors are a strong sign the drive is failing and needs replacement.",
+          "adminRequired": true,
+          "backupAdvised": false
+        },
+        {
+          "instruction": "Special considerations for SSDs",
+          "detail": "For solid-state drives (SSDs):\n\n• Do NOT run chkdsk /r regularly — the extensive read/write operations can reduce SSD lifespan\n• Use chkdsk /f instead (fixes file system errors without scanning for bad sectors)\n• SSDs have built-in wear leveling and error correction\n• Check SSD health using the manufacturer's tool (Samsung Magician, WD Dashboard, Intel SSD Toolbox, etc.)\n• Enable TRIM: Open Command Prompt as Admin and run: fsutil behavior query DisableDeleteNotify — if it returns 0, TRIM is enabled",
+          "adminRequired": true,
+          "backupAdvised": false
+        },
+        {
+          "instruction": "When to replace the drive",
+          "detail": "Replace your drive immediately if:\n• SMART status shows 'Pred Fail' or CrystalDiskInfo shows 'Caution' or 'Bad'\n• CHKDSK keeps finding and fixing errors on every run\n• You hear clicking, grinding, or unusual sounds from a hard drive\n• Files randomly become corrupted or disappear\n• Drive performance has dramatically decreased\n\nBack up all important data immediately to an external drive or cloud storage before the drive fails completely.",
+          "adminRequired": false,
+          "backupAdvised": true
+        }
+      ]
+    },
+    {
+      "id": "application-crashes-freezing",
+      "title": "Fix Applications That Keep Crashing or Freezing",
+      "symptom": "A specific program keeps crashing, freezing, or showing 'not responding'",
+      "description": "Diagnose and fix application crashes and freezes through compatibility settings, clean reinstallation, and dependency repair.",
+      "category": "heavy-apps",
+      "categoryName": "Heavy Applications & Crashes",
+      "categoryIcon": "💥",
+      "keywords": ["app crash", "not responding", "freezing", "program crash", "application error", "stopped working"],
+      "causes": [
+        "Corrupted application files or settings",
+        "Missing or outdated runtime dependencies (.NET, Visual C++, DirectX)",
+        "Incompatibility with current Windows version",
+        "Insufficient system resources (RAM, disk space)",
+        "Conflict with other running software or antivirus"
+      ],
+      "whyItWorks": "Applications depend on a complex stack: the app's own files, Windows runtime libraries (.NET Framework, Visual C++ Redistributables), DirectX for graphics, sufficient system resources, and compatibility with your Windows version. When any of these are corrupted, missing, or insufficient, the app crashes. Running in compatibility mode emulates an older Windows version. Clean reinstalling (including removing leftover settings in AppData) gives the app a completely fresh start. Updating runtime dependencies ensures the foundational libraries the app needs are present and working.",
+      "steps": [
+        {
+          "instruction": "Check if the app meets system requirements",
+          "detail": "Check the application's minimum system requirements on its website. Press Windows+I > System > About to see your PC specs. Verify you have enough RAM, the right CPU, and enough disk space. Running an application below its minimum requirements will cause crashes, especially for games and professional software.",
+          "adminRequired": false,
+          "backupAdvised": false
+        },
+        {
+          "instruction": "Run as Administrator",
+          "detail": "Right-click the application's shortcut or .exe file and select 'Run as administrator'. Some applications need elevated privileges to access certain files or features. If this fixes the crash, you can make it permanent: right-click > Properties > Compatibility tab > check 'Run this program as an administrator' > OK.",
+          "adminRequired": true,
+          "backupAdvised": false
+        },
+        {
+          "instruction": "Try Compatibility Mode",
+          "detail": "Right-click the application's .exe file > Properties > Compatibility tab. Check 'Run this program in compatibility mode for:' and select an older Windows version (try Windows 8 first, then Windows 7). Also try checking 'Disable fullscreen optimizations' and 'Run in 640 x 480 screen resolution' for older apps. Click Apply.",
+          "adminRequired": false,
+          "backupAdvised": false
+        },
+        {
+          "instruction": "Clean reinstall the application",
+          "detail": "1. Uninstall the application: Settings > Apps > Apps & features > find the app > Uninstall\n2. Delete leftover data: Press Windows+R, type '%appdata%' > find and delete the app's folder. Then type '%localappdata%' and do the same\n3. Restart your computer\n4. Download a fresh copy from the official website\n5. Install the fresh copy\n\nThis removes any corrupted files or settings that were causing crashes.",
+          "warning": "Deleting the AppData folders removes ALL settings and saved data for that application. Export or back up any important settings from within the app first.",
+          "adminRequired": true,
+          "backupAdvised": true
+        },
+        {
+          "instruction": "Update runtime dependencies",
+          "detail": "Many apps depend on shared Windows components. Download and install the latest versions:\n\n• Visual C++ Redistributables: Search 'Microsoft Visual C++ Redistributable download' — install both x64 and x86 versions for 2015-2022\n• .NET Framework: Go to Settings > Apps > Optional features > Add a feature > search '.NET Framework 3.5' and install\n• .NET Runtime: Download from dotnet.microsoft.com\n• DirectX: Download DirectX End-User Runtime from Microsoft\n\nRestart after installing these components.",
+          "adminRequired": true,
+          "backupAdvised": false
+        },
+        {
+          "instruction": "Check Event Viewer for crash details",
+          "detail": "Open Event Viewer (eventvwr.msc) > Windows Logs > Application. Filter by Level = Error. Look for events with Source 'Application Error' or the app's name around the time of the crash. The details will show:\n\n• Faulting module name — which DLL or component crashed\n• Exception code — the type of crash (e.g., 0xc0000005 = access violation)\n\nSearch these details online for specific solutions. This information is invaluable when reporting bugs to the software developer.",
+          "adminRequired": true,
+          "backupAdvised": false
+        }
+      ]
+    },
+    {
+      "id": "high-resource-applications",
+      "title": "Fix Programs Using Too Much CPU, Memory, or Disk",
+      "symptom": "A program is consuming excessive CPU, memory, or disk resources",
+      "description": "Diagnose and control applications that consume excessive system resources, causing slowdowns and performance issues.",
+      "category": "heavy-apps",
+      "categoryName": "Heavy Applications & Crashes",
+      "categoryIcon": "💥",
+      "keywords": ["high resource", "too much CPU", "too much memory", "disk usage", "resource hog", "memory leak", "resource monitor"],
+      "causes": [
+        "Memory leak in the application (progressively using more RAM)",
+        "Application poorly optimized or running complex operations",
+        "Insufficient system resources for the workload",
+        "Application conflict or redundant background processes",
+        "Bug in the application causing infinite loops or excessive I/O"
+      ],
+      "whyItWorks": "When an application uses excessive resources, it's either by design (legitimate heavy workload), by bug (memory leak, infinite loop), or by conflict (two programs fighting for the same resource). Task Manager and Resource Monitor reveal exactly what's happening — how much CPU, memory, disk, and network each process uses. Setting process priority tells Windows to give less CPU time to the resource hog. Setting CPU affinity limits which CPU cores a process can use. These are OS-level controls that work on any application without modifying it.",
+      "steps": [
+        {
+          "instruction": "Identify the resource usage in Task Manager",
+          "detail": "Press Ctrl+Shift+Esc. Click 'More details' if in simple view. On the Processes tab, click the column header for the resource that's high (CPU, Memory, or Disk) to sort. Identify which process is the top consumer. Right-click the column headers to add more columns like 'GPU' or 'Power usage'. Note the exact numbers being consumed.",
+          "adminRequired": false,
+          "backupAdvised": false
+        },
+        {
+          "instruction": "Use Resource Monitor for deeper analysis",
+          "detail": "In Task Manager, click the Performance tab > 'Open Resource Monitor' at the bottom. Resource Monitor shows:\n\n• CPU tab: Exact CPU time per process, service CPU usage\n• Memory tab: Working set, private memory, commit, hard faults\n• Disk tab: Read/write bytes per second per process, queue length\n• Network tab: Network usage per process\n\nCheck the appropriate tab for your resource issue. This gives you much more detail than Task Manager.",
+          "adminRequired": false,
+          "backupAdvised": false
+        },
+        {
+          "instruction": "Set process priority",
+          "detail": "In Task Manager, right-click the resource-heavy process > Set priority > select 'Below Normal' or 'Low'. This tells Windows to give less CPU time to this process, allowing other programs to run smoothly. The resource-heavy program will run slower but won't starve other applications.\n\nNote: This setting resets when the program restarts. To make it permanent, you'd need a script or third-party tool.",
+          "adminRequired": true,
+          "backupAdvised": false
+        },
+        {
+          "instruction": "Set CPU affinity to limit CPU cores",
+          "detail": "In Task Manager, go to the Details tab. Right-click the process > 'Set affinity'. Uncheck some CPU cores to limit how much of your CPU the program can use. For example, on a 4-core CPU, limiting a process to 2 cores means it can only use 50% of your total CPU. This helps when an application tries to use all CPU cores.",
+          "adminRequired": true,
+          "backupAdvised": false
+        },
+        {
+          "instruction": "Check for application updates",
+          "detail": "Visit the application's website or check its settings for updates. Performance issues and memory leaks are common bugs that developers fix in updates. If you're running an older version, updating may resolve the excessive resource usage entirely.",
+          "adminRequired": false,
+          "backupAdvised": false
+        },
+        {
+          "instruction": "Disable hardware acceleration in the app",
+          "detail": "Many applications (browsers, Discord, Slack, Teams, video players) have a 'Hardware Acceleration' setting. When enabled, it offloads work to the GPU. If your GPU is weak or its driver is problematic, this can cause high CPU usage as a fallback. Find this setting in the app's settings/preferences and toggle it. In Chrome: Settings > System > 'Use hardware acceleration' > toggle off.",
+          "adminRequired": false,
+          "backupAdvised": false
+        }
+      ]
+    },
+    {
+      "id": "installation-uninstallation-failures",
+      "title": "Fix Software Installation and Uninstallation Failures",
+      "symptom": "I can't install or completely remove a program",
+      "description": "Resolve installation errors, stuck uninstalls, and clean up leftover software files using Windows tools and manual cleanup.",
+      "category": "heavy-apps",
+      "categoryName": "Heavy Applications & Crashes",
+      "categoryIcon": "💥",
+      "keywords": ["install error", "uninstall error", "can't install", "can't remove", "installation failed", "msiexec", "leftover files"],
+      "causes": [
+        "Windows Installer service not running or corrupted",
+        "Previous installation left behind conflicting files",
+        "Insufficient permissions to install/uninstall",
+        "Corrupted installer file or download",
+        "Registry entries from previous installation blocking new install"
+      ],
+      "whyItWorks": "Windows uses the Windows Installer service (MSI) to manage program installations. It tracks what files were installed, what registry entries were created, and how to undo everything during uninstallation. When this tracking database gets corrupted, or when files are left behind from a failed install, new installations can fail because the system thinks the old version is still present. Microsoft's Install/Uninstall troubleshooter fixes the tracking database. Manual cleanup of leftover files and registry entries removes the ghost of the old installation. Re-registering the Windows Installer service repairs the core installation engine.",
+      "steps": [
+        {
+          "instruction": "Run the installer as Administrator",
+          "detail": "Right-click the installer file (.exe or .msi) and select 'Run as administrator'. Installation often needs admin rights to write to Program Files and the Windows Registry. If running from a web browser, make sure the file is fully downloaded before running.",
+          "adminRequired": true,
+          "backupAdvised": false
+        },
+        {
+          "instruction": "Check the Windows Installer service",
+          "detail": "Press Windows+R, type 'services.msc'. Find 'Windows Installer' in the list. Make sure its status is not 'Disabled'. If it's Stopped, right-click > Start. Set Startup type to 'Manual' (this is the correct default). If you can't start it, open Command Prompt as Admin and run:\n\nmsiexec /unregister\nmsiexec /regserver\n\nThis re-registers the Windows Installer engine.",
+          "adminRequired": true,
+          "backupAdvised": false
+        },
+        {
+          "instruction": "Use Microsoft's Install/Uninstall Troubleshooter",
+          "detail": "Download the 'Program Install and Uninstall Troubleshooter' from Microsoft's support site (search 'Microsoft program install uninstall troubleshooter'). Run the downloaded tool. Choose 'Installing' or 'Uninstalling' depending on your problem. Select the program causing issues. The tool will diagnose and fix Windows Installer database problems and leftover registry entries.",
+          "adminRequired": true,
+          "backupAdvised": false
+        },
+        {
+          "instruction": "Clean up leftover files from previous installation",
+          "detail": "If a previous installation is blocking a new one, manually remove leftovers:\n\n1. Delete the program's folder from C:\\Program Files and C:\\Program Files (x86)\n2. Delete settings from %AppData% and %LocalAppData% (press Windows+R and type these paths)\n3. Delete temp files: press Windows+R, type '%temp%', delete everything in the folder\n4. Empty the Recycle Bin\n\nThis ensures no leftover files conflict with the new installation.",
+          "warning": "Make sure you're deleting the correct program's folder. Double-check the folder name before deleting.",
+          "adminRequired": true,
+          "backupAdvised": true
+        },
+        {
+          "instruction": "Clean up registry entries (advanced)",
+          "detail": "Open Registry Editor (regedit). Navigate to:\n\nHKEY_LOCAL_MACHINE\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Uninstall\n\nand\n\nHKEY_LOCAL_MACHINE\\SOFTWARE\\WOW6432Node\\Microsoft\\Windows\\CurrentVersion\\Uninstall\n\nLook for a key with the program's name. If you find leftover entries for a program that's already uninstalled, right-click the key and select Delete. Also check:\n\nHKEY_CURRENT_USER\\SOFTWARE\\[program name]\nHKEY_LOCAL_MACHINE\\SOFTWARE\\[program name]",
+          "warning": "CAUTION: Deleting wrong registry entries can break other programs. Only delete entries you're certain belong to the program you're trying to clean up. Export a backup of the registry key before deleting it (right-click > Export).",
+          "adminRequired": true,
+          "backupAdvised": true
+        },
+        {
+          "instruction": "Run SFC and DISM for system component issues",
+          "detail": "If the installation involves Windows components (like .NET Framework or Visual C++), system file corruption may be the cause. Open Command Prompt as Admin:\n\nDISM /Online /Cleanup-Image /RestoreHealth\nsfc /scannow\n\nRestart and try the installation again. This repairs the Windows component store that manages system-level installations.",
+          "adminRequired": true,
+          "backupAdvised": false
+        }
+      ]
+    }
+  ]
+}

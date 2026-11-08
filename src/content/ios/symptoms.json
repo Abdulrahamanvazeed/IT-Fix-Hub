@@ -1,0 +1,52 @@
+{
+  "symptoms": [
+    {
+      "id": "ios-stuck-apple-logo",
+      "text": "iPhone stuck on Apple logo, bootloop, or black screen",
+      "icon": "🍎",
+      "keywords": ["stuck on apple logo", "bootloop", "black screen", "recovery mode", "dfu mode", "iphone won't turn on"],
+      "guideIds": ["ios-recovery-dfu-mode"],
+      "category": "Boot & Startup"
+    },
+    {
+      "id": "ios-storage-full",
+      "text": "iPhone Storage Full or 'System Data' taking up too much space",
+      "icon": "💾",
+      "keywords": ["storage full", "system data", "clear cache", "offload apps", "iphone storage"],
+      "guideIds": ["ios-storage-system-data"],
+      "category": "Speed & Performance"
+    },
+    {
+      "id": "ios-battery-drain",
+      "text": "iPhone battery draining fast or Maximum Capacity degraded",
+      "icon": "🔋",
+      "keywords": ["battery drain", "battery health", "maximum capacity", "iphone warm", "low power mode"],
+      "guideIds": ["ios-battery-health-drain"],
+      "category": "Speed & Performance"
+    },
+    {
+      "id": "ios-wifi-no-service",
+      "text": "iPhone Wi-Fi dropping, cellular 'No Service', or Bluetooth issues",
+      "icon": "🌐",
+      "keywords": ["wifi dropping", "no service", "searching", "bluetooth disconnect", "reset network settings"],
+      "guideIds": ["ios-wifi-cellular-issues"],
+      "category": "Internet & Network"
+    },
+    {
+      "id": "ios-random-restarts",
+      "text": "iPhone restarts randomly every few minutes (panic-full crash)",
+      "icon": "⚠️",
+      "keywords": ["restarts every 3 minutes", "random reboot", "panic-full", "crash log", "analytics data"],
+      "guideIds": ["ios-crash-analytics-panic-full", "ios-recovery-dfu-mode"],
+      "category": "Errors & Crashes"
+    },
+    {
+      "id": "ios-default-browser",
+      "text": "Links opening in Safari instead of Chrome / interface navigation",
+      "icon": "⚙️",
+      "keywords": ["default browser", "change safari to chrome", "control center", "app library"],
+      "guideIds": ["ios-interface-basics"],
+      "category": "Settings & Setup"
+    }
+  ]
+}

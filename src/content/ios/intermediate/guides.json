@@ -1,0 +1,77 @@
+{
+  "guides": [
+    {
+      "id": "ios-battery-health-drain",
+      "title": "Fix Rapid iPhone Battery Drain & Check Battery Health",
+      "symptom": "iPhone battery drops fast during the day, phone becomes warm, or battery health says 'Service'",
+      "description": "Analyze iOS battery usage by app, inspect Maximum Capacity, disable Background App Refresh, and optimize settings.",
+      "category": "performance",
+      "categoryName": "Battery & Performance",
+      "categoryIcon": "⚡",
+      "keywords": ["iphone battery drain fast", "battery health maximum capacity", "background app refresh iphone", "iphone warm", "low power mode"],
+      "causes": [
+        "Chemical degradation of the lithium-ion battery (Maximum Capacity below 80%)",
+        "Background App Refresh running continuous network sync for social media apps",
+        "Location services running precise GPS tracking constantly in background"
+      ],
+      "whyItWorks": "Lithium-ion cells degrade chemically over charge cycles. When capacity drops below 80%, iOS may throttle peak performance to prevent unexpected shutdowns. Restricting background refresh and location services drastically cuts standby current draw.",
+      "steps": [
+        {
+          "instruction": "Check Battery Health & Maximum Capacity",
+          "detail": "Go to Settings > Battery > Battery Health & Charging. Look at 'Maximum Capacity'. If it is 80% or above, the battery is healthy. If it is below 80% or shows 'Important Battery Message: Degraded', the physical battery needs replacement by an Apple authorized provider.",
+          "adminRequired": false,
+          "backupAdvised": false
+        },
+        {
+          "instruction": "Disable unnecessary Background App Refresh",
+          "detail": "Go to Settings > General > Background App Refresh. Tap 'Background App Refresh' at the top and select 'Wi-Fi' (or Off). Alternatively, scroll down and toggle OFF heavy apps like Instagram, Facebook, and games so they don't consume power while idle.",
+          "adminRequired": false,
+          "backupAdvised": false
+        },
+        {
+          "instruction": "Audit Location Services permissions",
+          "detail": "Go to Settings > Privacy & Security > Location Services. Review the app list. Change any app set to 'Always' to 'While Using the App'. Turn off 'Precise Location' for apps that only need general area (like weather or retail shopping apps).",
+          "adminRequired": false,
+          "backupAdvised": false
+        }
+      ]
+    },
+    {
+      "id": "ios-wifi-cellular-issues",
+      "title": "Fix iPhone Wi-Fi Dropping, 'No Service', & Cellular Data Errors",
+      "symptom": "iPhone Wi-Fi disconnects frequently, cellular shows 'No Service' or 'Searching...', or calls fail",
+      "description": "Diagnose iPhone baseband and Wi-Fi radio issues and perform a clean reset of iOS Network Settings.",
+      "category": "network-connectivity",
+      "categoryName": "Network & Connectivity",
+      "categoryIcon": "🌐",
+      "keywords": ["iphone wifi dropping", "no service iphone", "searching iphone", "reset network settings iphone", "cellular data not working"],
+      "causes": [
+        "Cellular baseband modem microcode crash",
+        "Corrupted Wi-Fi network profile or expired captive portal lease",
+        "Stale carrier settings profile"
+      ],
+      "whyItWorks": "Resetting network settings deletes corrupted Wi-Fi profiles and resets cellular roaming registration parameters with your mobile network operator without touching user data or photos.",
+      "steps": [
+        {
+          "instruction": "Toggle Airplane Mode for radio re-registration",
+          "detail": "Open Control Center (swipe down from top right) > tap the Airplane icon ON. Wait 15 seconds. Tap Airplane icon OFF. This resets the cellular modem and forces a fresh tower handshake.",
+          "adminRequired": false,
+          "backupAdvised": false
+        },
+        {
+          "instruction": "Check for Carrier Settings Update",
+          "detail": "Go to Settings > General > About. Stay on this screen for 10-15 seconds. If a carrier update is available from your mobile operator, a pop-up prompt will appear saying 'Carrier Settings Update: New settings are available'. Tap 'Update'.",
+          "adminRequired": false,
+          "backupAdvised": false
+        },
+        {
+          "instruction": "Reset Network Settings",
+          "detail": "Go to Settings > General > Transfer or Reset iPhone > Reset > tap 'Reset Network Settings'. Enter your passcode to confirm. Your iPhone will reboot cleanly.",
+          "warning": "This will erase saved Wi-Fi networks and Bluetooth pairings. You will need to re-enter your Wi-Fi password.",
+          "adminRequired": false,
+          "backupAdvised": false
+        }
+      ]
+    }
+  ]
+}

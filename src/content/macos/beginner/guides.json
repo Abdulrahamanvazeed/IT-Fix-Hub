@@ -1,0 +1,153 @@
+{
+  "guides": [
+    {
+      "id": "macos-interface-finder-dock",
+      "title": "Navigating the macOS Interface (Finder, Dock, Menu Bar)",
+      "symptom": "I am new to Mac and don't know how to find my files, apps, or settings",
+      "description": "Master macOS navigation essentials: Finder windows, the Dock, Apple menu, Spotlight search, and Control Center.",
+      "category": "interface-basics",
+      "categoryName": "macOS Basics & Navigation",
+      "categoryIcon": "🍎",
+      "keywords": ["mac basics", "finder", "dock", "spotlight", "menu bar", "apple menu", "system settings"],
+      "causes": [
+        "Transitioning from Windows to macOS interface conventions",
+        "Files stored in unexpected default directories like iCloud Drive",
+        "Hidden menu bar icons or unrecognized trackpad gestures"
+      ],
+      "whyItWorks": "macOS uses Finder as its file manager and the Menu Bar at the very top of the screen (which changes depending on the active app). Spotlight provides universal indexing, allowing instant access to any file, setting, or application with a quick keyboard shortcut.",
+      "steps": [
+        {
+          "instruction": "Open Finder to view your files and drives",
+          "detail": "Click the smiling blue face icon in the Dock (left-most icon). In Finder, the left sidebar shows Favorites (Recents, Applications, Desktop, Documents, Downloads) and iCloud. Press Cmd+Shift+H to immediately jump to your Home folder.",
+          "adminRequired": false,
+          "backupAdvised": false
+        },
+        {
+          "instruction": "Use Spotlight to search and launch anything instantly",
+          "detail": "Press Command (⌘) + Spacebar on your keyboard. Type what you are looking for — such as an application name, file name, calculation (e.g., 25*80), or System Settings. Press Return to open the top result.",
+          "adminRequired": false,
+          "backupAdvised": false
+        },
+        {
+          "instruction": "Understand the dynamic Apple Menu Bar",
+          "detail": "Look at the very top of your screen. The Apple icon () on the far left gives you access to 'System Settings...', 'Restart...', and 'Shut Down...'. The menus next to it (File, Edit, View, Window, Help) change depending on whichever app is currently active in the front.",
+          "adminRequired": false,
+          "backupAdvised": false
+        },
+        {
+          "instruction": "Access Control Center for Wi-Fi, Bluetooth, and Display",
+          "detail": "Click the two-slider switch icon in the top right of the menu bar next to the clock. Here you can quickly toggle Wi-Fi, Bluetooth, AirDrop, adjust screen brightness, sound volume, and Do Not Disturb mode.",
+          "adminRequired": false,
+          "backupAdvised": false
+        }
+      ]
+    },
+    {
+      "id": "macos-default-apps-settings",
+      "title": "Setting Default Browser, Email, and File Handlers on Mac",
+      "symptom": "Web links open in Safari instead of Chrome, or files open with the wrong application",
+      "description": "Configure your default web browser, email client, and default app associations for PDFs, images, and media on macOS.",
+      "category": "settings-defaults",
+      "categoryName": "Default Settings & Apps",
+      "categoryIcon": "⚙️",
+      "keywords": ["mac default browser", "change default app mac", "safari to chrome", "open with always", "preview default"],
+      "causes": [
+        "macOS defaults all web links to Apple Safari and mail to Apple Mail",
+        "File associations not set to 'Change All' in the Get Info panel"
+      ],
+      "whyItWorks": "macOS maintains a Launch Services database that maps URL schemes (http, mailto) and file Uniform Type Identifiers (UTIs) to registered applications. Changing the default browser in System Settings updates the global HTTP scheme handler.",
+      "steps": [
+        {
+          "instruction": "Change default web browser in System Settings",
+          "detail": "Click Apple menu () > System Settings > Desktop & Dock (or search 'Default web browser' in Spotlight). Scroll down to 'Default web browser' dropdown and select Google Chrome, Mozilla Firefox, or Microsoft Edge.",
+          "adminRequired": false,
+          "backupAdvised": false
+        },
+        {
+          "instruction": "Set default app for specific file types (e.g. PDFs)",
+          "detail": "In Finder, right-click (or two-finger tap) any file with that extension (e.g., a .pdf or .mp4 file). Select 'Get Info' (or press Cmd+I). Expand the 'Open with:' section. Choose your desired application from the dropdown, then click the 'Change All...' button right below it and confirm.",
+          "adminRequired": false,
+          "backupAdvised": false
+        },
+        {
+          "instruction": "Set default email client in Apple Mail preferences",
+          "detail": "Even if you want to use Outlook or another client, open the built-in Mail app once. Click 'Mail' in the top menu bar > Settings (or Preferences) > General tab. Under 'Default email reader', choose Microsoft Outlook or your preferred app.",
+          "adminRequired": false,
+          "backupAdvised": false
+        }
+      ]
+    },
+    {
+      "id": "macos-app-installation-gatekeeper",
+      "title": "Installing Apps & Fixing 'Unidentified Developer' Warnings",
+      "symptom": "App installation fails or Mac says 'App cannot be opened because it is from an unidentified developer'",
+      "description": "Learn how to install Mac applications via DMG and PKG files, and safely bypass Gatekeeper security blocks for trusted tools.",
+      "category": "apps-programs",
+      "categoryName": "Apps & Security",
+      "categoryIcon": "📦",
+      "keywords": ["mac install app", "dmg file", "gatekeeper", "unidentified developer", "mac security blocked", "cannot be opened"],
+      "causes": [
+        "Apple Gatekeeper blocks software that is not notarized through an Apple Developer certificate",
+        "User opened an app directly from the DMG mounted volume without dragging it to Applications folder"
+      ],
+      "whyItWorks": "Gatekeeper validates digital notarization tickets. When downloading outside the Mac App Store, macOS marks files with a quarantine attribute (`com.apple.quarantine`). Explicitly approving the app in System Settings records an exception in the local security database.",
+      "steps": [
+        {
+          "instruction": "Properly install apps from a .DMG file",
+          "detail": "Double-click the downloaded .dmg file to open its virtual disk. Drag the application icon into the 'Applications' shortcut folder inside the DMG window. Wait for the copy to finish. Then right-click the DMG on your desktop or Finder sidebar and choose 'Eject'. Always launch apps from Applications, not from inside the DMG.",
+          "adminRequired": false,
+          "backupAdvised": false
+        },
+        {
+          "instruction": "Bypass 'Unidentified Developer' via Control-Click",
+          "detail": "If macOS blocks opening the app, open Finder and navigate to your 'Applications' folder. Hold the Control key on your keyboard and click (or right-click) the application. Select 'Open' from the context menu. A prompt will appear with an explicit 'Open' button — click it. You only have to do this once per app.",
+          "adminRequired": false,
+          "backupAdvised": false
+        },
+        {
+          "instruction": "Approve blocked apps in Privacy & Security settings",
+          "detail": "Go to Apple menu () > System Settings > Privacy & Security. Scroll down to the 'Security' section. Look for a message saying: '[App Name] was blocked from use because it is not from an identified developer'. Click the 'Open Anyway' button next to it and enter your Mac password.",
+          "warning": "Only approve applications that you downloaded from legitimate, trusted official websites.",
+          "adminRequired": true,
+          "backupAdvised": false
+        }
+      ]
+    },
+    {
+      "id": "macos-storage-management",
+      "title": "Free Up Mac Storage Space (Clear System Data & Caches)",
+      "symptom": "My Mac says 'Your disk is almost full' or 'System Data' takes up dozens of gigabytes",
+      "description": "Clean up cluttered Mac storage by removing stale user caches, Time Machine local snapshots, and large obsolete files.",
+      "category": "apps-programs",
+      "categoryName": "Apps & Security",
+      "categoryIcon": "📦",
+      "keywords": ["mac disk full", "system data mac", "free space macbook", "purge caches", "time machine snapshots"],
+      "causes": [
+        "Accumulated application caches in ~/Library/Caches",
+        "Time Machine local APFS snapshots hoarding disk blocks until external drive is connected",
+        "Large leftover installer files in Downloads or iOS local device backups"
+      ],
+      "whyItWorks": "macOS utilizes APFS local snapshots for Time Machine backup redundancy which appear as 'System Data' until pruned. Clearing stale application cache folders and purging local snapshots immediately returns free blocks to the file system.",
+      "steps": [
+        {
+          "instruction": "Inspect storage breakdown in System Settings",
+          "detail": "Click Apple menu () > System Settings > General > Storage. Review the bar chart to see what category uses the most space (Applications, Documents, System Data, macOS). Click the (i) info icon next to Applications and Documents to quickly delete large unneeded items.",
+          "adminRequired": false,
+          "backupAdvised": false
+        },
+        {
+          "instruction": "Clear local Time Machine APFS snapshots",
+          "detail": "Open Terminal (press Cmd+Space, type Terminal). Run this command to list local snapshots:\ntmutil listlocalsnapshots /\nTo purge thin snapshots and free up gigabytes immediately, run:\nsudo tmutil thinlocalsnapshots / 10000000000 4\nEnter your Mac login password when prompted.",
+          "adminRequired": true,
+          "backupAdvised": false
+        },
+        {
+          "instruction": "Clean user cache folders safely",
+          "detail": "Open Finder, press Cmd+Shift+G (Go to Folder), and paste:\n~/Library/Caches\nPress Return. Select folders belonging to apps you no longer use or browsers with bloated cache, drag them to Trash, and empty the Trash. Do not delete the Caches folder itself, only individual contents.",
+          "adminRequired": false,
+          "backupAdvised": true
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,674 @@
+{
+  "guides": [
+    {
+      "id": "wifi-keeps-dropping",
+      "title": "Fix Wi-Fi That Keeps Disconnecting",
+      "symptom": "My Wi-Fi keeps dropping or disconnecting randomly",
+      "description": "Diagnose and fix intermittent Wi-Fi disconnections on Windows, from simple fixes to driver-level solutions.",
+      "category": "network-connectivity",
+      "categoryName": "Network & Connectivity",
+      "categoryIcon": "🌐",
+      "keywords": ["wifi", "wireless", "disconnect", "dropping", "intermittent", "network", "connection lost"],
+      "causes": [
+        "Wi-Fi adapter power management turning off the adapter to save energy",
+        "Outdated or corrupted wireless network driver",
+        "Router too far away or interference from other devices",
+        "Corrupted network configuration or DNS cache",
+        "Conflicting network settings or VPN software"
+      ],
+      "whyItWorks": "Wi-Fi disconnections usually stem from Windows aggressively power-managing the wireless adapter (turning it off to save battery), outdated drivers that can't maintain a stable connection, or corrupted network stack settings. Disabling power management keeps the adapter always on, updating drivers fixes compatibility bugs, and resetting the network stack clears out any corrupted configuration that was causing drops.",
+      "steps": [
+        {
+          "instruction": "Run the Windows Network Troubleshooter",
+          "detail": "Right-click the Wi-Fi icon in the system tray (bottom-right of taskbar) and select 'Troubleshoot network problems'. Follow the on-screen prompts. Windows will attempt to automatically detect and fix common issues. This is the safest first step and often resolves simple configuration issues.",
+          "adminRequired": false,
+          "backupAdvised": false
+        },
+        {
+          "instruction": "Check your physical distance from the router",
+          "detail": "Move closer to your Wi-Fi router and see if the connection stabilizes. Walls, floors, microwaves, baby monitors, and Bluetooth devices can all interfere with Wi-Fi signals. If the connection is stable when close but drops when far away, consider relocating the router or using a Wi-Fi extender.",
+          "adminRequired": false,
+          "backupAdvised": false
+        },
+        {
+          "instruction": "Disable Wi-Fi adapter power management",
+          "detail": "Press Windows+X and select 'Device Manager'. Expand 'Network adapters'. Right-click your Wi-Fi adapter (it will say 'Wireless' or 'Wi-Fi' in the name) and select 'Properties'. Go to the 'Power Management' tab. UNCHECK 'Allow the computer to turn off this device to save power'. Click OK. This prevents Windows from turning off your Wi-Fi to save battery.",
+          "adminRequired": true,
+          "backupAdvised": false
+        },
+        {
+          "instruction": "Update or reinstall the Wi-Fi driver",
+          "detail": "In Device Manager, right-click your Wi-Fi adapter and select 'Update driver' > 'Search automatically for drivers'. If that doesn't help, go to your laptop manufacturer's website (Dell, HP, Lenovo, etc.), find your model's support page, and download the latest Wi-Fi driver. To reinstall: right-click the adapter > 'Uninstall device' (check 'Delete the driver software'), then restart your computer — Windows will reinstall the driver automatically.",
+          "adminRequired": true,
+          "backupAdvised": false
+        },
+        {
+          "instruction": "Flush DNS and reset network stack",
+          "detail": "Open Command Prompt as Administrator (search 'cmd' in Start, right-click > Run as administrator). Run these commands one at a time, pressing Enter after each:\n\nipconfig /flushdns\nipconfig /release\nipconfig /renew\nnetsh winsock reset\nnetsh int ip reset\n\nRestart your computer after running all commands. This clears corrupted network configuration and gives your network stack a fresh start.",
+          "warning": "These commands require administrator privileges and will temporarily disconnect you from all networks. Save any work before running them.",
+          "adminRequired": true,
+          "backupAdvised": false
+        },
+        {
+          "instruction": "Forget and reconnect to the Wi-Fi network",
+          "detail": "Go to Settings > Network & Internet > Wi-Fi > 'Manage known networks'. Find your Wi-Fi network and click 'Forget'. Then reconnect by clicking the Wi-Fi icon in the taskbar, selecting your network, and entering the password again. This creates a fresh connection profile without any corrupted settings.",
+          "adminRequired": false,
+          "backupAdvised": false
+        }
+      ]
+    },
+    {
+      "id": "no-internet-connection",
+      "title": "Fix 'No Internet' When Wi-Fi Is Connected",
+      "symptom": "My computer says 'No Internet' but Wi-Fi shows connected",
+      "description": "Resolve the frustrating situation where Windows shows you're connected to Wi-Fi but you can't access any websites.",
+      "category": "network-connectivity",
+      "categoryName": "Network & Connectivity",
+      "categoryIcon": "🌐",
+      "keywords": ["no internet", "connected but no internet", "wifi connected", "can't browse", "no access", "yellow triangle"],
+      "causes": [
+        "DNS server failure or misconfiguration",
+        "IP address conflict with another device on the network",
+        "Incorrect proxy settings",
+        "Firewall or security software blocking connections",
+        "Router issue (connected to router but router has no internet)"
+      ],
+      "whyItWorks": "When you're connected to Wi-Fi but have no internet, the issue is usually between your computer and the internet — not the Wi-Fi itself. The most common cause is DNS failure (your computer can't translate website names to IP addresses). Switching to a reliable public DNS like Google's (8.8.8.8) bypasses your ISP's potentially failing DNS. Releasing and renewing your IP fixes address conflicts, and resetting TCP/IP clears corrupted protocol settings.",
+      "steps": [
+        {
+          "instruction": "Check if other devices can access the internet",
+          "detail": "Try browsing the web on your phone or another computer connected to the same Wi-Fi. If nothing can access the internet, the problem is with your router or ISP — try restarting your router by unplugging it for 30 seconds and plugging it back in. If other devices work fine, the problem is specific to your computer.",
+          "adminRequired": false,
+          "backupAdvised": false
+        },
+        {
+          "instruction": "Run the network troubleshooter",
+          "detail": "Go to Settings > Network & Internet > Status > 'Network troubleshooter' (Windows 10) or Settings > System > Troubleshoot > Other troubleshooters > 'Internet Connections' (Windows 11). Let the troubleshooter run and apply any suggested fixes.",
+          "adminRequired": false,
+          "backupAdvised": false
+        },
+        {
+          "instruction": "Release and renew your IP address",
+          "detail": "Open Command Prompt as Administrator. Run these commands:\n\nipconfig /release\nipconfig /renew\n\nThis tells your computer to give up its current IP address and request a new one from the router, resolving any IP address conflicts.",
+          "adminRequired": true,
+          "backupAdvised": false
+        },
+        {
+          "instruction": "Change your DNS to Google Public DNS",
+          "detail": "Go to Settings > Network & Internet > Wi-Fi > click your connected network > 'Edit' next to DNS server assignment (Windows 11) or go to Control Panel > Network and Internet > Network Connections > right-click your Wi-Fi > Properties > select 'Internet Protocol Version 4 (TCP/IPv4)' > Properties. Select 'Use the following DNS server addresses' and enter:\n\nPreferred DNS: 8.8.8.8\nAlternate DNS: 8.8.4.4\n\nClick OK. This uses Google's fast, reliable DNS servers instead of your ISP's.",
+          "adminRequired": true,
+          "backupAdvised": false
+        },
+        {
+          "instruction": "Check proxy settings",
+          "detail": "Go to Settings > Network & Internet > Proxy. Make sure 'Automatically detect settings' is ON and 'Use a proxy server' is OFF (unless you specifically need a proxy for work). Malware sometimes enables proxy settings to redirect your traffic.",
+          "adminRequired": false,
+          "backupAdvised": false
+        },
+        {
+          "instruction": "Reset the full TCP/IP network stack",
+          "detail": "Open Command Prompt as Administrator and run:\n\nnetsh winsock reset\nnetsh int ip reset\nipconfig /flushdns\n\nRestart your computer. This completely resets your network configuration to factory defaults.",
+          "warning": "This will reset all network configuration. You may need to reconnect to Wi-Fi networks and re-enter passwords.",
+          "adminRequired": true,
+          "backupAdvised": false
+        }
+      ]
+    },
+    {
+      "id": "slow-internet-speed",
+      "title": "Fix Slow Internet Speed",
+      "symptom": "My internet is very slow even though I'm connected",
+      "description": "Diagnose and improve slow internet speeds on Windows by identifying bandwidth-hogging apps and optimizing settings.",
+      "category": "network-connectivity",
+      "categoryName": "Network & Connectivity",
+      "categoryIcon": "🌐",
+      "keywords": ["slow internet", "slow download", "slow browsing", "buffering", "lag", "bandwidth"],
+      "causes": [
+        "Background apps downloading updates (Windows Update, app store, cloud sync)",
+        "Too many browser tabs or extensions consuming bandwidth",
+        "DNS server responding slowly",
+        "Metered connection setting limiting downloads",
+        "Network driver issues or Wi-Fi interference"
+      ],
+      "whyItWorks": "Slow internet is often caused by things running in the background that consume bandwidth without you realizing it. Windows Update can quietly download gigabytes, cloud sync services continuously upload files, and browser extensions make extra network requests. By identifying these bandwidth consumers in Task Manager and addressing them, you free up your internet connection for what you actually want to do.",
+      "steps": [
+        {
+          "instruction": "Run a speed test to establish a baseline",
+          "detail": "Open your browser and go to speedtest.net or fast.com. Click 'Go' or wait for the test to start. Note your download and upload speeds. Compare these to what your internet plan promises. If speeds are much lower than expected, the problem may be on your end.",
+          "adminRequired": false,
+          "backupAdvised": false
+        },
+        {
+          "instruction": "Check Task Manager for bandwidth-heavy apps",
+          "detail": "Press Ctrl+Shift+Esc to open Task Manager. Click 'More details' if needed. Click the 'Network' column header to sort by network usage. Look for any processes using significant bandwidth. Common culpride: Windows Update (svchost), OneDrive, Dropbox, Steam, game launchers. You can right-click a process and select 'End task' to stop it temporarily.",
+          "adminRequired": false,
+          "backupAdvised": false
+        },
+        {
+          "instruction": "Check if Windows Update is downloading",
+          "detail": "Go to Settings > Windows Update (Windows 11) or Settings > Update & Security > Windows Update (Windows 10). If updates are downloading, you can pause them for up to 7 days by clicking 'Pause updates'. This frees up bandwidth for your immediate needs.",
+          "adminRequired": false,
+          "backupAdvised": false
+        },
+        {
+          "instruction": "Clear your browser cache and disable heavy extensions",
+          "detail": "In Chrome: press Ctrl+Shift+Delete > select 'All time' > check 'Cached images and files' > click 'Clear data'. Then go to chrome://extensions and disable extensions you don't need. In Edge: press Ctrl+Shift+Delete and do the same. Each active extension can slow down page loads.",
+          "adminRequired": false,
+          "backupAdvised": false
+        },
+        {
+          "instruction": "Change to faster DNS servers",
+          "detail": "Slow DNS can make websites feel slow to load even if your bandwidth is fine. Change your DNS to Cloudflare (1.1.1.1 and 1.0.0.1) or Google (8.8.8.8 and 8.8.4.4). Go to Control Panel > Network and Internet > Network Connections > right-click your connection > Properties > Internet Protocol Version 4 > Properties > 'Use the following DNS server addresses'.",
+          "adminRequired": true,
+          "backupAdvised": false
+        },
+        {
+          "instruction": "Turn off metered connection",
+          "detail": "Go to Settings > Network & Internet > Wi-Fi > click your network > toggle 'Metered connection' to OFF. When this is on, Windows limits background data usage, which can affect performance of apps that need constant internet access.",
+          "adminRequired": false,
+          "backupAdvised": false
+        }
+      ]
+    },
+    {
+      "id": "printer-not-working",
+      "title": "Fix a Printer That Won't Print",
+      "symptom": "My printer won't print anything — jobs are stuck or nothing happens",
+      "description": "Troubleshoot and fix printer issues from connection problems to driver reinstallation.",
+      "category": "printing",
+      "categoryName": "Printers & Scanning",
+      "categoryIcon": "🖨️",
+      "keywords": ["printer", "won't print", "stuck", "print queue", "spooler", "offline printer", "printing"],
+      "causes": [
+        "Printer is offline, paused, or not set as default",
+        "Print jobs stuck in the queue blocking new prints",
+        "Print Spooler service crashed or stopped",
+        "Printer driver is outdated or corrupted",
+        "USB cable loose or network printer disconnected"
+      ],
+      "whyItWorks": "When you click Print, your document goes to the Print Spooler service, which queues it and sends it to the printer. If the spooler crashes, the queue gets corrupted, or the printer driver can't communicate properly, nothing prints. Clearing the queue and restarting the spooler service gives the printing system a fresh start. Reinstalling the driver ensures Windows can properly talk to the printer hardware.",
+      "steps": [
+        {
+          "instruction": "Check physical connections and power",
+          "detail": "Make sure the printer is powered on (look for a power light). For USB printers, check that the USB cable is firmly connected to both the printer and computer — try a different USB port. For network/Wi-Fi printers, ensure the printer is connected to the same network as your computer. Many printers have a small display showing their connection status.",
+          "adminRequired": false,
+          "backupAdvised": false
+        },
+        {
+          "instruction": "Check printer status in Windows",
+          "detail": "Go to Settings > Devices > Printers & scanners (Windows 10) or Settings > Bluetooth & devices > Printers & scanners (Windows 11). Click on your printer and select 'Open print queue'. Make sure the printer is not set to 'Pause Printing' or 'Use Printer Offline' (check the Printer menu at the top of the queue window). If either is checked, uncheck it.",
+          "adminRequired": false,
+          "backupAdvised": false
+        },
+        {
+          "instruction": "Clear the print queue",
+          "detail": "In the print queue window, click Printer menu > 'Cancel All Documents'. If jobs won't delete, you need to manually clear the spooler. Open Command Prompt as Administrator and run:\n\nnet stop spooler\ndel /Q /F /S \"%systemroot%\\System32\\spool\\PRINTERS\\*.*\"\nnet start spooler\n\nThis stops the print service, deletes all stuck jobs, and restarts it.",
+          "warning": "This will cancel ALL pending print jobs for ALL printers. Make sure no one else is printing to shared printers.",
+          "adminRequired": true,
+          "backupAdvised": false
+        },
+        {
+          "instruction": "Run the Printer Troubleshooter",
+          "detail": "Go to Settings > System > Troubleshoot > Other troubleshooters and click 'Run' next to 'Printer' (Windows 11). On Windows 10: Settings > Update & Security > Troubleshoot > Additional troubleshooters > Printer. The troubleshooter can automatically fix common driver and configuration issues.",
+          "adminRequired": false,
+          "backupAdvised": false
+        },
+        {
+          "instruction": "Remove and re-add the printer",
+          "detail": "Go to Settings > Devices > Printers & scanners. Click your printer and select 'Remove device'. Then click 'Add a printer or scanner' and wait for Windows to detect it. Select your printer and follow the setup wizard. This forces Windows to create a fresh printer profile.",
+          "adminRequired": true,
+          "backupAdvised": false
+        },
+        {
+          "instruction": "Update the printer driver",
+          "detail": "Go to your printer manufacturer's website (HP, Canon, Epson, Brother, etc.) and search for your printer model. Download the latest driver for Windows 10/11. Run the installer. Alternatively, open Device Manager > expand 'Print queues' > right-click your printer > 'Update driver' > 'Search automatically'.",
+          "adminRequired": true,
+          "backupAdvised": false
+        }
+      ]
+    },
+    {
+      "id": "printer-showing-offline",
+      "title": "Fix Printer Showing as 'Offline'",
+      "symptom": "Printer shows as offline but it's turned on and connected",
+      "description": "Resolve the common issue where Windows marks a printer as offline even though it's powered on.",
+      "category": "printing",
+      "categoryName": "Printers & Scanning",
+      "categoryIcon": "🖨️",
+      "keywords": ["printer offline", "offline status", "printer status", "not available"],
+      "causes": [
+        "'Use Printer Offline' option accidentally enabled",
+        "Print Spooler service not running properly",
+        "Network printer lost its IP address (DHCP changed it)",
+        "Printer driver communication failure"
+      ],
+      "whyItWorks": "The 'offline' status in Windows usually means the Print Spooler service can't communicate with the printer. This can happen if the 'Use Printer Offline' flag is accidentally set, the Spooler service itself has crashed, or for network printers, if the printer's IP address changed. Unchecking the offline flag, restarting the Spooler, and refreshing the network connection usually restores communication.",
+      "steps": [
+        {
+          "instruction": "Uncheck 'Use Printer Offline'",
+          "detail": "Go to Settings > Devices > Printers & scanners. Click your offline printer and click 'Open print queue'. In the queue window, click the 'Printer' menu at the top. If 'Use Printer Offline' has a checkmark, click it to uncheck it. The printer should switch to 'Ready' status.",
+          "adminRequired": false,
+          "backupAdvised": false
+        },
+        {
+          "instruction": "Restart the Print Spooler service",
+          "detail": "Press Windows+R, type 'services.msc' and press Enter. Scroll down to 'Print Spooler'. Right-click it and select 'Restart'. If it says 'Stopped', click 'Start' instead. Wait a few seconds and check if your printer comes online.",
+          "adminRequired": true,
+          "backupAdvised": false
+        },
+        {
+          "instruction": "Set as default printer",
+          "detail": "Go to Settings > Devices > Printers & scanners. Scroll down and uncheck 'Let Windows manage my default printer'. Then click on your printer and select 'Set as default'. Sometimes Windows directs print jobs to the wrong printer.",
+          "adminRequired": false,
+          "backupAdvised": false
+        },
+        {
+          "instruction": "For network printers: check the IP address",
+          "detail": "Network printers can change IP addresses if they use DHCP. Print a configuration page from your printer (usually a button on the printer itself) to see its current IP. Then in Windows, go to Printers & scanners > your printer > Printer properties > Ports tab. Make sure the port matches the printer's current IP address. If not, click 'Add Port' and enter the correct IP.",
+          "adminRequired": true,
+          "backupAdvised": false
+        },
+        {
+          "instruction": "Remove and reinstall the printer",
+          "detail": "If nothing else works, go to Printers & scanners, remove the printer, restart your computer, and add the printer again. For USB printers, also unplug and replug the cable. For network printers, make sure the printer is on and connected to Wi-Fi before adding.",
+          "adminRequired": true,
+          "backupAdvised": false
+        }
+      ]
+    },
+    {
+      "id": "computer-running-slow",
+      "title": "Fix a Slow Computer",
+      "symptom": "My computer is really slow — everything takes forever to open",
+      "description": "Comprehensive guide to diagnosing and fixing a slow Windows PC, from simple cleanup to performance optimization.",
+      "category": "performance",
+      "categoryName": "Performance & Speed",
+      "categoryIcon": "⚡",
+      "keywords": ["slow computer", "lag", "sluggish", "takes long", "performance", "speed up", "slow PC"],
+      "causes": [
+        "Too many programs running at startup",
+        "Hard drive nearly full (less than 10% free space)",
+        "Malware or unwanted software running in the background",
+        "Too many browser tabs or extensions open",
+        "Visual effects consuming system resources",
+        "Fragmented hard drive (HDD only, not SSD)"
+      ],
+      "whyItWorks": "A slow computer is almost always caused by too many things competing for limited resources (CPU, RAM, disk). Every program that starts with Windows takes a slice of your resources before you even begin working. A nearly-full hard drive forces Windows to constantly juggle files. Malware runs hidden processes. By identifying resource hogs in Task Manager, disabling unnecessary startup programs, cleaning up disk space, and reducing visual effects, you free up resources for the things you actually want to do.",
+      "steps": [
+        {
+          "instruction": "Open Task Manager and identify resource hogs",
+          "detail": "Press Ctrl+Shift+Esc to open Task Manager. Click 'More details' if you see the simple view. Look at the Processes tab. Click the 'CPU' column header to sort by CPU usage, then check 'Memory' and 'Disk' columns. If any process is consistently using more than 20-30% of any resource, that's likely your bottleneck. Common culprits: antivirus scans, cloud sync, browser with many tabs.",
+          "adminRequired": false,
+          "backupAdvised": false
+        },
+        {
+          "instruction": "Disable unnecessary startup programs",
+          "detail": "In Task Manager, click the 'Startup' tab (or Startup apps in Windows 11). You'll see all programs that run when Windows starts. For each one, look at its 'Startup impact' column. Right-click programs you don't need immediately at startup and select 'Disable'. Safe to disable: Spotify, Discord, Teams, Skype, Adobe updaters, game launchers. Do NOT disable your antivirus or hardware drivers.",
+          "adminRequired": false,
+          "backupAdvised": false
+        },
+        {
+          "instruction": "Run Disk Cleanup to free up space",
+          "detail": "Search for 'Disk Cleanup' in the Start menu and open it. Select your C: drive. Check boxes for: Temporary files, Temporary Internet files, Recycle Bin, Thumbnails. Click 'Clean up system files' for more options including old Windows Update files. Click OK and confirm. This can free up several gigabytes.",
+          "adminRequired": true,
+          "backupAdvised": false
+        },
+        {
+          "instruction": "Run a malware scan",
+          "detail": "Open Windows Security (search for it in Start menu). Click 'Virus & threat protection' > 'Scan options' > select 'Full scan' > click 'Scan now'. This will thoroughly check your entire computer for malware. It may take 30-60 minutes. Remove any threats found.",
+          "adminRequired": false,
+          "backupAdvised": false
+        },
+        {
+          "instruction": "Reduce visual effects for better performance",
+          "detail": "Press Windows+R, type 'sysdm.cpl' and press Enter. Go to the 'Advanced' tab > click 'Settings' under Performance. Select 'Adjust for best performance' to disable all animations, or select 'Custom' and uncheck animations you don't need while keeping 'Smooth edges of screen fonts' checked for readable text. Click OK.",
+          "adminRequired": false,
+          "backupAdvised": false
+        },
+        {
+          "instruction": "Defragment your hard drive (HDD only)",
+          "detail": "Search for 'Defragment and Optimize Drives' in Start menu. Select your C: drive. If it says 'Hard disk drive', click 'Optimize'. If it says 'Solid state drive', skip this step — SSDs don't need defragmentation and it can reduce their lifespan. Defragmenting rearranges files on a hard drive so they can be read faster.",
+          "warning": "Only defragment traditional hard drives (HDD). Do NOT defragment solid-state drives (SSD).",
+          "adminRequired": true,
+          "backupAdvised": false
+        },
+        {
+          "instruction": "Check for and install Windows updates",
+          "detail": "Go to Settings > Windows Update and click 'Check for updates'. Install all available updates, including optional driver updates. Updates often include performance improvements and bug fixes. Restart when prompted.",
+          "adminRequired": true,
+          "backupAdvised": false
+        }
+      ]
+    },
+    {
+      "id": "high-cpu-usage",
+      "title": "Fix High CPU Usage (Fan Loud, Computer Hot)",
+      "symptom": "My CPU usage is at 100%, fan is loud, and computer feels hot",
+      "description": "Identify and fix processes causing high CPU usage that make your fan run loud and computer overheat.",
+      "category": "performance",
+      "categoryName": "Performance & Speed",
+      "categoryIcon": "⚡",
+      "keywords": ["high cpu", "100% cpu", "fan loud", "hot computer", "overheating", "process", "cpu usage"],
+      "causes": [
+        "A specific application or process consuming too much CPU",
+        "Windows Search indexing your files (SearchIndexer.exe)",
+        "Windows Update downloading and installing in the background",
+        "Malware mining cryptocurrency or running hidden processes",
+        "Corrupted system files or driver issues"
+      ],
+      "whyItWorks": "High CPU usage means one or more programs are demanding all of your processor's attention, leaving none for other tasks. This makes the CPU work harder, generating heat, which causes the fan to spin faster to cool it down. By identifying the specific process in Task Manager and addressing it — whether it's a runaway app, a system service that needs to be restarted, or malware — you reduce the CPU load back to normal levels.",
+      "steps": [
+        {
+          "instruction": "Open Task Manager and identify the culprit",
+          "detail": "Press Ctrl+Shift+Esc. Click 'More details' if needed. On the Processes tab, click the 'CPU' column header to sort by CPU usage (highest first). Note which process is using the most CPU. If it's a program you recognize (Chrome, game, video editor), it may be normal under heavy use. If it's something unfamiliar, note the name for the next step.",
+          "adminRequired": false,
+          "backupAdvised": false
+        },
+        {
+          "instruction": "Handle common system processes",
+          "detail": "If the high-CPU process is:\n• 'System' or 'System interrupts' — likely a driver issue, check step 5\n• 'Windows Search' or 'SearchIndexer.exe' — Search is building its index. It will finish on its own, but you can restart it: open Services (services.msc), find 'Windows Search', right-click > Restart\n• 'Windows Update' or 'TiWorker.exe' — Updates are installing. Let them finish or go to Settings > Windows Update to check status\n• 'Antimalware Service Executable' — Windows Defender is scanning. Wait for it to finish or schedule scans for a better time",
+          "adminRequired": false,
+          "backupAdvised": false
+        },
+        {
+          "instruction": "End the problematic process if it's not essential",
+          "detail": "If the high-CPU process is a regular application (not a system process), right-click it in Task Manager and select 'End task'. If it's something you need, try closing and reopening it. If the same process keeps coming back with high CPU, it may need to be updated or reinstalled.",
+          "adminRequired": false,
+          "backupAdvised": false
+        },
+        {
+          "instruction": "Run a malware scan",
+          "detail": "Open Windows Security > Virus & threat protection > Scan options > Full scan > Scan now. Cryptocurrency miners and other malware often run as hidden processes with high CPU usage. If you see unfamiliar process names using high CPU, this is especially important.",
+          "adminRequired": false,
+          "backupAdvised": false
+        },
+        {
+          "instruction": "Check power plan settings",
+          "detail": "Go to Control Panel > Hardware and Sound > Power Options. Make sure you're on 'Balanced' or 'High performance' plan. If on a laptop, the 'Power saver' plan can actually cause higher CPU usage because the CPU runs at lower speeds, taking longer to complete tasks. Click 'Change plan settings' > 'Change advanced power settings' > expand 'Processor power management' and ensure Maximum processor state is 100%.",
+          "adminRequired": false,
+          "backupAdvised": false
+        },
+        {
+          "instruction": "Run System File Checker",
+          "detail": "Open Command Prompt as Administrator and run:\n\nsfc /scannow\n\nWait for it to complete (can take 10-15 minutes). This scans all protected system files and replaces corrupted ones. If it finds and repairs files, restart your computer.",
+          "adminRequired": true,
+          "backupAdvised": false
+        }
+      ]
+    },
+    {
+      "id": "high-memory-usage",
+      "title": "Fix High Memory (RAM) Usage",
+      "symptom": "My computer runs out of memory or RAM usage is always high",
+      "description": "Diagnose why your computer's memory is always full and free up RAM for better performance.",
+      "category": "performance",
+      "categoryName": "Performance & Speed",
+      "categoryIcon": "⚡",
+      "keywords": ["high memory", "ram full", "out of memory", "memory leak", "ram usage", "memory usage"],
+      "causes": [
+        "Too many applications open simultaneously",
+        "Browser with dozens of tabs consuming RAM",
+        "Memory leak in an application (it keeps using more RAM over time)",
+        "Insufficient RAM for your workload",
+        "Startup programs consuming RAM in the background"
+      ],
+      "whyItWorks": "RAM (Random Access Memory) is your computer's short-term working space. Every open program, browser tab, and background process uses some RAM. When RAM fills up, Windows starts using your hard drive as overflow (called 'paging'), which is dramatically slower. By closing unnecessary programs, reducing browser tabs, disabling startup apps, and potentially increasing virtual memory, you ensure there's enough fast RAM available for what you're actually doing.",
+      "steps": [
+        {
+          "instruction": "Check memory usage in Task Manager",
+          "detail": "Press Ctrl+Shift+Esc. Go to the Processes tab and click the 'Memory' column to sort by RAM usage. Note which programs use the most. Then click the 'Performance' tab and select 'Memory' to see your total RAM, how much is in use, and how much is available. If 'In use' is consistently above 80%, you have a memory pressure problem.",
+          "adminRequired": false,
+          "backupAdvised": false
+        },
+        {
+          "instruction": "Close unnecessary applications and browser tabs",
+          "detail": "Close programs you're not actively using. For browsers: each tab uses 50-300 MB of RAM. If you have 20+ tabs open, that alone could be using several GB. Use bookmarks to save tabs you want to revisit later. Consider using browser extensions like 'The Great Suspender' that automatically suspend inactive tabs.",
+          "adminRequired": false,
+          "backupAdvised": false
+        },
+        {
+          "instruction": "Disable unnecessary startup programs",
+          "detail": "Press Ctrl+Shift+Esc > Startup tab (or Startup apps). Disable programs you don't need running all the time. Many apps start silently in the background and consume RAM: chat apps, cloud storage, game launchers, updaters. Disabling them from startup doesn't uninstall them — you can still open them when you need them.",
+          "adminRequired": false,
+          "backupAdvised": false
+        },
+        {
+          "instruction": "Check for memory leaks",
+          "detail": "If one specific program's memory usage keeps growing over time (starts at 200MB, grows to 2GB+), it has a memory leak. Check for updates to that program. As a workaround, periodically close and reopen the program to reset its memory usage. If it's a browser, restart the browser to clear its memory.",
+          "adminRequired": false,
+          "backupAdvised": false
+        },
+        {
+          "instruction": "Increase virtual memory (paging file)",
+          "detail": "Press Windows+R, type 'sysdm.cpl' and press Enter. Go to Advanced tab > Performance Settings > Advanced tab > click 'Change' under Virtual Memory. Uncheck 'Automatically manage paging file size'. Select your C: drive, choose 'Custom size'. Set Initial size to 1.5x your RAM (e.g., 12288 for 8GB RAM) and Maximum size to 3x your RAM (e.g., 24576). Click Set, then OK. Restart your computer.",
+          "warning": "Only increase virtual memory if you're regularly running out of RAM. This uses disk space as slow substitute for RAM — it helps prevent crashes but won't make things as fast as real RAM.",
+          "adminRequired": true,
+          "backupAdvised": false
+        }
+      ]
+    },
+    {
+      "id": "windows-update-stuck",
+      "title": "Fix Windows Update When It's Stuck",
+      "symptom": "Windows Update is stuck downloading, installing, or just won't work",
+      "description": "Resolve Windows Update when it freezes at a percentage, fails repeatedly, or won't check for updates at all.",
+      "category": "updates-maintenance",
+      "categoryName": "Updates & Maintenance",
+      "categoryIcon": "🔄",
+      "keywords": ["windows update stuck", "update frozen", "update won't install", "update downloading forever", "update pending"],
+      "causes": [
+        "Corrupted update cache files",
+        "Windows Update service not running properly",
+        "Insufficient disk space for the update",
+        "Conflict with third-party software",
+        "Corrupted system files preventing update installation"
+      ],
+      "whyItWorks": "Windows Update downloads update files to a cache folder (SoftwareDistribution) before installing them. If these cached files become corrupted — due to an interrupted download, disk error, or software conflict — the update process gets stuck trying to use broken files. Clearing this cache forces Windows to download fresh copies. Running SFC and DISM repairs any corrupted system files that might prevent updates from installing properly.",
+      "steps": [
+        {
+          "instruction": "Restart your computer",
+          "detail": "Sometimes updates need a restart to finish installing. Go to Start > Power > Restart (not Shut down — Restart is different and clears more temporary state). Wait for your computer to fully restart and check Windows Update again.",
+          "adminRequired": false,
+          "backupAdvised": false
+        },
+        {
+          "instruction": "Run the Windows Update Troubleshooter",
+          "detail": "Go to Settings > System > Troubleshoot > Other troubleshooters (Windows 11) or Settings > Update & Security > Troubleshoot (Windows 10). Click 'Run' next to 'Windows Update'. The troubleshooter will check for common issues and attempt to fix them automatically.",
+          "adminRequired": false,
+          "backupAdvised": false
+        },
+        {
+          "instruction": "Check available disk space",
+          "detail": "Go to Settings > System > Storage. Major updates need at least 20GB of free space. If you're low, run Disk Cleanup (search in Start menu), empty the Recycle Bin, and move large files to an external drive. You can also use Storage Sense to automatically clean up temporary files.",
+          "adminRequired": false,
+          "backupAdvised": false
+        },
+        {
+          "instruction": "Clear the Windows Update cache",
+          "detail": "Open Command Prompt as Administrator and run these commands one at a time:\n\nnet stop wuauserv\nnet stop bits\nren C:\\Windows\\SoftwareDistribution SoftwareDistribution.old\nnet start wuauserv\nnet start bits\n\nThis stops the update service, renames the corrupted cache folder (Windows will create a new one), and restarts the service. Try checking for updates again.",
+          "warning": "This will delete all downloaded update files. They will be re-downloaded fresh, which may take time on slow connections.",
+          "adminRequired": true,
+          "backupAdvised": true
+        },
+        {
+          "instruction": "Run System File Checker and DISM",
+          "detail": "Open Command Prompt as Administrator and run:\n\nsfc /scannow\n\nWait for it to complete. Then run:\n\nDISM /Online /Cleanup-Image /RestoreHealth\n\nThis can take 15-30 minutes. SFC fixes corrupted Windows system files. DISM repairs the Windows image itself using Windows Update. After both complete, restart and try updating again.",
+          "adminRequired": true,
+          "backupAdvised": false
+        },
+        {
+          "instruction": "Manually download the update",
+          "detail": "If a specific update keeps failing, note its KB number (e.g., KB5012345) from the Windows Update error. Go to catalog.update.microsoft.com in your browser. Search for the KB number. Download the version matching your Windows (x64 for 64-bit). Run the downloaded file to install the update manually.",
+          "adminRequired": true,
+          "backupAdvised": true
+        }
+      ]
+    },
+    {
+      "id": "windows-update-errors",
+      "title": "Fix Windows Update Error Codes",
+      "symptom": "I keep getting error codes (0x80070002, 0x800f0922, etc.) when trying to update",
+      "description": "Resolve specific Windows Update error codes and get updates installing successfully again.",
+      "category": "updates-maintenance",
+      "categoryName": "Updates & Maintenance",
+      "categoryIcon": "🔄",
+      "keywords": ["update error", "error code", "0x80070002", "0x800f0922", "update failed", "error"],
+      "causes": [
+        "Corrupted system files needed by the update",
+        "Windows Update service components not working correctly",
+        "Third-party antivirus or firewall interfering with updates",
+        "System partition too small or reserved partition issues",
+        "Previous update left the system in a bad state"
+      ],
+      "whyItWorks": "Windows Update errors with hex codes indicate specific failures in the update pipeline. Most are caused by corrupted system files or broken update service components. SFC and DISM repair the operating system's file integrity, resetting update components clears the entire update state, and manually installing from the Microsoft Update Catalog bypasses the automated update system entirely — giving you a direct path to getting the update installed.",
+      "steps": [
+        {
+          "instruction": "Note the exact error code",
+          "detail": "Go to Settings > Windows Update > Update history. Find the failed update and note the error code (e.g., 0x80070002, 0x800f0922, 0x80244019). This code tells you exactly what went wrong. Search it on Microsoft's support site for specific guidance.",
+          "adminRequired": false,
+          "backupAdvised": false
+        },
+        {
+          "instruction": "Run the Windows Update Troubleshooter",
+          "detail": "Go to Settings > System > Troubleshoot > Other troubleshooters > Windows Update. Click Run. The troubleshooter checks update services, resolves common errors, and can reset update components automatically.",
+          "adminRequired": false,
+          "backupAdvised": false
+        },
+        {
+          "instruction": "Repair system files with SFC and DISM",
+          "detail": "Open Command Prompt as Administrator. Run:\n\nDISM /Online /Cleanup-Image /RestoreHealth\n\nWait for completion (may take 20+ minutes), then run:\n\nsfc /scannow\n\nRestart your computer and try the update again. DISM fixes the Windows image, SFC fixes individual system files.",
+          "adminRequired": true,
+          "backupAdvised": false
+        },
+        {
+          "instruction": "Temporarily disable third-party antivirus",
+          "detail": "If you use antivirus software other than Windows Defender (like Norton, McAfee, Avast, etc.), temporarily disable it and try the update again. Some antivirus programs block update files thinking they're threats. Right-click the antivirus icon in the system tray and look for 'Disable' or 'Pause protection'. Re-enable it after the update completes.",
+          "warning": "Only disable antivirus temporarily and re-enable immediately after updating. Don't browse untrusted websites while antivirus is disabled.",
+          "adminRequired": false,
+          "backupAdvised": false
+        },
+        {
+          "instruction": "Reset Windows Update components manually",
+          "detail": "Open Command Prompt as Administrator and run each line:\n\nnet stop wuauserv\nnet stop cryptsvc\nnet stop bits\nnet stop msiserver\nren C:\\Windows\\SoftwareDistribution SoftwareDistribution.old\nren C:\\Windows\\System32\\catroot2 catroot2.old\nnet start wuauserv\nnet start cryptsvc\nnet start bits\nnet start msiserver\n\nThis completely resets all Windows Update components. Try updating again after restart.",
+          "warning": "This resets all update components. Previously downloaded updates will need to be re-downloaded.",
+          "adminRequired": true,
+          "backupAdvised": true
+        },
+        {
+          "instruction": "Download and install the update manually",
+          "detail": "Go to catalog.update.microsoft.com. Search for the KB number of the failing update. Download the correct version for your system (check Settings > System > About to see if you have 64-bit or 32-bit). Run the downloaded .msu file to install. This bypasses Windows Update entirely.",
+          "adminRequired": true,
+          "backupAdvised": true
+        }
+      ]
+    },
+    {
+      "id": "browser-settings-optimization",
+      "title": "Optimize Browser Settings (Chrome, Edge, Firefox)",
+      "symptom": "My browser is slow, has too many pop-ups, or isn't working right",
+      "description": "Fix slow browsers, remove unwanted extensions, block pop-ups, and optimize settings for Chrome, Edge, and Firefox.",
+      "category": "browser-apps",
+      "categoryName": "Browser & Application Settings",
+      "categoryIcon": "🌍",
+      "keywords": ["browser slow", "pop-ups", "chrome slow", "edge settings", "firefox", "extensions", "browser settings"],
+      "causes": [
+        "Too many browser extensions installed (some may be malicious)",
+        "Accumulated cache and browsing data slowing things down",
+        "Pop-up blocker disabled or malicious extensions allowing pop-ups",
+        "Hardware acceleration disabled or causing conflicts",
+        "Browser hijacker changing your homepage or search engine"
+      ],
+      "whyItWorks": "Browsers accumulate data over time — cached files, cookies, history, and extensions all consume memory and processing power. Malicious or excessive extensions can inject ads, redirect searches, and slow everything down. Clearing this accumulated data and removing unnecessary extensions gives your browser a fresh, lean start. Resetting settings removes any unwanted changes made by browser hijackers.",
+      "steps": [
+        {
+          "instruction": "Clear browsing data and cache",
+          "detail": "Chrome: Press Ctrl+Shift+Delete > set time range to 'All time' > check 'Cookies', 'Cached images and files' > click 'Clear data'.\n\nEdge: Press Ctrl+Shift+Delete > select 'All time' > check same boxes > click 'Clear now'.\n\nFirefox: Press Ctrl+Shift+Delete > set time range to 'Everything' > check 'Cache' and 'Cookies' > click 'Clear Now'.\n\nThis removes old data that slows down browsing.",
+          "warning": "Clearing cookies will sign you out of most websites. You'll need to log in again.",
+          "adminRequired": false,
+          "backupAdvised": false
+        },
+        {
+          "instruction": "Review and remove unnecessary extensions",
+          "detail": "Chrome: Go to chrome://extensions in the address bar.\nEdge: Go to edge://extensions.\nFirefox: Go to about:addons.\n\nFor each extension, ask yourself: 'Did I install this? Do I use it?' Remove any extensions you don't recognize or don't use. Malicious extensions are the #1 cause of browser pop-ups and redirects.",
+          "adminRequired": false,
+          "backupAdvised": false
+        },
+        {
+          "instruction": "Block pop-ups and redirects",
+          "detail": "Chrome: Settings > Privacy and security > Site settings > Pop-ups and redirects > set to 'Don't allow'.\n\nEdge: Settings > Cookies and site permissions > Pop-ups and redirects > toggle to Block.\n\nFirefox: Settings > Privacy & Security > scroll to Permissions > check 'Block pop-up windows'.",
+          "adminRequired": false,
+          "backupAdvised": false
+        },
+        {
+          "instruction": "Check and fix your homepage and search engine",
+          "detail": "If your homepage or search engine changed without you doing it, a browser hijacker may be involved.\n\nChrome: Settings > On startup (set your preferred page), Settings > Search engine (choose Google, Bing, or your preferred engine).\n\nEdge: Settings > Start, home, and new tabs.\n\nFirefox: Settings > Home, Settings > Search.\n\nIf you can't change these settings, an extension is probably forcing them — go back to step 2 and remove suspicious extensions.",
+          "adminRequired": false,
+          "backupAdvised": false
+        },
+        {
+          "instruction": "Enable hardware acceleration",
+          "detail": "Chrome: Settings > System > 'Use hardware acceleration when available' > turn ON.\nEdge: Settings > System and performance > 'Use hardware acceleration' > turn ON.\nFirefox: Settings > General > Performance > uncheck 'Use recommended performance settings' > check 'Use hardware acceleration'.\n\nThis lets your GPU help render web pages, making browsing smoother. If you experience visual glitches, turn it OFF instead.",
+          "adminRequired": false,
+          "backupAdvised": false
+        },
+        {
+          "instruction": "Reset browser to default settings (last resort)",
+          "detail": "If nothing else works, reset your browser:\n\nChrome: Settings > Reset settings > 'Restore settings to their original defaults' > click 'Reset settings'.\n\nEdge: Settings > Reset settings > 'Restore settings to their default values'.\n\nFirefox: Help menu > More Troubleshooting Information > click 'Refresh Firefox'.\n\nThis removes all extensions, clears settings, and gives you a clean browser. Bookmarks and saved passwords are preserved.",
+          "warning": "This will remove all extensions and custom settings. Bookmarks and passwords should be preserved, but consider exporting them first just in case.",
+          "adminRequired": false,
+          "backupAdvised": false
+        }
+      ]
+    },
+    {
+      "id": "email-app-setup",
+      "title": "Set Up and Fix Email Apps",
+      "symptom": "I can't set up my email or email has stopped syncing",
+      "description": "Set up email accounts in Windows Mail and Outlook, and fix common syncing and connection issues.",
+      "category": "browser-apps",
+      "categoryName": "Browser & Application Settings",
+      "categoryIcon": "🌍",
+      "keywords": ["email setup", "email not syncing", "outlook", "windows mail", "gmail setup", "yahoo mail", "email not working"],
+      "causes": [
+        "Incorrect account settings or password",
+        "App-specific password needed for Gmail or Yahoo (2-factor auth)",
+        "Sync settings configured incorrectly",
+        "Date and time settings incorrect (causes SSL certificate errors)",
+        "App or Windows firewall blocking email connections"
+      ],
+      "whyItWorks": "Email apps connect to mail servers using specific protocols (IMAP, POP3, SMTP) and authentication. If any part of this chain breaks — wrong password, incorrect server settings, SSL certificate errors due to wrong date/time, or firewall blocks — email stops working. Reconfiguring the account ensures all settings are correct, fixing date/time resolves SSL issues, and allowing the app through the firewall removes connection blocks.",
+      "steps": [
+        {
+          "instruction": "Add or reconfigure your email account",
+          "detail": "Windows Mail: Open Mail app > Settings (gear icon) > Manage accounts > Add account. Select your provider (Gmail, Outlook.com, Yahoo, iCloud) or 'Other account' for custom setups. Enter your email and password. For Outlook desktop: File > Add Account > enter your email.\n\nFor Gmail: You may need to enable 'Less secure app access' in your Google account settings, or use an App Password if you have 2-Factor Authentication enabled (Google Account > Security > App passwords).",
+          "adminRequired": false,
+          "backupAdvised": false
+        },
+        {
+          "instruction": "Check your date and time settings",
+          "detail": "Right-click the clock in the taskbar > 'Adjust date/time'. Make sure 'Set time automatically' is ON and your timezone is correct. If the date or time is wrong, email SSL certificates will appear invalid and connections will fail. Click 'Sync now' to update the time from the internet.",
+          "adminRequired": false,
+          "backupAdvised": false
+        },
+        {
+          "instruction": "Configure sync settings",
+          "detail": "Windows Mail: Settings > Manage accounts > click your account > 'Change mailbox sync settings'. Set 'Download new content' to 'as items arrive' or 'every 15 minutes'. Make sure Email, Calendar, and Contacts are toggled ON for syncing.\n\nOutlook: File > Account Settings > select your account > Change > adjust settings.",
+          "adminRequired": false,
+          "backupAdvised": false
+        },
+        {
+          "instruction": "Remove and re-add the account",
+          "detail": "If email stopped syncing, the quickest fix is to remove the account and add it fresh. Windows Mail: Settings > Manage accounts > click the account > 'Delete account from this device'. Then add it again. Your emails are stored on the server so you won't lose anything — they'll re-sync after you re-add the account.",
+          "adminRequired": false,
+          "backupAdvised": false
+        },
+        {
+          "instruction": "Allow email apps through Windows Firewall",
+          "detail": "Search for 'Windows Defender Firewall' in Start menu > click 'Allow an app or feature through Windows Defender Firewall' > click 'Change settings' > make sure your email app (Mail, Outlook) has both Private and Public checkmarks. If it's not listed, click 'Allow another app' and browse to add it.",
+          "adminRequired": true,
+          "backupAdvised": false
+        }
+      ]
+    }
+  ]
+}

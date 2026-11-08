@@ -1,0 +1,115 @@
+{
+  "guides": [
+    {
+      "id": "dualboot-windows-update-killed-grub",
+      "title": "Restoring GRUB When Windows Update Overwrites the Bootloader",
+      "symptom": "PC boots straight into Windows with no GRUB menu after a Windows 10/11 cumulative update",
+      "description": "Quickly restore GRUB boot priority using `bcdedit` from within Windows, or reinstall the EFI boot entry using a Live USB.",
+      "category": "dualboot-bootloader",
+      "categoryName": "Bootloader & UEFI",
+      "categoryIcon": "⚡",
+      "keywords": ["windows update killed grub", "grub menu disappeared", "pc boots straight to windows", "bcdedit set bootmgr grub", "restore grub from windows"],
+      "causes": [
+        "Major Windows feature updates reset the UEFI NVRAM default boot order to place 'Windows Boot Manager' at the top of the priority list",
+        "The Linux GRUB files are almost always still completely intact on the EFI partition"
+      ],
+      "whyItWorks": "Windows Update does not actually delete the Linux files in `/EFI/ubuntu/`. It simply changes the active UEFI NVRAM pointer. Using `bcdedit` from an elevated Windows Command Prompt tells the Windows Boot Manager to execute GRUB as its primary target, immediately restoring the bootloader menu.",
+      "steps": [
+        {
+          "instruction": "Fix GRUB directly from Windows Command Prompt (Fastest method)",
+          "detail": "Boot into Windows. Press Start, type `cmd`, right-click Command Prompt and select 'Run as administrator'.\nFor Ubuntu / Linux Mint / Debian, run:\nbcdedit /set {bootmgr} path \\EFI\\ubuntu\\grubx64.efi\nFor Fedora: `bcdedit /set {bootmgr} path \\EFI\\fedora\\shimx64.efi`\nFor Arch: `bcdedit /set {bootmgr} path \\EFI\\arch\\grubx64.efi`\nReboot your PC. The GRUB menu will immediately reappear!",
+          "adminRequired": true,
+          "backupAdvised": false
+        },
+        {
+          "instruction": "Alternative: Re-order boot target in BIOS/UEFI Settings",
+          "detail": "Restart your PC and tap your BIOS key (F2, Del, F12). Navigate to the 'Boot' or 'Boot Priority' menu. Find 'ubuntu' or 'Linux Boot Manager' in the list and move it above 'Windows Boot Manager' to the #1 priority position. Press F10 to save and exit.",
+          "adminRequired": false,
+          "backupAdvised": false
+        },
+        {
+          "instruction": "Restore via Live USB if EFI entry was deleted",
+          "detail": "If the entry is gone from BIOS, boot an Ubuntu Live USB, open terminal and run:\nsudo apt install efibootmgr -y\nsudo efibootmgr -c -d /dev/nvme0n1 -p 1 -L 'ubuntu' -l '\\EFI\\ubuntu\\shimx64.efi'\n(Adjust disk `nvme0n1` and partition `1` to match your EFI partition).",
+          "adminRequired": true,
+          "backupAdvised": false
+        }
+      ]
+    },
+    {
+      "id": "dualboot-grub-rescue-prompt",
+      "title": "Fixing 'error: unknown filesystem' & 'grub rescue>' Prompt",
+      "symptom": "Computer boots to black screen with: 'error: unknown filesystem. Entering rescue mode... grub rescue>'",
+      "description": "Locate the lost Linux boot partition, load normal GRUB modules, and boot your system from the grub rescue prompt.",
+      "category": "dualboot-bootloader",
+      "categoryName": "Bootloader & UEFI",
+      "categoryIcon": "⚡",
+      "keywords": ["grub rescue error unknown filesystem", "grub rescue commands", "insmod normal grub", "fix grub rescue without usb"],
+      "causes": [
+        "Linux partition was moved, resized, or had its partition index changed in Windows Disk Management",
+        "GRUB core image cannot find its `/boot/grub/i386-pc` or `x86_64-efi` module files"
+      ],
+      "whyItWorks": "Even in minimal rescue mode, GRUB's core image can list storage devices and inspect filesystems. Locating the partition holding the `/boot/grub` directory and loading the `normal` module switches GRUB back into its full interactive graphical menu.",
+      "steps": [
+        {
+          "instruction": "List all detected disks and partitions",
+          "detail": "At the `grub rescue>` prompt, type:\nls\nIt will return partition identifiers such as: `(hd0) (hd0,msdos1) (hd0,gpt1) (hd0,gpt2)` or `(hd1,gpt2)`.",
+          "adminRequired": false,
+          "backupAdvised": false
+        },
+        {
+          "instruction": "Probe each partition to find your Linux filesystem",
+          "detail": "Test each partition until you find the one containing your Linux files. Type:\nls (hd0,gpt1)/\nls (hd0,gpt2)/\nIf it says 'Filesystem is unknown', try the next one. When you hit the correct Linux partition, it will display folders like `bin/ boot/ dev/ etc/ home/`.",
+          "adminRequired": false,
+          "backupAdvised": false
+        },
+        {
+          "instruction": "Set root, prefix, and load the normal module",
+          "detail": "Assuming `(hd0,gpt2)` is your partition, type these exact 4 commands:\nset root=(hd0,gpt2)\nset prefix=(hd0,gpt2)/boot/grub\ninsmod normal\nnormal\nThe full graphical GRUB menu will instantly pop up on screen! Select Linux and press Enter.",
+          "adminRequired": false,
+          "backupAdvised": false
+        },
+        {
+          "instruction": "Permanently repair GRUB once inside Linux",
+          "detail": "Once your desktop loads, open terminal and lock in the repair permanently:\nsudo update-grub\nsudo grub-install /dev/nvme0n1\n(Replace with your boot disk device name).",
+          "adminRequired": true,
+          "backupAdvised": false
+        }
+      ]
+    },
+    {
+      "id": "dualboot-uninstall-linux-safely",
+      "title": "Safely Uninstalling Linux from Dual Boot (Without Breaking Windows)",
+      "symptom": "Want to remove Linux and reclaim disk space for Windows without getting stuck on grub rescue",
+      "description": "Delete Linux partitions safely, clean up Linux EFI bootloaders from the ESP partition, and restore single-boot Windows.",
+      "category": "dualboot-disk",
+      "categoryName": "Partition & Storage",
+      "categoryIcon": "💽",
+      "keywords": ["remove linux dual boot safely", "delete ubuntu keep windows", "uninstall linux without grub rescue", "delete efi ubuntu folder"],
+      "causes": [
+        "Users delete the Linux partition in Windows Disk Management while GRUB is still the primary bootloader, causing an instant `grub rescue` crash on next restart"
+      ],
+      "whyItWorks": "To safely remove Linux, you MUST set Windows Boot Manager as the default bootloader FIRST and remove the `EFI/ubuntu` directory before formatting the Linux partitions.",
+      "steps": [
+        {
+          "instruction": "Step 1: Set Windows Boot Manager as default FIRST",
+          "detail": "Boot into Windows. Open Command Prompt as Administrator and run:\nbcdedit /set {bootmgr} path \\EFI\\Microsoft\\Boot\\bootmgfw.efi\nRestart your PC to verify it boots directly into Windows with zero trace of GRUB.",
+          "adminRequired": true,
+          "backupAdvised": false
+        },
+        {
+          "instruction": "Step 2: Delete Linux EFI files from the ESP partition",
+          "detail": "In elevated Command Prompt, mount the EFI partition to drive letter Z:\nmountvol Z: /s\ncd /d Z:\\EFI\ndir\nDelete the Linux boot directory:\nrmdir /s /q ubuntu\n(Or `rmdir /s /q fedora` / `arch`). Then unmount:\nmountvol Z: /d",
+          "adminRequired": true,
+          "backupAdvised": true
+        },
+        {
+          "instruction": "Step 3: Delete Linux partitions and expand C: drive",
+          "detail": "Press Win+X > Disk Management. Find the partitions without a drive letter formatted in ext4 (often labeled Healthy Primary Partition). Right-click and choose 'Delete Volume' to turn them into Unallocated Space. Right-click your C: drive > choose 'Extend Volume...' to reclaim all the free disk space for Windows.",
+          "warning": "Never delete the 100MB-512MB EFI System Partition. Only delete the Linux data and swap partitions.",
+          "adminRequired": true,
+          "backupAdvised": true
+        }
+      ]
+    }
+  ]
+}

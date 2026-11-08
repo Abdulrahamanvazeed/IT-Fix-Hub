@@ -1,0 +1,124 @@
+{
+  "guides": [
+    {
+      "id": "linux-grub-bootloader-repair",
+      "title": "Repairing Broken GRUB Bootloader via Live USB (chroot)",
+      "symptom": "Linux boots into 'grub rescue>' prompt, black screen, or boots directly into BIOS",
+      "description": "Rescue a broken GRUB2 bootloader using a Live Linux USB environment and `chroot` to reinstall EFI boot records.",
+      "category": "disk-boot",
+      "categoryName": "Boot & Disk Repair",
+      "categoryIcon": "💿",
+      "keywords": ["grub rescue fix", "reinstall grub live usb", "chroot linux recovery", "repair grub2 ubuntu", "efi boot repair linux"],
+      "causes": [
+        "Windows Update or BIOS reset wiping the NVRAM boot variable",
+        "Corrupted `/boot/grub/grub.cfg` file pointing to missing partition UUID",
+        "Interrupted kernel package upgrade"
+      ],
+      "whyItWorks": "Using `chroot` (change root) allows you to enter your installed Linux system from a Live USB session. Inside the chroot, running `grub-install` writes fresh binaries to the EFI System Partition (ESP) and `update-grub` auto-detects all kernels and operating systems.",
+      "steps": [
+        {
+          "instruction": "Boot from any Live Linux USB (Ubuntu/Fedora/Debian)",
+          "detail": "Insert a bootable Live USB, enter your PC's boot selection menu (usually F12, F11, or Esc), and select 'Try Ubuntu' (or live session). Open Terminal.",
+          "adminRequired": false,
+          "backupAdvised": false
+        },
+        {
+          "instruction": "Identify your Linux root partition and EFI partition",
+          "detail": "Run:\nsudo lsblk -o NAME,SIZE,FSTYPE,MOUNTPOINT,LABEL\nIdentify your main Linux root partition (e.g. `/dev/nvme0n1p2` or `/dev/sda2`, typically ext4/btrfs) and your EFI System Partition (usually ~100-512MB, vfat/FAT32, e.g. `/dev/nvme0n1p1`).",
+          "adminRequired": false,
+          "backupAdvised": false
+        },
+        {
+          "instruction": "Mount the system partitions and bind virtual filesystems",
+          "detail": "Replace `sda2` with your root partition and `sda1` with your EFI partition:\nsudo mount /dev/sda2 /mnt\nsudo mount /dev/sda1 /mnt/boot/efi\nfor i in /dev /dev/pts /proc /sys /run; do sudo mount -B $i /mnt$i; done",
+          "adminRequired": true,
+          "backupAdvised": false
+        },
+        {
+          "instruction": "Enter chroot and reinstall GRUB",
+          "detail": "Run:\nsudo chroot /mnt\ngrub-install /dev/sda\nupdate-grub\nType `exit` to leave the chroot, then reboot without the USB. Your GRUB menu will reappear cleanly.",
+          "warning": "Ensure you specify the disk (e.g. /dev/sda or /dev/nvme0n1), not the partition number when running grub-install on legacy systems, or let EFI handler manage it.",
+          "adminRequired": true,
+          "backupAdvised": true
+        }
+      ]
+    },
+    {
+      "id": "linux-graphics-drivers-nvidia",
+      "title": "Fixing Black Screen After NVIDIA Driver Updates & Wayland Issues",
+      "symptom": "Linux boots into a black screen, flashing cursor, or low-resolution fallback mode after graphics update",
+      "description": "Recover from broken NVIDIA proprietary drivers, blacklist conflicting Nouveau open-source drivers, and switch between Wayland and X11.",
+      "category": "drivers-hardware",
+      "categoryName": "Graphics & Hardware",
+      "categoryIcon": "🔌",
+      "keywords": ["nvidia black screen ubuntu", "fix nvidia driver linux", "switch wayland to x11", "nouveau blacklist", "tty terminal linux"],
+      "causes": [
+        "Kernel updated without building matching NVIDIA Dynamic Kernel Module Support (DKMS) headers",
+        "Nouveau open-source driver conflicting with proprietary NVIDIA driver",
+        "Wayland display server incompatibility with older NVIDIA drivers"
+      ],
+      "whyItWorks": "When the display manager (GDM/SDDM) fails to start due to a graphics driver mismatch, Linux drops to a black screen. Switching to a text virtual console (TTY) allows you to purge broken drivers, install matched DKMS modules, or fall back to stable drivers.",
+      "steps": [
+        {
+          "instruction": "Access a text Virtual Console (TTY3)",
+          "detail": "At the black screen or flashing cursor, press Ctrl + Alt + F3 (or F4 / F5). A full-screen text login prompt will appear. Enter your Linux username and password.",
+          "adminRequired": false,
+          "backupAdvised": false
+        },
+        {
+          "instruction": "Purge broken proprietary NVIDIA packages",
+          "detail": "Run this command to completely remove the broken driver packages:\nsudo apt purge '*nvidia*' -y\nsudo apt autoremove -y",
+          "adminRequired": true,
+          "backupAdvised": false
+        },
+        {
+          "instruction": "Install recommended tested driver using `ubuntu-drivers`",
+          "detail": "Let the driver subsystem detect your card and install the certified stable driver:\nsudo ubuntu-drivers autoinstall\nOr manually specify the LTS driver (e.g., `sudo apt install nvidia-driver-535 -y`).",
+          "adminRequired": true,
+          "backupAdvised": false
+        },
+        {
+          "instruction": "Force X11 fallback if Wayland continues to freeze",
+          "detail": "Edit GDM configuration:\nsudo nano /etc/gdm3/custom.conf\nFind the line `#WaylandEnable=false` and remove the `#` to uncomment it so it reads:\nWaylandEnable=false\nPress Ctrl+O to save and Ctrl+X to exit. Then reboot with `sudo reboot`.",
+          "adminRequired": true,
+          "backupAdvised": false
+        }
+      ]
+    },
+    {
+      "id": "linux-disk-fsck-emergency",
+      "title": "Repair Corrupted Filesystems in Emergency Mode (`fsck`)",
+      "symptom": "Linux boot drops into 'Emergency Mode' or 'initramfs' prompt: 'UNEXPECTED INCONSISTENCY; RUN fsck MANUALLY'",
+      "description": "Fix corrupted ext4 and btrfs file system superblocks, repair bad inodes, and resolve fstab UUID mounting conflicts.",
+      "category": "disk-boot",
+      "categoryName": "Boot & Disk Repair",
+      "categoryIcon": "💿",
+      "keywords": ["emergency mode linux", "initramfs prompt", "run fsck manually", "repair ext4 filesystem", "fstab uuid error"],
+      "causes": [
+        "Unclean shutdown due to power outage or forced hard power-off",
+        "Damaged file system journal or corrupt superblock metadata"
+      ],
+      "whyItWorks": "`fsck` (File System Consistency Check) inspects cylinder groups, verifies inode counts, clears orphaned inodes, and restores journal integrity. Running it with the `-y` flag answers yes to repairing discovered inconsistencies.",
+      "steps": [
+        {
+          "instruction": "Identify the corrupted partition from the error message",
+          "detail": "Read the on-screen emergency mode prompt. It will state the exact device path with inconsistencies, for example:\n`/dev/sda2: UNEXPECTED INCONSISTENCY; RUN fsck MANUALLY.`",
+          "adminRequired": false,
+          "backupAdvised": false
+        },
+        {
+          "instruction": "Run `fsck` with automated repair flag",
+          "detail": "At the `(initramfs)` or root emergency prompt, run:\nfsck -y /dev/sda2\n(Replace `/dev/sda2` with your actual partition name). Allow the utility to pass through all 5 phases (inodes, blocks, directory structures, reference counts).",
+          "adminRequired": true,
+          "backupAdvised": false
+        },
+        {
+          "instruction": "Reboot into normal system mode",
+          "detail": "Once fsck finishes reporting 'FILE SYSTEM WAS MODIFIED', type:\nexit\nOr:\nreboot\nYour Linux distribution will now boot normally into the graphical desktop.",
+          "adminRequired": false,
+          "backupAdvised": false
+        }
+      ]
+    }
+  ]
+}

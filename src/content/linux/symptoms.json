@@ -1,0 +1,68 @@
+{
+  "symptoms": [
+    {
+      "id": "linux-no-wifi",
+      "text": "Linux Wi-Fi not working or 'No Wi-Fi Adapter Found'",
+      "icon": "🌐",
+      "keywords": ["wifi", "network", "no adapter", "disconnect", "broadcom", "rfkill", "networkmanager"],
+      "guideIds": ["linux-network-wifi-troubleshoot"],
+      "category": "Internet & Network"
+    },
+    {
+      "id": "linux-service-failed",
+      "text": "Linux service or daemon failed to start (systemctl error)",
+      "icon": "🔧",
+      "keywords": ["service failed", "systemctl error", "journalctl", "failed to start", "daemon"],
+      "guideIds": ["linux-systemd-services"],
+      "category": "Services & Logs"
+    },
+    {
+      "id": "linux-high-cpu-slow",
+      "text": "Linux system slow, fan loud, or runaway process",
+      "icon": "⚡",
+      "keywords": ["slow", "high cpu", "htop", "kill process", "memory leak", "fan loud"],
+      "guideIds": ["linux-high-load-processes"],
+      "category": "Speed & Performance"
+    },
+    {
+      "id": "linux-grub-rescue",
+      "text": "Stuck in 'grub rescue>' or Linux won't boot",
+      "icon": "💿",
+      "keywords": ["grub rescue", "bootloader", "wont boot", "chroot", "black screen"],
+      "guideIds": ["linux-grub-bootloader-repair", "linux-disk-fsck-emergency"],
+      "category": "Boot & Startup"
+    },
+    {
+      "id": "linux-nvidia-black-screen",
+      "text": "Black screen after NVIDIA graphics driver update on Linux",
+      "icon": "🖥️",
+      "keywords": ["black screen", "nvidia", "graphics driver", "wayland", "tty", "ubuntu freeze"],
+      "guideIds": ["linux-graphics-drivers-nvidia"],
+      "category": "Errors & Crashes"
+    },
+    {
+      "id": "linux-initramfs-emergency",
+      "text": "Emergency mode or initramfs 'RUN fsck MANUALLY'",
+      "icon": "🛑",
+      "keywords": ["emergency mode", "initramfs", "fsck", "corrupted filesystem", "ext4 error"],
+      "guideIds": ["linux-disk-fsck-emergency"],
+      "category": "Boot & Startup"
+    },
+    {
+      "id": "linux-cant-install-app",
+      "text": "Can't install software or package manager error on Linux",
+      "icon": "📦",
+      "keywords": ["apt error", "unable to locate package", "dnf", "install app", "flatpak"],
+      "guideIds": ["linux-package-management"],
+      "category": "Apps & Programs"
+    },
+    {
+      "id": "linux-permission-denied",
+      "text": "Permission denied error or cannot execute file",
+      "icon": "🔒",
+      "keywords": ["permission denied", "chmod", "chown", "root", "sudo"],
+      "guideIds": ["linux-file-permissions"],
+      "category": "Settings & Setup"
+    }
+  ]
+}

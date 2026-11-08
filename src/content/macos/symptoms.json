@@ -1,0 +1,68 @@
+{
+  "symptoms": [
+    {
+      "id": "mac-slow-beachball",
+      "text": "Mac is slow or spinning color wheel appears constantly",
+      "icon": "🌀",
+      "keywords": ["slow", "spinning wheel", "beach ball", "freezing", "lag", "macbook"],
+      "guideIds": ["macos-slow-beachball", "macos-storage-management"],
+      "category": "Speed & Performance"
+    },
+    {
+      "id": "mac-wifi-dropping",
+      "text": "Mac Wi-Fi keeps dropping or won't connect",
+      "icon": "🌐",
+      "keywords": ["wifi", "disconnect", "dropping", "no internet", "network", "airport"],
+      "guideIds": ["macos-wifi-dropping"],
+      "category": "Internet & Network"
+    },
+    {
+      "id": "mac-cant-install-app",
+      "text": "Can't install app or 'Unidentified Developer' warning",
+      "icon": "🛡️",
+      "keywords": ["unidentified developer", "gatekeeper", "damaged app", "install dmg", "blocked"],
+      "guideIds": ["macos-app-installation-gatekeeper", "macos-terminal-permissions-quarantine"],
+      "category": "Apps & Security"
+    },
+    {
+      "id": "mac-storage-full",
+      "text": "Mac storage full or 'System Data' takes too much space",
+      "icon": "💾",
+      "keywords": ["disk full", "system data", "free space", "caches", "storage"],
+      "guideIds": ["macos-storage-management"],
+      "category": "Speed & Performance"
+    },
+    {
+      "id": "mac-wont-boot",
+      "text": "Mac won't boot, stuck on Apple logo or question mark",
+      "icon": "💿",
+      "keywords": ["wont boot", "black screen", "question mark folder", "apple logo", "recovery mode"],
+      "guideIds": ["macos-recovery-disk-utility", "macos-smc-nvram-reset"],
+      "category": "Boot & Startup"
+    },
+    {
+      "id": "mac-printer-problem",
+      "text": "Printer won't print from Mac or shows as paused",
+      "icon": "🖨️",
+      "keywords": ["printer", "cups", "paused", "offline", "airprint"],
+      "guideIds": ["macos-printer-cups-reset"],
+      "category": "Printing"
+    },
+    {
+      "id": "mac-fan-loud",
+      "text": "Mac fans running loud constantly or battery not charging",
+      "icon": "💨",
+      "keywords": ["fan loud", "hot", "battery not charging", "smc reset", "overheating"],
+      "guideIds": ["macos-smc-nvram-reset", "macos-slow-beachball"],
+      "category": "Errors & Crashes"
+    },
+    {
+      "id": "mac-default-browser",
+      "text": "Links opening in wrong browser or wrong app opens files",
+      "icon": "⚙️",
+      "keywords": ["default browser", "safari to chrome", "default app", "change default", "open with"],
+      "guideIds": ["macos-default-apps-settings"],
+      "category": "Settings & Setup"
+    }
+  ]
+}

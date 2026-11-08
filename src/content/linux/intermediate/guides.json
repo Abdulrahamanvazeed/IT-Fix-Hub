@@ -1,0 +1,125 @@
+{
+  "guides": [
+    {
+      "id": "linux-network-wifi-troubleshoot",
+      "title": "Fix Wi-Fi & Network Disconnections on Linux (NetworkManager & nmcli)",
+      "symptom": "Linux Wi-Fi shows 'No Wi-Fi Adapter Found', network drops constantly, or DNS fails",
+      "description": "Diagnose wireless adapter states, manage NetworkManager via `nmcli`, restart networking daemons, and install missing proprietary Wi-Fi firmware.",
+      "category": "network-connectivity",
+      "categoryName": "Network & Connectivity",
+      "categoryIcon": "🌐",
+      "keywords": ["linux wifi not working", "no wifi adapter found ubuntu", "nmcli restart", "networkmanager restart", "linux-firmware install"],
+      "causes": [
+        "NetworkManager service hung or crashed",
+        "Missing proprietary Broadcom, Realtek, or Intel wireless firmware drivers",
+        "Wi-Fi interface soft-blocked by `rfkill`"
+      ],
+      "whyItWorks": "Most modern Linux systems manage connections using NetworkManager. Restarting the daemon re-polls PCI/USB buses. Checking `rfkill` unblocks software radio locks, and installing `linux-firmware` supplies the binary blobs needed by modern Wi-Fi chipsets.",
+      "steps": [
+        {
+          "instruction": "Check for software/hardware radio blocks with `rfkill`",
+          "detail": "Run this command in terminal:\nrfkill list\nIf Wi-Fi shows 'Soft blocked: yes', unblock it with:\nsudo rfkill unblock all\nThen verify with `rfkill list` that all blocks are removed.",
+          "adminRequired": true,
+          "backupAdvised": false
+        },
+        {
+          "instruction": "Restart the NetworkManager service",
+          "detail": "Restart the network daemon to reinitialize adapter interfaces:\nsudo systemctl restart NetworkManager\nWait 5 seconds and check connection status with:\nnmcli device status",
+          "adminRequired": true,
+          "backupAdvised": false
+        },
+        {
+          "instruction": "Identify Wi-Fi chipset hardware",
+          "detail": "Check your physical hardware chipset to verify if the kernel recognizes it:\nlspci -knn | grep -iA 3 net\nOr for USB dongles:\nlsusb\nLook at the 'Kernel driver in use' and 'Kernel modules' lines. If no driver is shown, you need to install proprietary drivers.",
+          "adminRequired": false,
+          "backupAdvised": false
+        },
+        {
+          "instruction": "Install missing proprietary firmware (Broadcom / Realtek / Intel)",
+          "detail": "On Ubuntu/Debian, connect temporarily via Ethernet or phone USB tethering and run:\nsudo apt update && sudo apt install --reinstall linux-firmware\nFor Broadcom Wi-Fi cards (very common on laptops):\nsudo apt install bcmwl-kernel-source -y\nReboot your system after installation.",
+          "adminRequired": true,
+          "backupAdvised": false
+        }
+      ]
+    },
+    {
+      "id": "linux-systemd-services",
+      "title": "Diagnosing Failed Services with Systemd & Journalctl",
+      "symptom": "A background service (web server, docker, database, SSH) fails to start or crashes",
+      "description": "Troubleshoot service failures on modern Linux systems using `systemctl status`, systemd unit dependencies, and `journalctl` error logs.",
+      "category": "services-system",
+      "categoryName": "Services & Logs",
+      "categoryIcon": "🔧",
+      "keywords": ["systemctl failed", "journalctl -xeu", "systemd service error", "linux service troubleshooting", "restart service linux"],
+      "causes": [
+        "Port conflict with another running daemon (e.g. port 80 or 443 already bound)",
+        "Configuration syntax error in unit file or app configuration (e.g. nginx.conf)",
+        "File permission mismatch on service data directories"
+      ],
+      "whyItWorks": "`systemd` is the init system that supervises background services in Linux. When a service fails, systemd retains the exit code and crash logs in the binary journal (`journalctl`), pinpointing the exact configuration line or socket collision that caused the crash.",
+      "steps": [
+        {
+          "instruction": "Inspect failed systemd units across the system",
+          "detail": "List all currently failing services:\nsystemctl --failed\nNote the exact unit name (e.g., `apache2.service` or `docker.service`).",
+          "adminRequired": false,
+          "backupAdvised": false
+        },
+        {
+          "instruction": "Check the detailed status and last exit code",
+          "detail": "Run status on the specific service:\nsystemctl status target_service.service\nCheck the 'Active:' state (e.g. failed/activating), Main PID, and the last 10 log entries printed directly below the status output.",
+          "adminRequired": false,
+          "backupAdvised": false
+        },
+        {
+          "instruction": "Read deep diagnostic logs with `journalctl`",
+          "detail": "Examine the full recent error traceback for the failed unit:\njournalctl -xeu target_service.service\nPress Shift+G to jump to the very bottom (most recent messages). Look for lines with 'Failed to bind', 'Permission denied', or 'syntax error'.",
+          "adminRequired": true,
+          "backupAdvised": false
+        },
+        {
+          "instruction": "Restart or reload the service after configuration fixes",
+          "detail": "Once configuration issues are resolved, reload systemd daemon files and restart the service:\nsudo systemctl daemon-reload\nsudo systemctl restart target_service.service\nVerify with `systemctl is-active target_service` (should output 'active').",
+          "adminRequired": true,
+          "backupAdvised": false
+        }
+      ]
+    },
+    {
+      "id": "linux-high-load-processes",
+      "title": "Finding & Killing High CPU & Memory Runaway Processes (htop & kill)",
+      "symptom": "Linux system is sluggish, CPU fan is spinning loud, or system becomes unresponsive",
+      "description": "Identify process resource hogs using `htop` and `ps`, resolve zombie/hung processes, and monitor swap usage.",
+      "category": "performance",
+      "categoryName": "Performance & Speed",
+      "categoryIcon": "⚡",
+      "keywords": ["linux high cpu", "kill process linux", "htop ubuntu", "kill -9 pid", "linux out of memory oom"],
+      "causes": [
+        "Memory leak in an application triggering high swap thrashing",
+        "Infinite loop thread consuming 100% of a CPU core",
+        "Zombie process holding file locks"
+      ],
+      "whyItWorks": "Linux uses POSIX signals for process lifecycle control. Sending `SIGTERM` (15) allows clean state cleanup, while `SIGKILL` (9) forcefully terminates runaway threads directly at the kernel scheduler level.",
+      "steps": [
+        {
+          "instruction": "Launch `htop` interactive process monitor",
+          "detail": "Install and launch `htop`:\nsudo apt install htop -y && htop\nPress F6 to sort by CPU% or MEM%. The top bars show per-core utilization and RAM/Swap usage in real time.",
+          "adminRequired": false,
+          "backupAdvised": false
+        },
+        {
+          "instruction": "Find process by command line with `ps`",
+          "detail": "If you know the app name (e.g., chrome or python), find its Process ID (PID):\npgrep -l app_name\nOr get top 5 memory hogs:\nps aux --sort=-%mem | head -n 6",
+          "adminRequired": false,
+          "backupAdvised": false
+        },
+        {
+          "instruction": "Terminate the runaway process safely",
+          "detail": "First attempt a graceful termination (SIGTERM):\nkill PID_NUMBER\nIf the process remains unresponsive after 5 seconds, force terminate it (SIGKILL):\nkill -9 PID_NUMBER",
+          "warning": "`kill -9` immediately ends execution without saving open work. Only use it when normal quit attempts fail.",
+          "adminRequired": true,
+          "backupAdvised": false
+        }
+      ]
+    }
+  ]
+}

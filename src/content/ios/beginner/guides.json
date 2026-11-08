@@ -1,0 +1,75 @@
+{
+  "guides": [
+    {
+      "id": "ios-interface-basics",
+      "title": "iPhone & iPad Basics: Control Center, App Library, & Default Apps",
+      "symptom": "New to iPhone, don't know where settings are, or links open in Safari instead of Chrome",
+      "description": "Navigate iOS gestures with ease: swipe gestures, Control Center, App Library, Spotlight search, and configuring default web and email applications.",
+      "category": "interface-basics",
+      "categoryName": "iOS Basics & Setup",
+      "categoryIcon": "📱",
+      "keywords": ["iphone basics", "control center ios", "app library", "default browser iphone", "safari to chrome ios"],
+      "causes": [
+        "Unfamiliarity with gesture bar swipes vs home button",
+        "iOS defaulting links and email to Safari and Apple Mail"
+      ],
+      "whyItWorks": "iOS allows third-party browsers and mail clients to register as system default handlers in Settings, routing all universal links seamlessly.",
+      "steps": [
+        {
+          "instruction": "Access Control Center and Spotlight Search",
+          "detail": "On iPhones without a Home button: swipe DOWN from the top-right corner (where the battery icon is) to open Control Center (brightness, volume, flashlight, Wi-Fi, Bluetooth). To search anything, swipe down from the middle of any Home screen to invoke Spotlight search.",
+          "adminRequired": false,
+          "backupAdvised": false
+        },
+        {
+          "instruction": "Change default browser on iPhone (Safari to Chrome)",
+          "detail": "Go to Settings > scroll down and tap 'Chrome' (or your preferred browser) > tap 'Default Browser App' > select Chrome. All web links from Messages, WhatsApp, and Mail will now open directly in Chrome.",
+          "adminRequired": false,
+          "backupAdvised": false
+        },
+        {
+          "instruction": "Find all apps in the App Library",
+          "detail": "Swipe left past all your Home Screen pages until you reach the 'App Library'. Here, all your apps are automatically categorized into folders, with a search bar at the top to find any installed app even if hidden from your home screen.",
+          "adminRequired": false,
+          "backupAdvised": false
+        }
+      ]
+    },
+    {
+      "id": "ios-storage-system-data",
+      "title": "Fixing 'iPhone Storage Full' & Purging Huge 'System Data'",
+      "symptom": "iPhone shows 'iPhone Storage Full' alert, or 'System Data' takes 20GB+ in storage breakdown",
+      "description": "Reclaim gigabytes of iPhone storage by clearing Safari website data, purging streaming offline caches, and shrinking bloated System Data.",
+      "category": "storage-memory",
+      "categoryName": "Storage & iCloud",
+      "categoryIcon": "💾",
+      "keywords": ["iphone storage full", "clear system data iphone", "other storage iphone", "offload unused apps", "safari cache iphone"],
+      "causes": [
+        "Safari database and media cache accumulating gigabytes of website data",
+        "Downloaded offline podcasts, music, and streaming video caches",
+        "Unsynced local photo thumbnails and failed iCloud sync logs"
+      ],
+      "whyItWorks": "iOS classifies cached media, diagnostic logs, and Siri voices as 'System Data'. Clearing browser storage and temporarily restarting the device prompts iOS to flush unreferenced temporary caches.",
+      "steps": [
+        {
+          "instruction": "Inspect iPhone Storage breakdown",
+          "detail": "Go to Settings > General > iPhone Storage. Wait a few seconds for the graph to calculate. Review which apps use the most space. Enable 'Offload Unused Apps' to automatically remove the app binary while preserving your documents and data.",
+          "adminRequired": false,
+          "backupAdvised": false
+        },
+        {
+          "instruction": "Clear Safari website data and cache",
+          "detail": "Go to Settings > Safari > scroll down and tap 'Clear History and Website Data' > select 'All history' and tap 'Clear History'. This frequently frees 2GB to 8GB of bloated cached media instantly.",
+          "adminRequired": false,
+          "backupAdvised": false
+        },
+        {
+          "instruction": "Perform a forced restart to flush System Data caches",
+          "detail": "Performing a hard restart forces iOS to purge temporary log files in System Data:\n1. Press and quickly release Volume UP\n2. Press and quickly release Volume DOWN\n3. Press and HOLD the Side (Power) button until the Apple logo appears, then release.",
+          "adminRequired": false,
+          "backupAdvised": false
+        }
+      ]
+    }
+  ]
+}
