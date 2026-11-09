@@ -38,7 +38,7 @@
   --font-mono: 'JetBrains Mono', 'Consolas', 'Fira Code', monospace;
 
   /* Spacing */
-  --container-max: 1200px;
+  --container-max: 1320px;
   --container-padding: 1.5rem;
 
   /* Shadows */
@@ -2922,8 +2922,8 @@ hr {
   position: relative;
   z-index: 1;
   display: grid;
-  grid-template-columns: minmax(0, 1.1fr) minmax(0, 0.9fr);
-  gap: 3rem;
+  grid-template-columns: 1fr 1fr;
+  gap: 3.5rem;
   align-items: center;
   width: 100%;
   max-width: 100%;
@@ -2947,11 +2947,15 @@ hr {
 .hero-content .hero-subtitle {
   text-align: left;
   margin-left: 0;
+  width: 100%;
 }
 
 .hero-content .hero-actions {
+  display: flex;
   justify-content: flex-start;
+  gap: 1rem;
   margin-bottom: 0;
+  width: 100%;
 }
 
 .hero-content .hero-stats-3d {
@@ -3051,10 +3055,11 @@ hr {
   box-shadow: 0 12px 25px -5px rgba(0,0,0,0.1);
 }
 
-/* --- 3D Interactive Workbench in Hero --- */
+/* --- Interactive Workbench in Hero --- */
 .hero-3d-showcase {
-  perspective: 1200px;
+  perspective: none;
   min-width: 0;
+  width: 100%;
   max-width: 100%;
 }
 
@@ -3063,23 +3068,22 @@ hr {
   border: 1px solid rgba(226, 232, 240, 0.9);
   border-radius: var(--radius-xl);
   box-shadow: 
-    0 25px 50px -12px rgba(15, 23, 42, 0.15),
-    0 0 0 1px rgba(255, 255, 255, 0.8) inset,
-    0 10px 30px -10px rgba(15, 118, 110, 0.2);
+    0 20px 45px -10px rgba(15, 23, 42, 0.15),
+    0 0 0 1px rgba(255, 255, 255, 0.8) inset;
   overflow: hidden;
   backdrop-filter: blur(20px);
-  transform: rotateY(-2deg) rotateX(1deg);
-  transform-origin: center center;
+  transform: none !important;
+  width: 100%;
   max-width: 100%;
-  transition: transform 0.4s ease, box-shadow 0.4s ease;
+  box-sizing: border-box;
+  transition: box-shadow 0.3s ease;
 }
 
 .hero-workbench-card:hover {
-  transform: rotateY(0deg) rotateX(0deg) translateY(-4px);
+  transform: none !important;
   box-shadow: 
-    0 35px 60px -15px rgba(15, 23, 42, 0.2),
-    0 0 0 1px rgba(20, 184, 166, 0.3) inset,
-    0 15px 40px -10px rgba(15, 118, 110, 0.3);
+    0 25px 55px -10px rgba(15, 23, 42, 0.2),
+    0 0 0 1px rgba(20, 184, 166, 0.3) inset;
 }
 
 .workbench-header {
@@ -3118,24 +3122,29 @@ hr {
 }
 
 .workbench-tabs {
-  display: flex;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
   gap: 0.35rem;
-  padding: 0.5rem 0.75rem;
+  padding: 0.5rem;
   background: #f1f5f9;
   border-bottom: 1px solid var(--color-border);
-  overflow-x: auto;
+  width: 100%;
+  box-sizing: border-box;
 }
 
 .workbench-tab {
-  padding: 0.4rem 0.75rem;
+  padding: 0.45rem 0.4rem;
   border-radius: var(--radius-sm);
   border: 1px solid transparent;
   background: transparent;
-  font-size: 0.8rem;
+  font-size: 0.78rem;
   font-weight: 600;
   color: var(--color-text-secondary);
   cursor: pointer;
+  text-align: center;
   white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
   transition: all var(--transition);
   font-family: var(--font-sans);
 }
@@ -4737,6 +4746,32 @@ hr {
   border: 1px solid rgba(56, 189, 248, 0.3);
 }
 
+/* Vector OS Brand Icons */
+.os-icon {
+  flex-shrink: 0;
+  transition: transform 0.2s cubic-bezier(0.2, 0.8, 0.2, 1), filter 0.2s ease;
+}
+
+.os-card:hover .os-icon,
+.os-pill-btn:hover .os-icon,
+.hero-quick-os-pill:hover .os-icon,
+.mobile-os-btn:hover .os-icon {
+  transform: scale(1.12);
+  filter: drop-shadow(0 0 8px rgba(34, 211, 238, 0.5));
+}
+
+[data-theme="neon"] .guide-card-os-pill {
+  background: rgba(34, 211, 238, 0.12);
+  color: #38bdf8;
+  border: 1px solid rgba(56, 189, 248, 0.25);
+}
+
+[data-theme="neon"] .guide-os-pill {
+  background: rgba(34, 211, 238, 0.15) !important;
+  color: #22d3ee !important;
+  border: 1px solid rgba(34, 211, 238, 0.35);
+}
+
 [data-theme="neon"] .symptom-os-badge {
   background: rgba(34, 211, 238, 0.15);
   color: #22d3ee;
@@ -5163,15 +5198,20 @@ html, body {
 
   /* Workbench screen & terminal wrap guards */
   .workbench-tabs {
+    grid-template-columns: repeat(3, 1fr);
     padding: 0.35rem;
     gap: 0.25rem;
-    -webkit-overflow-scrolling: touch;
+  }
+
+  @media (max-width: 540px) {
+    .workbench-tabs {
+      grid-template-columns: repeat(2, 1fr);
+    }
   }
 
   .workbench-tab {
     font-size: 0.72rem;
-    padding: 0.3rem 0.5rem;
-    white-space: nowrap;
+    padding: 0.35rem 0.25rem;
   }
 
   .workbench-screen {

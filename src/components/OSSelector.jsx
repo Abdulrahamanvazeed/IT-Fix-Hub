@@ -1,5 +1,6 @@
 import { useState, useRef, useEffect } from 'react';
 import { getOSConfig } from '../utils/contentLoader';
+import OSIcon from './OSIcon';
 
 export default function OSSelector({ currentOS, onSelect, variant = 'dropdown' }) {
   const osConfig = getOSConfig();
@@ -57,7 +58,7 @@ function OSSelectorDropdown({ osList, currentOS, currentOSData, onSelect }) {
         aria-label={`Operating System: ${currentOSData?.name || 'Select'}`}
       >
         <span className="os-selector-trigger-icon" aria-hidden="true">
-          {currentOSData?.icon}
+          <OSIcon os={currentOSData?.id} size={16} />
         </span>
         {currentOSData?.name}
         <span
@@ -79,7 +80,9 @@ function OSSelectorDropdown({ osList, currentOS, currentOSData, onSelect }) {
               aria-selected={os.id === currentOS}
               disabled={!os.available}
             >
-              <span aria-hidden="true">{os.icon}</span>
+              <span aria-hidden="true" style={{ display: 'inline-flex', alignItems: 'center' }}>
+                <OSIcon os={os.id} size={18} />
+              </span>
               <span className="os-selector-option-info">
                 <span className="os-selector-option-name">
                   {os.name}
@@ -117,7 +120,9 @@ function OSSelectorCards({ osList, currentOS, onSelect }) {
           disabled={!os.available}
           aria-label={`${os.name}${!os.available ? ' — Coming Soon' : ''}`}
         >
-          <span className="os-card-icon" aria-hidden="true">{os.icon}</span>
+          <span className="os-card-icon" aria-hidden="true" style={{ display: 'inline-flex', alignItems: 'center', justifyContent: 'center' }}>
+            <OSIcon os={os.id} size={42} />
+          </span>
           <span className="os-card-name">{os.name}</span>
           {os.available ? (
             <span className="os-card-desc">{os.description}</span>

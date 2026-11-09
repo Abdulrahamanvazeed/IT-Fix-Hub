@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom';
 import LevelBadge from './LevelBadge';
+import OSIcon from './OSIcon';
 
 export default function GuideCard({ guide }) {
   const {
@@ -29,7 +30,13 @@ export default function GuideCard({ guide }) {
           </span>
           {categoryName || category}
         </span>
-        <LevelBadge level={level} />
+        <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
+          <span className="guide-card-os-pill" style={{ display: 'inline-flex', alignItems: 'center', gap: '4px', fontSize: '0.675rem', fontWeight: 700, padding: '0.15rem 0.45rem', borderRadius: '4px', background: 'var(--color-bg-tertiary)', color: 'var(--color-text-secondary)', letterSpacing: '0.04em' }}>
+            <OSIcon os={os} size={12} />
+            {os.toUpperCase()}
+          </span>
+          <LevelBadge level={level} />
+        </div>
       </div>
 
       <h3 className="guide-card-title">{title}</h3>

@@ -2,6 +2,7 @@ import { useState, useMemo, useEffect } from 'react';
 import { useSearchParams, Link } from 'react-router-dom';
 import SearchBar from '../components/SearchBar';
 import GuideCard from '../components/GuideCard';
+import OSIcon from '../components/OSIcon';
 import { getSymptoms, getAllSymptomsAcrossOS, getGuideById, getOSConfig } from '../utils/contentLoader';
 import { searchSymptoms } from '../utils/search';
 
@@ -72,7 +73,7 @@ export default function SymptomSearch() {
               className={`os-pill-btn ${selectedOS === os.id ? 'active' : ''}`}
               onClick={() => setSelectedOS(os.id)}
             >
-              <span>{os.icon}</span>
+              <span style={{ display: 'inline-flex', alignItems: 'center' }}><OSIcon os={os.id} size={16} /></span>
               <span>{os.name}</span>
             </button>
           ))}
@@ -133,7 +134,8 @@ export default function SymptomSearch() {
                       <span className="symptom-result-text">
                         {symptom.text}
                         {symptom.os && (
-                          <span className="symptom-os-badge" style={{ marginLeft: '8px' }}>
+                          <span className="symptom-os-badge" style={{ marginLeft: '8px', display: 'inline-flex', alignItems: 'center', gap: '4px' }}>
+                            <OSIcon os={symptom.os} size={13} />
                             {symptom.os.toUpperCase()}
                           </span>
                         )}

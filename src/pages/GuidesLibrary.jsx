@@ -3,6 +3,7 @@ import { useParams, useSearchParams, useNavigate } from 'react-router-dom';
 import SearchBar from '../components/SearchBar';
 import CategoryFilter from '../components/CategoryFilter';
 import GuideCard from '../components/GuideCard';
+import OSIcon from '../components/OSIcon';
 import { getAllGuides, getCategories, getOSConfig } from '../utils/contentLoader';
 import { searchGuides } from '../utils/search';
 
@@ -46,9 +47,13 @@ export default function GuidesLibrary() {
     <div className="guides-library container">
       <header className="guides-header">
         <div className="guides-header-os-badge">
-          <span>{currentOSData.icon} {currentOSData.name} Edition</span>
+          <span style={{ display: 'inline-flex', alignItems: 'center', gap: '6px' }}>
+            <OSIcon os={currentOSData.id} size={15} /> {currentOSData.name} Edition
+          </span>
         </div>
-        <h1>{currentOSData.icon} {currentOSData.name} Troubleshooting Guides</h1>
+        <h1 style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '10px', flexWrap: 'wrap' }}>
+          <OSIcon os={currentOSData.id} size={32} /> {currentOSData.name} Troubleshooting Guides
+        </h1>
         <p className="guides-subtitle">
           {allGuides.length} curated guides to help you resolve {currentOSData.name} problems — search, filter, and master your system.
         </p>
@@ -66,7 +71,7 @@ export default function GuidesLibrary() {
                 setSearchParams({});
               }}
             >
-              <span>{os.icon}</span>
+              <span style={{ display: 'inline-flex', alignItems: 'center' }}><OSIcon os={os.id} size={16} /></span>
               <span>{os.name}</span>
             </button>
           ))}

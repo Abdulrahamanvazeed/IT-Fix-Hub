@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import OSIcon from './OSIcon';
 
 /**
  * WindowsScreenshot component
@@ -27,6 +28,7 @@ export default function WindowsScreenshot({ type = 'terminal', title, subtitle, 
       <div className="win-screenshot-bar">
         <span className="win-screenshot-tag">
           <span className="win-screenshot-pulse"></span>
+          <OSIcon os={isMac ? 'macos' : (isLinux ? 'linux' : 'windows')} size={14} />
           Visual Walkthrough {stepNum ? `• Step ${stepNum}` : ''} {isMac ? '• macOS' : (isLinux ? '• Linux' : '• Windows')}
         </span>
         <button 

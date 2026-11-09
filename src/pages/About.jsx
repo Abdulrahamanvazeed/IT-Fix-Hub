@@ -1,4 +1,5 @@
 import { Link } from 'react-router-dom';
+import OSIcon from '../components/OSIcon';
 
 export default function About() {
   return (
@@ -136,23 +137,29 @@ export default function About() {
         <h2 id="roadmap-heading">🗺️ Operating System Coverage</h2>
         <p>IT Fix Hub provides comprehensive, structured troubleshooting coverage across all 6 major environments:</p>
         <ul className="about-roadmap" style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))', gap: '0.75rem', listStyle: 'none', padding: 0 }}>
-          <li style={{ padding: '0.75rem', background: 'var(--color-bg-secondary)', borderRadius: 'var(--radius-md)', border: '1px solid var(--color-border)' }}>
-            🪟 <strong>Windows 10 & 11</strong> — ✅ Fully Built Out
+          <li style={{ padding: '0.75rem', background: 'var(--color-bg-secondary)', borderRadius: 'var(--radius-md)', border: '1px solid var(--color-border)', display: 'flex', alignItems: 'center', gap: '8px' }}>
+            <OSIcon os="windows" size={20} />
+            <span><strong>Windows 10 & 11</strong> — ✅ Fully Built Out</span>
           </li>
-          <li style={{ padding: '0.75rem', background: 'var(--color-bg-secondary)', borderRadius: 'var(--radius-md)', border: '1px solid var(--color-border)' }}>
-            🍎 <strong>macOS (Apple Silicon & Intel)</strong> — ✅ Fully Built Out
+          <li style={{ padding: '0.75rem', background: 'var(--color-bg-secondary)', borderRadius: 'var(--radius-md)', border: '1px solid var(--color-border)', display: 'flex', alignItems: 'center', gap: '8px' }}>
+            <OSIcon os="macos" size={20} />
+            <span><strong>macOS (Apple Silicon & Intel)</strong> — ✅ Fully Built Out</span>
           </li>
-          <li style={{ padding: '0.75rem', background: 'var(--color-bg-secondary)', borderRadius: 'var(--radius-md)', border: '1px solid var(--color-border)' }}>
-            🐧 <strong>Linux (Ubuntu, Debian, Fedora, Arch)</strong> — ✅ Fully Built Out
+          <li style={{ padding: '0.75rem', background: 'var(--color-bg-secondary)', borderRadius: 'var(--radius-md)', border: '1px solid var(--color-border)', display: 'flex', alignItems: 'center', gap: '8px' }}>
+            <OSIcon os="linux" size={20} />
+            <span><strong>Linux (Ubuntu, Debian, Fedora, Arch)</strong> — ✅ Fully Built Out</span>
           </li>
-          <li style={{ padding: '0.75rem', background: 'var(--color-bg-secondary)', borderRadius: 'var(--radius-md)', border: '1px solid var(--color-border)' }}>
-            🤖 <strong>Android (Samsung, Pixel, Mobile OS)</strong> — ✅ Fully Built Out
+          <li style={{ padding: '0.75rem', background: 'var(--color-bg-secondary)', borderRadius: 'var(--radius-md)', border: '1px solid var(--color-border)', display: 'flex', alignItems: 'center', gap: '8px' }}>
+            <OSIcon os="android" size={20} />
+            <span><strong>Android (Samsung, Pixel, Mobile OS)</strong> — ✅ Fully Built Out</span>
           </li>
-          <li style={{ padding: '0.75rem', background: 'var(--color-bg-secondary)', borderRadius: 'var(--radius-md)', border: '1px solid var(--color-border)' }}>
-            📱 <strong>iOS (iPhone & iPad, iOS 17/18)</strong> — ✅ Fully Built Out
+          <li style={{ padding: '0.75rem', background: 'var(--color-bg-secondary)', borderRadius: 'var(--radius-md)', border: '1px solid var(--color-border)', display: 'flex', alignItems: 'center', gap: '8px' }}>
+            <OSIcon os="ios" size={20} />
+            <span><strong>iOS (iPhone & iPad, iOS 17/18)</strong> — ✅ Fully Built Out</span>
           </li>
-          <li style={{ padding: '0.75rem', background: 'var(--color-bg-secondary)', borderRadius: 'var(--radius-md)', border: '1px solid var(--color-border)' }}>
-            ⚡ <strong>Dual Boot (Windows + Linux, GRUB, EFI)</strong> — ✅ Fully Built Out
+          <li style={{ padding: '0.75rem', background: 'var(--color-bg-secondary)', borderRadius: 'var(--radius-md)', border: '1px solid var(--color-border)', display: 'flex', alignItems: 'center', gap: '8px' }}>
+            <OSIcon os="dualboot" size={20} />
+            <span><strong>Dual Boot (Windows + Linux, GRUB, EFI)</strong> — ✅ Fully Built Out</span>
           </li>
         </ul>
       </section>

@@ -2,6 +2,7 @@ import { useState, useEffect, useRef } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { getOSConfig } from '../utils/contentLoader';
 import OSSelector from './OSSelector';
+import OSIcon from './OSIcon';
 
 const NAV_LINKS = [
   { to: '/', label: 'Home' },
@@ -213,7 +214,7 @@ export default function Header() {
                   setMobileMenuOpen(false);
                 }}
               >
-                <span className="mobile-os-icon">{os.icon}</span>
+                <span className="mobile-os-icon"><OSIcon os={os.id} size={18} /></span>
                 <span className="mobile-os-name">{os.name}</span>
               </button>
             ))}

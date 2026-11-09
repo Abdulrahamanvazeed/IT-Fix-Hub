@@ -3,6 +3,7 @@ import { getGuideById } from '../utils/contentLoader';
 import LevelBadge from '../components/LevelBadge';
 import StepList from '../components/StepList';
 import WarningBox from '../components/WarningBox';
+import OSIcon from '../components/OSIcon';
 
 export default function GuideView() {
   const { osId = 'windows', guideId } = useParams();
@@ -29,7 +30,7 @@ export default function GuideView() {
       <nav className="breadcrumb" aria-label="Breadcrumb">
         <ol>
           <li><Link to="/">Home</Link></li>
-          <li><Link to={`/guides/${osId}`}>Guides</Link></li>
+          <li><Link to={`/guides/${osId}`} style={{ display: 'inline-flex', alignItems: 'center', gap: '4px' }}><OSIcon os={osId} size={14} /> Guides</Link></li>
           <li><Link to={`/guides/${osId}?category=${guide.category}`}>{guide.categoryName}</Link></li>
           <li aria-current="page">{guide.title}</li>
         </ol>
@@ -38,6 +39,9 @@ export default function GuideView() {
       {/* Header */}
       <header className="guide-header">
         <div className="guide-header-meta">
+          <span className="guide-os-pill" style={{ display: 'inline-flex', alignItems: 'center', gap: '5px', padding: '0.2rem 0.6rem', borderRadius: '1rem', background: 'var(--color-primary-bg)', color: 'var(--color-primary-dark)', fontSize: '0.8rem', fontWeight: 600 }}>
+            <OSIcon os={osId} size={15} /> {osId.toUpperCase()}
+          </span>
           <span className="guide-category-badge">{guide.categoryIcon} {guide.categoryName}</span>
           <LevelBadge level={guide.level} />
         </div>

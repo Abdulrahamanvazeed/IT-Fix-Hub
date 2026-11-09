@@ -2,6 +2,7 @@ import { useState, useMemo } from 'react';
 import { Link } from 'react-router-dom';
 import { getCategories, getAllGuides, getOSConfig } from '../utils/contentLoader';
 import WindowsScreenshot from '../components/WindowsScreenshot';
+import OSIcon from '../components/OSIcon';
 
 const POPULAR_SYMPTOMS = [
   { text: "My computer is slow", q: "computer slow" },
@@ -17,7 +18,7 @@ const POPULAR_SYMPTOMS = [
 const QUICK_DIAGNOSTICS = [
   {
     id: 'wifi',
-    name: '🪟 Windows: Network Reset',
+    name: '🪟 Windows Reset',
     type: 'terminal',
     title: 'Command Prompt: Network Stack Reset',
     data: {
@@ -27,7 +28,7 @@ const QUICK_DIAGNOSTICS = [
   },
   {
     id: 'speed',
-    name: '⚡ Windows: System Repair',
+    name: '⚡ System SFC',
     type: 'terminal',
     title: 'Command Prompt: System File Checker',
     data: {
@@ -37,7 +38,7 @@ const QUICK_DIAGNOSTICS = [
   },
   {
     id: 'linux-grub',
-    name: '🐧 Linux: GRUB & Network',
+    name: '🐧 Linux GRUB',
     type: 'terminal',
     title: 'Linux Bash Terminal: GRUB Rebuild',
     data: {
@@ -47,7 +48,7 @@ const QUICK_DIAGNOSTICS = [
   },
   {
     id: 'mac-dns',
-    name: '🍎 Mac: Cache & Quarantine',
+    name: '🍎 macOS DNS',
     type: 'terminal',
     title: 'macOS Zsh Terminal: DNS & Security',
     data: {
@@ -57,7 +58,7 @@ const QUICK_DIAGNOSTICS = [
   },
   {
     id: 'dualboot-rtc',
-    name: '⚡ Dual Boot: Clock Sync',
+    name: '⚡ Dual Boot',
     type: 'terminal',
     title: 'Dual Boot Terminal: RTC Local Time Sync',
     data: {
@@ -67,7 +68,7 @@ const QUICK_DIAGNOSTICS = [
   },
   {
     id: 'taskmgr',
-    name: '📊 Resource Monitor',
+    name: '📊 Task Monitor',
     type: 'task-manager',
     title: 'Task Manager: Process Monitor',
     data: {
@@ -155,7 +156,7 @@ export default function Home() {
                       to={`/guides/${os.id}`}
                       className="hero-quick-os-pill"
                     >
-                      <span className="os-pill-icon">{os.icon}</span>
+                      <span className="os-pill-icon"><OSIcon os={os.id} size={15} /></span>
                       <span className="os-pill-name">{os.name}</span>
                       <span className="os-pill-count">{getAllGuides(os.id).length}</span>
                     </Link>
@@ -226,7 +227,9 @@ export default function Home() {
           <div className="os-cards-grid">
             {osConfig.operatingSystems.map(os => (
               <div key={os.id} className="os-card card card-3d-tilt os-card-available">
-                <span className="os-card-icon">{os.icon}</span>
+                <span className="os-card-icon" style={{ display: 'inline-flex', alignItems: 'center', justifyContent: 'center' }}>
+                  <OSIcon os={os.id} size={48} />
+                </span>
                 <h3>{os.name}</h3>
                 <p>{os.description}</p>
                 <div style={{ marginTop: 'auto', paddingTop: '0.75rem' }}>
@@ -307,7 +310,7 @@ export default function Home() {
                   className={`os-pill-btn ${os.id === activeOSId ? 'active' : ''}`}
                   onClick={() => setActiveOSId(os.id)}
                 >
-                  <span>{os.icon}</span>
+                  <span style={{ display: 'inline-flex', alignItems: 'center' }}><OSIcon os={os.id} size={16} /></span>
                   <span>{os.name}</span>
                 </button>
               ))}
