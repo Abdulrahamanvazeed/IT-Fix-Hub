@@ -145,6 +145,24 @@ export default function Home() {
                 </div>
               </div>
 
+              {/* Instant Quick OS Selector Bar — Always visible & touch friendly */}
+              <div className="hero-quick-os-bar">
+                <div className="hero-quick-os-title">⚡ Instant OS Guide Access:</div>
+                <div className="hero-quick-os-pills">
+                  {osConfig.operatingSystems.map(os => (
+                    <Link
+                      key={os.id}
+                      to={`/guides/${os.id}`}
+                      className="hero-quick-os-pill"
+                    >
+                      <span className="os-pill-icon">{os.icon}</span>
+                      <span className="os-pill-name">{os.name}</span>
+                      <span className="os-pill-count">{getAllGuides(os.id).length}</span>
+                    </Link>
+                  ))}
+                </div>
+              </div>
+
               <div className="hero-actions">
                 <Link to="/guides/windows" className="btn btn-primary btn-lg btn-3d-glow">
                   📚 Browse All Guides

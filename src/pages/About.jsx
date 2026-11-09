@@ -157,13 +157,13 @@ export default function About() {
         </ul>
       </section>
 
-      {/* Contributing */}
+      {/* Direct IT Support & Community */}
       <section className="about-section" aria-labelledby="contribute-heading">
-        <h2 id="contribute-heading">🤝 Contributing</h2>
+        <h2 id="contribute-heading">🤝 Direct IT Assistance & Collaboration</h2>
         <p>
-          Want to help improve IT Fix Hub? Check out the <strong>README.md</strong> file in the project 
-          repository for instructions on how to add new guides, categories, or even new operating systems.
-          The content is stored in simple JSON files, making it easy to contribute without deep coding knowledge.
+          Have an urgent hardware, software, or network problem that isn't covered yet? 
+          Or want to suggest new operating system modules or technical improvements? 
+          Connect directly with <strong>Abdul Rahaman</strong> via LinkedIn or Email for prompt technical advice and collaboration.
         </p>
       </section>
 

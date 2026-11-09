@@ -78,22 +78,36 @@ export default function Footer() {
             </div>
           </div>
 
-          {/* Contribute */}
+          {/* Direct Support */}
           <div>
-            <h3 className="footer-heading">Contribute</h3>
+            <h3 className="footer-heading">Direct IT Support</h3>
             <div className="footer-links">
               <p style={{
                 fontSize: '0.875rem',
                 color: 'var(--color-text-secondary)',
                 lineHeight: 1.6,
-                marginBottom: '0.5rem',
+                marginBottom: '0.75rem',
               }}>
-                Want to contribute a guide or suggest improvements? Check out our 
-                README for contribution guidelines.
+                Need personalized help with a complex computer, phone, or network issue? Contact Abdul Rahaman directly for technical support and consulting.
               </p>
-              <span className="footer-link" style={{ cursor: 'default' }}>
-                📖 See README for details
-              </span>
+              <div style={{ display: 'flex', flexDirection: 'column', gap: '0.4rem' }}>
+                <a
+                  href="mailto:abdulrahaman.vazeed@gmail.com"
+                  className="footer-link"
+                  style={{ color: 'var(--color-primary)', fontWeight: 600 }}
+                >
+                  ✉️ Email Abdul Rahaman →
+                </a>
+                <a
+                  href="https://www.linkedin.com/in/abdul-rahaman-itsupport-with-ai"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="footer-link"
+                  style={{ color: '#0a66c2', fontWeight: 600 }}
+                >
+                  💼 Connect on LinkedIn ↗
+                </a>
+              </div>
             </div>
           </div>
         </div>

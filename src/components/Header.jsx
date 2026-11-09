@@ -121,7 +121,8 @@ export default function Header() {
               title={theme === 'neon' ? 'Switch to Clean Light Mode' : 'Switch to Cyber Neon 3D Mode'}
               aria-label="Toggle Theme"
             >
-              {theme === 'neon' ? '🌌 Neon 3D' : '☀️ Light'}
+              <span className="theme-toggle-icon">{theme === 'neon' ? '🌌' : '☀️'}</span>
+              <span className="theme-toggle-btn-text">{theme === 'neon' ? 'Neon 3D' : 'Light'}</span>
             </button>
 
             <a
@@ -193,8 +194,35 @@ export default function Header() {
             {label}
           </Link>
         ))}
+
         <div className="mobile-nav-divider" />
-        <div style={{ padding: '0.5rem 1rem', display: 'flex', flexDirection: 'column', gap: '0.4rem' }}>
+
+        {/* Operating Systems Selection Grid for Mobile */}
+        <div style={{ padding: '0.6rem 0.5rem' }}>
+          <p style={{ fontSize: '0.8125rem', fontWeight: 700, color: 'var(--color-primary)', marginBottom: '0.6rem', textTransform: 'uppercase', letterSpacing: '0.05em' }}>
+            ⚡ Select Operating System (6 Available)
+          </p>
+          <div className="mobile-os-grid">
+            {getOSConfig().operatingSystems.map(os => (
+              <button
+                key={os.id}
+                type="button"
+                className={`mobile-os-btn ${os.id === currentOS ? 'active' : ''}`}
+                onClick={() => {
+                  handleOSSelect(os.id);
+                  setMobileMenuOpen(false);
+                }}
+              >
+                <span className="mobile-os-icon">{os.icon}</span>
+                <span className="mobile-os-name">{os.name}</span>
+              </button>
+            ))}
+          </div>
+        </div>
+
+        <div className="mobile-nav-divider" />
+
+        <div style={{ padding: '0.5rem 0.5rem', display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
           <button
             type="button"
             className="mobile-linkedin-link"
@@ -218,19 +246,6 @@ export default function Header() {
           >
             💼 Connect on LinkedIn ↗
           </a>
-        </div>
-        <div style={{ padding: '0.5rem 1rem' }}>
-          <p style={{ fontSize: '0.8125rem', fontWeight: 600, color: 'var(--color-text-muted)', marginBottom: '0.5rem' }}>
-            Operating System
-          </p>
-          <OSSelector
-            currentOS={currentOS}
-            onSelect={(os) => {
-              handleOSSelect(os);
-              setMobileMenuOpen(false);
-            }}
-            variant="dropdown"
-          />
         </div>
       </nav>
     </>
